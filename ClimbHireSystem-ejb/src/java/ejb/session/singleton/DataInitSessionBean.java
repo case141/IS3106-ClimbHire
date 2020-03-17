@@ -36,7 +36,7 @@ public class DataInitSessionBean {
     @PostConstruct
     public void postConstruct()
     {
-        if(em.find(Admin.class, 11) == null)
+        if(em.find(Admin.class, 111l) == null)
         {
             adminSessionBeanLocal.createNewAdmin(new Admin("Admin One", "password", "adminone@gmail.com"));
             adminSessionBeanLocal.createNewAdmin(new Admin("Admin Two", "password", "admintwo@gmail.com"));
