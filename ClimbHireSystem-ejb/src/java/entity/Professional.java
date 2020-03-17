@@ -42,7 +42,7 @@ public class Professional implements Serializable { //Professional for A Profess
     private Date dateOfBirth;
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
     //private ArrayList<JobListing> jobsApplied; //nullable
-    //private ArrayList<TimeSheet> timeSheet; //nullable
+    //private ArrayList<TimeSheet> timeSheetList; //nullable
 
     public Professional() {
     }
