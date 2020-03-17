@@ -23,7 +23,7 @@ public class Professional implements Serializable { //Professional for A Profess
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
     private String password;
     private String firstName;

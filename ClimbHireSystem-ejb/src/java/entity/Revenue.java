@@ -23,7 +23,7 @@ public class Revenue implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revenueId;
     private ArrayList<Payment> paymentRecords;
     private Double totalRevenue;
