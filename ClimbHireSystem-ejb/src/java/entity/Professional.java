@@ -30,6 +30,7 @@ public class Professional implements Serializable { //Professional for A Profess
     private String lastName;
     private String address;
     private String email;
+    private char gender;
     private Integer contactNumber;
     private String profilePicture;
     private ArrayList<String> previousWorkExperiences;
@@ -57,6 +58,15 @@ public class Professional implements Serializable { //Professional for A Profess
         this.dateOfBirth = dateOfBirth;
     }
 
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+    
     public String getPassword() {
         return password;
     }
