@@ -8,7 +8,7 @@ ClimbHire is the one-stop solution for anyone from any industry who is looking t
 Before making any changes, please **create a new branch** and push your changes there first. Any merging to the master branch should be confirmed with the group. This is to minimalise the number of conflicts in the project. Just a gentle reminder :)
 
 ### For Setup of project code:
-1) `git clone` project files  
+1) `git clone https://github.com/case141/IS3106-ClimbHire.git` project files  
 2) Create New Database (Name: ClimbHireSystem)
 3) Create a new JDBC Connection 
 4) Change user.properties name in FILES > nbproject > private > private.xml
