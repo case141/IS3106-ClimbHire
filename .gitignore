@@ -1,4 +1,4 @@
-nbproject\private\private.properties
+nbproject\private
 ClimbHireSystem-ejb\setup\glassfish-resources.xml
 build
-dist/gfdeploy
+dist
