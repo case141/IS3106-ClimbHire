@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+    </cc:interface>
+
+    <cc:implementation>
+
+        <h:form id="formViewJob">
+
+            <p:dialog id="dialogViewJob" widgetVar="dialogViewJob" header="View Job" closable="true">
+
+                <p:panelGrid>
+                    <p:row>
+                            <p:graphicImage name="demo/images/jobEntity/#{viewJobManagedBean.jobEntityToView.companyName}.png" style="display:block; margin:0 auto"/> 
+                    </p:row>
+                    <br></br>
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Job ID: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.jobId}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Job Title: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.jobTitle}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Company Name: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.companyName}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Location: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.location}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Position Type: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.positionTypeEntity.name}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Number of Vacancies: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.numberOfVacancies}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Salary: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="$#{viewJobManagedBean.jobEntityToView.salary}0/month" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Description: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.description}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Tag(s): " />
+                        </p:column>
+                        <p:column>
+                            <p:dataList value="#{viewJobManagedBean.jobEntityToView.tagEntities}" var="tag" type="unordered" style="font-weight: bold">
+                                #{tag.name}
+                            </p:dataList>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Industry: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.industryEntity.name}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+                    <p:row>
+                        <p:column>
+                            <h:outputLabel value="Job Function: " />
+                        </p:column>
+                        <p:column>
+                            <h:outputText value="#{viewJobManagedBean.jobEntityToView.jobFunctionEntity.name}" style="font-weight: bold"/>
+                        </p:column>
+                    </p:row>
+
+
+
+                </p:panelGrid>
+
+            </p:dialog>
+
+        </h:form>
+
+    </cc:implementation>
+</html>

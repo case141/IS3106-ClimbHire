@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <cc:interface>
+        <cc:attribute name="pageName" required="true" />
+    </cc:interface>
+
+    <cc:implementation>
+
+        <h:form id="formMain">
+
+            <p:breadCrumb homeDisplay="false">
+
+                <p:menuitem icon="fa fa-home" url="#{application.contextPath}/index.xhtml" style="text-decoration-line: none;" />
+
+                <p:menuitem value="Search and Apply for Jobs" rendered="#{cc.attrs.pageName == 'seeAllJobs' ||
+                                                                        cc.attrs.pageName == 'searchJobsByCompanyName' ||
+                                                                        cc.attrs.pageName == 'filterJobsByPositionType' ||
+                                                                        cc.attrs.pageName == 'filterJobsByIndustry' ||
+                                                                        cc.attrs.pageName == 'filterJobsByJobFunction'}" />
+
+                <p:menuitem value="See All Jobs" url="#{application.contextPath}/jobs/seeAllJobs.xhtml" rendered="#{cc.attrs.pageName == 'seeAllJobs'}" />
+                <p:menuitem value="Search Jobs by Company Name" url="#{application.contextPath}/jobs/searchJobsByCompanyName.xhtml" rendered="#{cc.attrs.pageName == 'searchJobsByCompanyName'}" />
+                <p:menuitem value="Filter Jobs by Position Type" url="#{application.contextPath}/jobs/filterJobsByPositionType.xhtml" rendered="#{cc.attrs.pageName == 'filterJobsByPositionType'}" />
+                <p:menuitem value="Filter Jobs by Industry" url="#{application.contextPath}/jobs/filterJobsByIndustry.xhtml" rendered="#{cc.attrs.pageName == 'filterJobsByIndustry'}" />
+                <p:menuitem value="Filter Jobs by Job Function" url="#{application.contextPath}/jobs/filterJobsByJobFunction.xhtml" rendered="#{cc.attrs.pageName == 'filterJobsByJobFunction'}" />
+
+                <p:menuitem value="Accept/Reject Job Offers" rendered="#{cc.attrs.pageName == 'applicationManagement'}" />
+
+                <p:menuitem value="Application Management" url="#{application.contextPath}/jobOffers/applicationManagement.xhtml" rendered="#{cc.attrs.pageName == 'applicationManagement'}" />
+
+                <p:menuitem value="Submit Job Work Plan" rendered="#{cc.attrs.pageName == 'applyLeave' ||
+                                                                     cc.attrs.pageName == 'cancelLeave' ||                                                                        
+                                                                     cc.attrs.pageName == 'viewMyWorkPlan'}" />
+
+                <p:menuitem value="Apply Leave" url="#{application.contextPath}/workPlan/applyLeave.xhtml" rendered="#{cc.attrs.pageName == 'applyLeave'}" />
+                <p:menuitem value="Cancel Leave" url="#{application.contextPath}/workPlan/cancelLeave.xhtml" rendered="#{cc.attrs.pageName == 'cancelLeave'}" />                        
+                <p:menuitem value="View My Work Plan" url="#{application.contextPath}/workPlan/viewMyWorkPlan.xhtml" rendered="#{cc.attrs.pageName == 'viewMyWorkPlan'}" />
+            </p:breadCrumb>
+
+        </h:form>
+
+    </cc:implementation>
+</html>

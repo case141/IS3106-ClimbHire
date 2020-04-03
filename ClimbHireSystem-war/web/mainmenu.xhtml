@@ -1,0 +1,48 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                xmlns:p="http://primefaces.org/ui">
+    <h:body>
+
+        <h:form>
+            <p:growl>
+                <p:autoUpdate />
+            </p:growl>
+
+            <p:panelMenu style="width:240px; font-size:14px;">
+                <p:submenu label="Navigations">
+                    <p:submenu label="Home" icon="pi pi-home">
+                        <p:submenu label="Search and Apply for Jobs" icon="pi pi-search-plus">
+                            <p:menuitem value="See All Jobs" outcome="/jobs/seeAllJobs.xhtml" icon="pi pi-briefcase" />
+                            <p:menuitem value="Search Jobs by Company Name" outcome="/jobs/searchJobsByCompanyName.xhtml" icon="pi pi-search" />
+                            <p:menuitem value="Filter Jobs by Position Type" outcome="/jobs/filterJobsByPositionType.xhtml" icon="pi pi-filter" />
+                            <p:menuitem value="Filter Jobs by Industry" outcome="/jobs/filterJobsByIndustry.xhtml" icon="pi pi-filter" />
+                            <p:menuitem value="Filter Jobs by Job Functions" outcome="/jobs/filterJobsByJobFunction.xhtml" icon="pi pi-filter" />
+                            <p:menuitem value="Filter Jobs by Tags" outcome="/jobs/filterJobsByTags.xhtml" icon="pi pi-filter" />
+                        </p:submenu>
+
+                        <p:submenu label="Accept/Reject Job Offers" icon="pi pi-exclamation-circle">
+                            <p:menuitem value="Application Management" outcome="/jobOffers/applicationManagement.xhtml" icon="pi pi-file" />
+                        </p:submenu>
+
+                        <p:submenu label="Submit Job Work Plan" icon="pi pi-calendar-times">
+                            <p:menuitem value="Apply Leave" outcome="/workPlan/applyLeave.xhtml" icon="pi pi-check-circle" />
+                            <p:menuitem value="Cancel Leave" outcome="/workPlan/cancelLeave.xhtml" icon="pi pi-ban" />
+                            <p:menuitem value="View My Work Plan" outcome="/workPlan/viewMyWorkPlan.xhtml" icon="pi pi-calendar-times" />
+                        </p:submenu>
+
+                    </p:submenu>
+                    
+                    <p:menuitem value="Logout" outcome="/workPlan/viewMyWorkPlan.xhtml" icon="pi pi-sign-out" />
+
+                </p:submenu>
+
+            </p:panelMenu>
+
+        </h:form>
+    </h:body>
+
+</ui:composition>
+

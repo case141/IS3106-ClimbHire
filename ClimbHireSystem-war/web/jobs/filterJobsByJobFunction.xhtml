@@ -1,0 +1,181 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE composition PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
+                xmlns:f="http://xmlns.jcp.org/jsf/core"
+                template="/template/defaultTemplate.xhtml"
+                xmlns:ez="http://xmlns.jcp.org/jsf/composite/ezcomp"
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:define name="content">
+
+        <ez:Breadcrumb pageName="filterJobsByJobFunction" />
+
+        <div>
+            <h3>Filter Jobs by Job Function</h3>
+
+            <h:form id="formMain" style ="width:77%">
+
+                <p:layout>
+
+                    <p:layoutUnit position="west" resizable="true">
+
+                        <p:tree value="#{filterJobsByJobFunctionManagedBean.treeNode}" var="node" selectionMode="single" selection="#{filterJobsByJobFunctionManagedBean.selectedTreeNode}">
+                            <p:treeNode>
+                                <h:outputText value="#{node.name}" />
+                            </p:treeNode>
+                            <p:ajax event="select" process="@form" update="formMain:dataViewMain" listener="#{filterJobsByJobFunctionManagedBean.filterJob}" />
+                        </p:tree>                                                   
+
+                    </p:layoutUnit>
+
+                    <p:layoutUnit position="center">
+
+                        <p:dataView id="dataViewMain" widgetVar="dataViewMain" var="jobEntity" value="#{filterJobsByJobFunctionManagedBean.jobEntities}"  gridIcon="pi pi-th-large" listIcon="pi pi-bars"  rows="3"
+                                    paginator="true"
+                                    paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                    currentPageReportTemplate="{startRecord}-{endRecord} of {totalRecords} records"
+                                    rowsPerPageTemplate="1,2,3" style ="width:100%">
+
+                            <p:dataViewGridItem >
+                                <p:panel header="#{jobEntity.jobId}" style="text-align:center; width:100%">
+                                    <h:panelGrid columns="1" style="width:100%">
+                                        <p:graphicImage name="demo/images/jobEntity/#{jobEntity.companyName}.png" style="display: block; margin: 0px auto;"/> 
+
+                                        <h:outputText value="#{jobEntity.jobTitle}" style="text-align:center; display: block;"/>
+
+                                        <h:outputText value="#{jobEntity.companyName}" style="text-align:center; display: block;"/>
+
+                                        <h:outputText value="#{jobEntity.location}" style="text-align:center; display: block;"/>
+
+                                        <h:outputText value="#{jobEntity.jobFunctionEntity.name}" style="text-align:center; display: block;"/>
+
+                                        <p:commandLink update="ccViewJob:formViewJob" oncomplete="PF('dialogViewJob').show()" title="View Detail">
+                                            <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+                                            <f:setPropertyActionListener value="#{jobEntity}" target="#{filterJobsByJobFunctionManagedBean.viewJobManagedBean.jobEntityToView}" />
+                                        </p:commandLink>  
+                                    </h:panelGrid>
+                                </p:panel>
+                            </p:dataViewGridItem>
+
+                            <p:dataViewListItem >
+                                <h:panelGrid columns="3" style="width:100%" columnClasses="logo,detail" >
+                                    <p:graphicImage name="demo/images/jobEntity/#{jobEntity.companyName}.png" /> 
+
+                                    <p:outputPanel>
+                                        <h:panelGrid columns="2" cellpadding="5">
+
+                                            <h:outputText value="Job Title:" />
+                                            <h:outputText value="#{jobEntity.jobTitle}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Company Name:" />
+                                            <h:outputText value="#{jobEntity.companyName}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Work Location:" />
+                                            <h:outputText value="#{jobEntity.location}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Position Type:" />
+                                            <h:outputText value="#{jobEntity.jobFunctionEntity.name}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Number of Position Available" />
+                                            <h:outputText value="#{jobEntity.numberOfVacancies}" style="font-weight: bold"/>
+
+                                            <h:outputText value="Salary:" />
+                                            <h:outputText value="$#{jobEntity.salary}0/month" style="font-weight: bold"/>
+
+                                            <h:outputText value="Tag:" />
+                                            <p:dataList value="#{jobEntity.tagEntities}" var="tag" type="unordered" style="font-weight: bold">
+                                                #{tag.name}
+                                            </p:dataList>
+
+                                            <h:outputText value="Posted On:" />
+                                            <h:outputText value="" style="font-weight: bold"/>
+
+                                            <h:outputText value="Application Deadline:" />
+                                            <h:outputText value="" style="font-weight: bold"/>
+
+                                        </h:panelGrid>
+
+                                    </p:outputPanel>
+
+                                    <p:commandLink update="ccViewJob:formViewJob" oncomplete="PF('dialogViewJob').show()" title="View Detail">
+                                        <h:outputText styleClass="ui-icon pi pi-search" style="margin:0 auto;" />
+                                        <f:setPropertyActionListener value="#{jobEntity}" target="#{filterJobsByJobFunctionManagedBean.viewJobManagedBean.jobEntityToView}" />
+                                    </p:commandLink>  
+
+                                </h:panelGrid>
+
+                                <p:separator style = "width:100%" />
+
+                            </p:dataViewListItem>
+                        </p:dataView>
+
+                        <p:dialog header="Job Info" widgetVar="jobDialog" modal="false" showEffect="fade" hideEffect="fade" resizable="false" >
+                            <p:outputPanel id="jobDetail" style="text-align:center;">
+                                <p:panelGrid  columns="2" rendered="#{not empty jobManagementManagedBean.selectedJobEntity}" columnClasses="label,value">
+                                    <f:facet name="header">
+                                        <p:graphicImage name="demo/images/jobEntity/#{jobManagementManagedBean.selectedJobEntity.companyName}.png"/> 
+                                    </f:facet>
+
+                                    <h:outputText value="Job Title:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.jobTitle}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Company Name:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.companyName}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Work Location:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.location}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Position Type:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.jobFunctionEntity.name}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Number of Position Available:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.numberOfVacancies}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Salary:" />
+                                    <h:outputText value="$#{jobManagementManagedBean.selectedJobEntity.salary}0/month" style="font-weight: bold"/>
+
+                                    <h:outputText value="Description:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.description}" style="font-weight: bold"/>
+
+
+                                    <h:outputText value="Tag:" />
+                                    <p:dataList value="#{jobManagementManagedBean.selectedJobEntity.tagEntities}" var="tag" type="unordered" style="font-weight: bold">
+                                        #{tag.name}
+                                    </p:dataList>
+
+                                    <h:outputText value="Industry:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.industryEntity.name}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Job Function:" />
+                                    <h:outputText value="#{jobManagementManagedBean.selectedJobEntity.jobFunctionEntity.name}" style="font-weight: bold"/>
+
+                                    <h:outputText value="Posted On:" />
+                                    <h:outputText value="" style="font-weight: bold"/>
+
+                                    <h:outputText value="Application Deadline:" />
+                                    <h:outputText value="" style="font-weight: bold"/>
+
+                                </p:panelGrid>
+
+                                <br></br>
+
+                                <p:button outcome="jobDetail" value="Apply Now!" icon="pi pi-check-circle" style="margin-right:20px;">
+                                    <f:param name="apply" value="10" />
+                                </p:button>
+                            </p:outputPanel>
+
+                        </p:dialog>
+
+                    </p:layoutUnit>
+
+                </p:layout>                                               
+
+            </h:form>
+
+            <ez:ViewJob id="ccViewJob" />
+        </div>
+
+    </ui:define>
+
+</ui:composition>
