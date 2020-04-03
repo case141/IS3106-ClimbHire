@@ -28,12 +28,12 @@ public class Application implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
     private Professional createdBy;
-    private JobListing createdFor;
+    private JobEntity createdFor;
 
     public Application() {
     }
 
-    public Application(String applicationStatus, Date applicationCreatedDate, Professional createdBy, JobListing createdFor) {
+    public Application(String applicationStatus, Date applicationCreatedDate, Professional createdBy, JobEntity createdFor) {
         this.applicationStatus = applicationStatus;
         this.applicationCreatedDate = applicationCreatedDate;
         this.createdBy = createdBy;
@@ -64,11 +64,11 @@ public class Application implements Serializable {
         this.createdBy = createdBy;
     }
 
-    public JobListing getCreatedFor() {
+    public JobEntity getCreatedFor() {
         return createdFor;
     }
 
-    public void setCreatedFor(JobListing createdFor) {
+    public void setCreatedFor(JobEntity createdFor) {
         this.createdFor = createdFor;
     }
 

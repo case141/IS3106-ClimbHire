@@ -858,6 +858,7 @@ exists or setup the property manually. For example like this:
             <fileset dir="${build.classes.dir}"/>
         </jar>
     </target>
+    
     <target depends="init,compile,-pre-dist,library-inclusion-in-archive" if="do.package.without.custom.manifest.not.directory.deploy" name="-do-tmp-dist-without-manifest">
         <dirname file="${dist.jar}" property="dist.jar.dir"/>
         <mkdir dir="${dist.jar.dir}"/>
