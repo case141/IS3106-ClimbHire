@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -36,7 +38,8 @@ public class TimeSheetEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date overTimeHours;
     private Double totalPay;
-    @OneToMany(mappedBy = "timeSheetList")
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
     private ProfessionalEntity employee; 
 
     public TimeSheetEntity() {
@@ -50,6 +53,14 @@ public class TimeSheetEntity implements Serializable {
         this.overTimeHours = overTimeHours;
         this.totalPay = totalPay;
         this.employee = employee;
+    }
+
+    public Long getTimeSheetId() {
+        return timeSheetId;
+    }
+
+    public void setTimeSheetId(Long timeSheetId) {
+        this.timeSheetId = timeSheetId;
     }
 
     public Date getDateOfWork() {
@@ -106,14 +117,6 @@ public class TimeSheetEntity implements Serializable {
 
     public void setEmployee(ProfessionalEntity employee) {
         this.employee = employee;
-    }
-
-    public Long getTimeSheetId() {
-        return timeSheetId;
-    }
-
-    public void setTimeSheetId(Long timeSheetId) {
-        this.timeSheetId = timeSheetId;
     }
 
     @Override

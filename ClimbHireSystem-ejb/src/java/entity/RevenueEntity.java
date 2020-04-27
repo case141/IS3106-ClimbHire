@@ -8,6 +8,7 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -33,7 +34,7 @@ public class RevenueEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate; //end of revenueMonth
     @OneToMany
-    private ArrayList<PaymentEntity> paymentRecords;
+    private List<PaymentEntity> paymentRecords;
 
     public RevenueEntity() {
     }
@@ -46,12 +47,12 @@ public class RevenueEntity implements Serializable {
         this.endDate = endDate;
     }
 
-    public ArrayList<PaymentEntity> getPaymentRecords() {
-        return paymentRecords;
+    public Long getRevenueId() {
+        return revenueId;
     }
 
-    public void setPaymentRecords(ArrayList<PaymentEntity> paymentRecords) {
-        this.paymentRecords = paymentRecords;
+    public void setRevenueId(Long revenueId) {
+        this.revenueId = revenueId;
     }
 
     public Double getTotalRevenue() {
@@ -86,12 +87,12 @@ public class RevenueEntity implements Serializable {
         this.endDate = endDate;
     }
 
-    public Long getRevenueId() {
-        return revenueId;
+    public List<PaymentEntity> getPaymentRecords() {
+        return paymentRecords;
     }
 
-    public void setRevenueId(Long revenueId) {
-        this.revenueId = revenueId;
+    public void setPaymentRecords(List<PaymentEntity> paymentRecords) {
+        this.paymentRecords = paymentRecords;
     }
 
     @Override

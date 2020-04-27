@@ -8,12 +8,14 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -39,12 +41,11 @@ public class JobListingEntity implements Serializable {
     private String contract;
     private String status; //same as vacancy status (i.e. Pending, Closed, etc)
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
-    @ManyToOne(optional=true)
+    @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private CompanyEntity company;
-    @ManyToOne(optional=true)
-    @JoinColumn(nullable = true)
-    private ArrayList<ApplicationEntity> applicationList;
+    @OneToMany(mappedBy = "createdFor")
+    private List<ApplicationEntity> applicationList;
 
     public JobListingEntity() {
     }
@@ -59,6 +60,14 @@ public class JobListingEntity implements Serializable {
         this.contract = contract;
         this.status = status;
         this.numOfPositionAvailable = numOfPositionAvailable;
+    }
+
+    public Long getJobListingId() {
+        return jobListingId;
+    }
+
+    public void setJobListingId(Long jobListingId) {
+        this.jobListingId = jobListingId;
     }
 
     public String getJobTitle() {
@@ -101,6 +110,14 @@ public class JobListingEntity implements Serializable {
         this.payPerHour = payPerHour;
     }
 
+    public String getResponsibilities() {
+        return responsibilities;
+    }
+
+    public void setResponsibilities(String responsibilities) {
+        this.responsibilities = responsibilities;
+    }
+
     public ArrayList<String> getQualifications() {
         return qualifications;
     }
@@ -115,22 +132,6 @@ public class JobListingEntity implements Serializable {
 
     public void setSkillsRequired(ArrayList<String> skillsRequired) {
         this.skillsRequired = skillsRequired;
-    }
-
-    public ArrayList<ApplicationEntity> getApplicationList() {
-        return applicationList;
-    }
-
-    public void setApplicationList(ArrayList<ApplicationEntity> applicationList) {
-        this.applicationList = applicationList;
-    }
-
-    public String getResponsibilities() {
-        return responsibilities;
-    }
-
-    public void setResponsibilities(String responsibilities) {
-        this.responsibilities = responsibilities;
     }
 
     public String getContract() {
@@ -157,12 +158,20 @@ public class JobListingEntity implements Serializable {
         this.numOfPositionAvailable = numOfPositionAvailable;
     }
 
-    public Long getJobListingId() {
-        return jobListingId;
+    public CompanyEntity getCompany() {
+        return company;
     }
 
-    public void setJobListingId(Long jobListingId) {
-        this.jobListingId = jobListingId;
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
+    }
+
+    public List<ApplicationEntity> getApplicationList() {
+        return this.applicationList;
+    }
+
+    public void setApplicationList(List<ApplicationEntity> applicationList) {
+        this.applicationList = applicationList;
     }
 
     @Override
@@ -188,14 +197,6 @@ public class JobListingEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.JobListing[ id=" + jobListingId + " ]";
-    }
-
-    public CompanyEntity getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyEntity company) {
-        this.company = company;
     }
     
 }

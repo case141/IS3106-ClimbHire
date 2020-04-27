@@ -6,14 +6,15 @@
 package entity;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -39,9 +40,8 @@ public class CompanyEntity implements Serializable {
     private Date dateJoined;
     @OneToOne(optional=false)
     private SubscriptionEntity subscription;
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
-    private ArrayList<PaymentEntity> paymentHistory;
+    @OneToMany(mappedBy = "company")
+    private List<PaymentEntity> paymentHistory;
 
     public CompanyEntity() {
     }
@@ -55,20 +55,28 @@ public class CompanyEntity implements Serializable {
         this.dateJoined = dateJoined;
     }
 
+    public Long getCompanyId() {
+        return companyId;
+    }
+
+    public void setCompanyId(Long companyId) {
+        this.companyId = companyId;
+    }
+
+    public String getCompanyName() {
+        return companyName;
+    }
+
+    public void setCompanyName(String companyName) {
+        this.companyName = companyName;
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public ArrayList<PaymentEntity> getPaymentHistory() {
-        return paymentHistory;
-    }
-
-    public void setPaymentHistory(ArrayList<PaymentEntity> paymentHistory) {
-        this.paymentHistory = paymentHistory;
     }
 
     public String getEmail() {
@@ -110,13 +118,21 @@ public class CompanyEntity implements Serializable {
     public void setDateJoined(Date dateJoined) {
         this.dateJoined = dateJoined;
     }
-    
-    public Long getCompanyId() {
-        return companyId;
+
+    public SubscriptionEntity getSubscription() {
+        return subscription;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setSubscription(SubscriptionEntity subscription) {
+        this.subscription = subscription;
+    }
+
+    public List<PaymentEntity> getPaymentHistory() {
+        return paymentHistory;
+    }
+
+    public void setPaymentHistory(List<PaymentEntity> paymentHistory) {
+        this.paymentHistory = paymentHistory;
     }
 
     @Override
@@ -144,20 +160,4 @@ public class CompanyEntity implements Serializable {
         return "entity.Company[ id=" + companyId + " ]";
     }
 
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public SubscriptionEntity getSubscription() {
-        return subscription;
-    }
-
-    public void setSubscription(SubscriptionEntity subscription) {
-        this.subscription = subscription;
-    }
-    
 }

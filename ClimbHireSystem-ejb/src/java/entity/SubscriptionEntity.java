@@ -53,39 +53,6 @@ public class SubscriptionEntity implements Serializable {
         this.subscriptionId = subscriptionId;
     }
 
-    public CompanyEntity getCompany() {
-        return company;
-    }
-
-    public void setCompany(CompanyEntity company) {
-        this.company = company;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (subscriptionId != null ? subscriptionId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the subscriptionId fields are not set
-        if (!(object instanceof SubscriptionEntity)) {
-            return false;
-        }
-        SubscriptionEntity other = (SubscriptionEntity) object;
-        if ((this.subscriptionId == null && other.subscriptionId != null) || (this.subscriptionId != null && !this.subscriptionId.equals(other.subscriptionId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.Subscription[ id=" + subscriptionId + " ]";
-    }
-
     public String getSubscriptionType() {
         return subscriptionType;
     }
@@ -125,5 +92,38 @@ public class SubscriptionEntity implements Serializable {
     public void setRenewalDate(Date renewalDate) {
         this.renewalDate = renewalDate;
     }
-    
+
+    public CompanyEntity getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 0;
+        hash += (subscriptionId != null ? subscriptionId.hashCode() : 0);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object object) {
+        // TODO: Warning - this method won't work in the case the subscriptionId fields are not set
+        if (!(object instanceof SubscriptionEntity)) {
+            return false;
+        }
+        SubscriptionEntity other = (SubscriptionEntity) object;
+        if ((this.subscriptionId == null && other.subscriptionId != null) || (this.subscriptionId != null && !this.subscriptionId.equals(other.subscriptionId))) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "entity.Subscription[ id=" + subscriptionId + " ]";
+    }
+
 }

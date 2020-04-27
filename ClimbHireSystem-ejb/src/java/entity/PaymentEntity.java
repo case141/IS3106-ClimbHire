@@ -10,6 +10,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -25,7 +27,8 @@ public class PaymentEntity implements Serializable {
     private Long paymentId;
     private Double amountPaid;
     private String status;
-    @OneToMany(mappedBy = "paymentHistory")
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
     private CompanyEntity company;
     
     public PaymentEntity() {
@@ -36,7 +39,15 @@ public class PaymentEntity implements Serializable {
         this.status = status;
         this.company = company;
     }
-    
+
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
+
     public Double getAmountPaid() {
         return amountPaid;
     }
@@ -59,14 +70,6 @@ public class PaymentEntity implements Serializable {
 
     public void setCompany(CompanyEntity company) {
         this.company = company;
-    } 
-
-    public Long getPaymentId() {
-        return paymentId;
-    }
-
-    public void setPaymentId(Long paymentId) {
-        this.paymentId = paymentId;
     }
 
     @Override

@@ -11,6 +11,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
@@ -28,9 +30,11 @@ public class ApplicationEntity implements Serializable {
     private String applicationStatus;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
-    @OneToMany(mappedBy = "jobsApplied")
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
     private ProfessionalEntity createdBy;
-    @OneToMany(mappedBy = "applicationList")
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
     private JobListingEntity createdFor;
 
     public ApplicationEntity() {
@@ -41,6 +45,14 @@ public class ApplicationEntity implements Serializable {
         this.applicationCreatedDate = applicationCreatedDate;
         this.createdBy = createdBy;
         this.createdFor = createdFor;
+    }
+
+    public Long getApplicationId() {
+        return applicationId;
+    }
+
+    public void setApplicationId(Long applicationId) {
+        this.applicationId = applicationId;
     }
 
     public String getApplicationStatus() {
@@ -73,14 +85,6 @@ public class ApplicationEntity implements Serializable {
 
     public void setCreatedFor(JobListingEntity createdFor) {
         this.createdFor = createdFor;
-    }
-
-    public Long getApplicationId() {
-        return applicationId;
-    }
-
-    public void setApplicationId(Long applicationId) {
-        this.applicationId = applicationId;
     }
 
     @Override

@@ -8,12 +8,14 @@ package entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -43,12 +45,10 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
-    private ArrayList<ApplicationEntity> jobsApplied;
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
-    private ArrayList<TimeSheetEntity> timeSheetList;
+    @OneToMany(mappedBy = "createdBy")
+    private List<ApplicationEntity> jobsApplied;
+    @OneToMany(mappedBy = "employee")
+    private List<TimeSheetEntity> timeSheetList;
 
     public ProfessionalEntity() {
     }
@@ -64,15 +64,14 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.dateOfBirth = dateOfBirth;
     }
 
-
-    public char getGender() {
-        return gender;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setGender(char gender) {
-        this.gender = gender;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
-    
+
     public String getPassword() {
         return password;
     }
@@ -105,6 +104,22 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.address = address;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
     public Integer getContactNumber() {
         return contactNumber;
     }
@@ -121,14 +136,6 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.profilePicture = profilePicture;
     }
 
-    public ArrayList<String> getSkills() {
-        return skills;
-    }
-
-    public void setSkills(ArrayList<String> skills) {
-        this.skills = skills;
-    }
-
     public ArrayList<String> getPreviousWorkExperiences() {
         return previousWorkExperiences;
     }
@@ -137,22 +144,14 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.previousWorkExperiences = previousWorkExperiences;
     }
 
-    public ArrayList<ApplicationEntity> getJobsApplied() {
-        return jobsApplied;
+    public ArrayList<String> getSkills() {
+        return skills;
     }
 
-    public void setJobsApplied(ArrayList<ApplicationEntity> jobsApplied) {
-        this.jobsApplied = jobsApplied;
+    public void setSkills(ArrayList<String> skills) {
+        this.skills = skills;
     }
 
-    public ArrayList<TimeSheetEntity> getTimeSheetList() {
-        return timeSheetList;
-    }
-
-    public void setTimeSheetList(ArrayList<TimeSheetEntity> timeSheetList) {
-        this.timeSheetList = timeSheetList;
-    }
-    
     public String getQualifications() {
         return qualifications;
     }
@@ -177,20 +176,20 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.dateOfBirth = dateOfBirth;
     }
 
-    public String getEmail() {
-        return email;
+    public List<ApplicationEntity> getJobsApplied() {
+        return jobsApplied;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-    
-    public Long getUserId() {
-        return userId;
+    public void setJobsApplied(List<ApplicationEntity> jobsApplied) {
+        this.jobsApplied = jobsApplied;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public List<TimeSheetEntity> getTimeSheetList() {
+        return timeSheetList;
+    }
+
+    public void setTimeSheetList(List<TimeSheetEntity> timeSheetList) {
+        this.timeSheetList = timeSheetList;
     }
 
     @Override

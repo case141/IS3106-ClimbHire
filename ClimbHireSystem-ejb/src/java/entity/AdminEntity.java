@@ -43,6 +43,30 @@ public class AdminEntity implements Serializable {
         this.adminId = adminId;
     }
 
+    public String getAdminName() {
+        return adminName;
+    }
+
+    public void setAdminName(String adminName) {
+        this.adminName = adminName;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -68,27 +92,4 @@ public class AdminEntity implements Serializable {
         return "entity.Admin[ id=" + adminId + " ]";
     }
 
-    public String getAdminName() {
-        return adminName;
-    }
-
-    public void setAdminName(String adminName) {
-        this.adminName = adminName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 }
