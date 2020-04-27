@@ -5,13 +5,13 @@
  */
 package jsf.managedbean;
 
-import ejb.session.stateless.AdminSessionBeanLocal;
-import entity.Admin;
+import entity.AdminEntity;
 import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
+import ejb.session.stateless.AdminEntitySessionBeanLocal;
 
 /**
  *
@@ -22,9 +22,9 @@ import javax.enterprise.context.RequestScoped;
 public class ViewAllAdminsManagedBean {
 
     @EJB(name = "AdminSessionBeanLocal")
-    private AdminSessionBeanLocal adminSessionBeanLocal;
+    private AdminEntitySessionBeanLocal adminSessionBeanLocal;
     
-    private List<Admin> admins;
+    private List<AdminEntity> admins;
 
     /**
      * Creates a new instance of ViewAllAdminsManagedBean
@@ -38,11 +38,11 @@ public class ViewAllAdminsManagedBean {
         admins = adminSessionBeanLocal.retrieveAllAdmins();
     }
 
-    public List<Admin> getAdmins() {
+    public List<AdminEntity> getAdmins() {
         return admins;
     }
 
-    public void setAdmins(List<Admin> admins) {
+    public void setAdmins(List<AdminEntity> admins) {
         this.admins = admins;
     }
     

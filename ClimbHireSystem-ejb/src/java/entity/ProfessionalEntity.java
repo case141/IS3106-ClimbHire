@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class Professional implements Serializable { //Professional for A Professional Person
+public class ProfessionalEntity implements Serializable { //Professional for A ProfessionalEntity Person
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -45,15 +45,15 @@ public class Professional implements Serializable { //Professional for A Profess
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
-    private ArrayList<Application> jobsApplied;
+    private ArrayList<ApplicationEntity> jobsApplied;
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
-    private ArrayList<TimeSheet> timeSheetList;
+    private ArrayList<TimeSheetEntity> timeSheetList;
 
-    public Professional() {
+    public ProfessionalEntity() {
     }
 
-    public Professional(String password, String firstName, String lastName, String address, String email, Integer contactNumber, Date dateJoined, Date dateOfBirth) {
+    public ProfessionalEntity(String password, String firstName, String lastName, String address, String email, Integer contactNumber, Date dateJoined, Date dateOfBirth) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -137,19 +137,19 @@ public class Professional implements Serializable { //Professional for A Profess
         this.previousWorkExperiences = previousWorkExperiences;
     }
 
-    public ArrayList<Application> getJobsApplied() {
+    public ArrayList<ApplicationEntity> getJobsApplied() {
         return jobsApplied;
     }
 
-    public void setJobsApplied(ArrayList<Application> jobsApplied) {
+    public void setJobsApplied(ArrayList<ApplicationEntity> jobsApplied) {
         this.jobsApplied = jobsApplied;
     }
 
-    public ArrayList<TimeSheet> getTimeSheetList() {
+    public ArrayList<TimeSheetEntity> getTimeSheetList() {
         return timeSheetList;
     }
 
-    public void setTimeSheetList(ArrayList<TimeSheet> timeSheetList) {
+    public void setTimeSheetList(ArrayList<TimeSheetEntity> timeSheetList) {
         this.timeSheetList = timeSheetList;
     }
     
@@ -203,10 +203,10 @@ public class Professional implements Serializable { //Professional for A Profess
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the userId fields are not set
-        if (!(object instanceof Professional)) {
+        if (!(object instanceof ProfessionalEntity)) {
             return false;
         }
-        Professional other = (Professional) object;
+        ProfessionalEntity other = (ProfessionalEntity) object;
         if ((this.userId == null && other.userId != null) || (this.userId != null && !this.userId.equals(other.userId))) {
             return false;
         }

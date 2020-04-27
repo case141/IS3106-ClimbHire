@@ -22,7 +22,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class Company implements Serializable {
+public class CompanyEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -38,15 +38,15 @@ public class Company implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateJoined;
     @OneToOne(optional=false)
-    private Subscription subscription;
+    private SubscriptionEntity subscription;
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
-    private ArrayList<Payment> paymentHistory;
+    private ArrayList<PaymentEntity> paymentHistory;
 
-    public Company() {
+    public CompanyEntity() {
     }
 
-    public Company(String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
+    public CompanyEntity(String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
         this.password = password;
         this.email = email;
         this.contactNumber = contactNumber;
@@ -63,11 +63,11 @@ public class Company implements Serializable {
         this.password = password;
     }
 
-    public ArrayList<Payment> getPaymentHistory() {
+    public ArrayList<PaymentEntity> getPaymentHistory() {
         return paymentHistory;
     }
 
-    public void setPaymentHistory(ArrayList<Payment> paymentHistory) {
+    public void setPaymentHistory(ArrayList<PaymentEntity> paymentHistory) {
         this.paymentHistory = paymentHistory;
     }
 
@@ -129,10 +129,10 @@ public class Company implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the companyId fields are not set
-        if (!(object instanceof Company)) {
+        if (!(object instanceof CompanyEntity)) {
             return false;
         }
-        Company other = (Company) object;
+        CompanyEntity other = (CompanyEntity) object;
         if ((this.companyId == null && other.companyId != null) || (this.companyId != null && !this.companyId.equals(other.companyId))) {
             return false;
         }
@@ -152,11 +152,11 @@ public class Company implements Serializable {
         this.companyName = companyName;
     }
 
-    public Subscription getSubscription() {
+    public SubscriptionEntity getSubscription() {
         return subscription;
     }
 
-    public void setSubscription(Subscription subscription) {
+    public void setSubscription(SubscriptionEntity subscription) {
         this.subscription = subscription;
     }
     

@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class TimeSheet implements Serializable {
+public class TimeSheetEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -37,12 +37,12 @@ public class TimeSheet implements Serializable {
     private Date overTimeHours;
     private Double totalPay;
     @OneToMany(mappedBy = "timeSheetList")
-    private Professional employee; 
+    private ProfessionalEntity employee; 
 
-    public TimeSheet() {
+    public TimeSheetEntity() {
     }
 
-    public TimeSheet(Date dateOfWork, Date startTime, Date endTime, Date regularHours, Date overTimeHours, Double totalPay, Professional employee) {
+    public TimeSheetEntity(Date dateOfWork, Date startTime, Date endTime, Date regularHours, Date overTimeHours, Double totalPay, ProfessionalEntity employee) {
         this.dateOfWork = dateOfWork;
         this.startTime = startTime;
         this.endTime = endTime;
@@ -100,11 +100,11 @@ public class TimeSheet implements Serializable {
         this.totalPay = totalPay;
     }
 
-    public Professional getEmployee() {
+    public ProfessionalEntity getEmployee() {
         return employee;
     }
 
-    public void setEmployee(Professional employee) {
+    public void setEmployee(ProfessionalEntity employee) {
         this.employee = employee;
     }
 
@@ -126,10 +126,10 @@ public class TimeSheet implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the timeSheetId fields are not set
-        if (!(object instanceof TimeSheet)) {
+        if (!(object instanceof TimeSheetEntity)) {
             return false;
         }
-        TimeSheet other = (TimeSheet) object;
+        TimeSheetEntity other = (TimeSheetEntity) object;
         if ((this.timeSheetId == null && other.timeSheetId != null) || (this.timeSheetId != null && !this.timeSheetId.equals(other.timeSheetId))) {
             return false;
         }

@@ -19,7 +19,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class Application implements Serializable {
+public class ApplicationEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -29,14 +29,14 @@ public class Application implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
     @OneToMany(mappedBy = "jobsApplied")
-    private Professional createdBy;
+    private ProfessionalEntity createdBy;
     @OneToMany(mappedBy = "applicationList")
-    private JobListing createdFor;
+    private JobListingEntity createdFor;
 
-    public Application() {
+    public ApplicationEntity() {
     }
 
-    public Application(String applicationStatus, Date applicationCreatedDate, Professional createdBy, JobListing createdFor) {
+    public ApplicationEntity(String applicationStatus, Date applicationCreatedDate, ProfessionalEntity createdBy, JobListingEntity createdFor) {
         this.applicationStatus = applicationStatus;
         this.applicationCreatedDate = applicationCreatedDate;
         this.createdBy = createdBy;
@@ -59,19 +59,19 @@ public class Application implements Serializable {
         this.applicationCreatedDate = applicationCreatedDate;
     }
 
-    public Professional getCreatedBy() {
+    public ProfessionalEntity getCreatedBy() {
         return createdBy;
     }
 
-    public void setCreatedBy(Professional createdBy) {
+    public void setCreatedBy(ProfessionalEntity createdBy) {
         this.createdBy = createdBy;
     }
 
-    public JobListing getCreatedFor() {
+    public JobListingEntity getCreatedFor() {
         return createdFor;
     }
 
-    public void setCreatedFor(JobListing createdFor) {
+    public void setCreatedFor(JobListingEntity createdFor) {
         this.createdFor = createdFor;
     }
 
@@ -93,10 +93,10 @@ public class Application implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the applicationId fields are not set
-        if (!(object instanceof Application)) {
+        if (!(object instanceof ApplicationEntity)) {
             return false;
         }
-        Application other = (Application) object;
+        ApplicationEntity other = (ApplicationEntity) object;
         if ((this.applicationId == null && other.applicationId != null) || (this.applicationId != null && !this.applicationId.equals(other.applicationId))) {
             return false;
         }

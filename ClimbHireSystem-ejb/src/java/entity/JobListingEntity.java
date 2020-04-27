@@ -21,7 +21,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class JobListing implements Serializable {
+public class JobListingEntity implements Serializable {
     
     private static final long serialVersionUID = 1L;
     @Id
@@ -41,15 +41,15 @@ public class JobListing implements Serializable {
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
     @ManyToOne(optional=true)
     @JoinColumn(nullable = true)
-    private Company company;
+    private CompanyEntity company;
     @ManyToOne(optional=true)
     @JoinColumn(nullable = true)
-    private ArrayList<Application> applicationList;
+    private ArrayList<ApplicationEntity> applicationList;
 
-    public JobListing() {
+    public JobListingEntity() {
     }
 
-    public JobListing(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, String responsibilities, String contract, String status, Integer numOfPositionAvailable) {
+    public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, String responsibilities, String contract, String status, Integer numOfPositionAvailable) {
         this.jobTitle = jobTitle;
         this.workLocation = workLocation;
         this.datePosted = datePosted;
@@ -117,11 +117,11 @@ public class JobListing implements Serializable {
         this.skillsRequired = skillsRequired;
     }
 
-    public ArrayList<Application> getApplicationList() {
+    public ArrayList<ApplicationEntity> getApplicationList() {
         return applicationList;
     }
 
-    public void setApplicationList(ArrayList<Application> applicationList) {
+    public void setApplicationList(ArrayList<ApplicationEntity> applicationList) {
         this.applicationList = applicationList;
     }
 
@@ -175,10 +175,10 @@ public class JobListing implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the jobListingId fields are not set
-        if (!(object instanceof JobListing)) {
+        if (!(object instanceof JobListingEntity)) {
             return false;
         }
-        JobListing other = (JobListing) object;
+        JobListingEntity other = (JobListingEntity) object;
         if ((this.jobListingId == null && other.jobListingId != null) || (this.jobListingId != null && !this.jobListingId.equals(other.jobListingId))) {
             return false;
         }
@@ -190,11 +190,11 @@ public class JobListing implements Serializable {
         return "entity.JobListing[ id=" + jobListingId + " ]";
     }
 
-    public Company getCompany() {
+    public CompanyEntity getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyEntity company) {
         this.company = company;
     }
     

@@ -16,7 +16,7 @@ import javax.persistence.Id;
  * @author Casse
  */
 @Entity
-public class Admin implements Serializable {
+public class AdminEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,10 +26,10 @@ public class Admin implements Serializable {
     private String password;
     private String email;
 
-    public Admin() {
+    public AdminEntity() {
     }
 
-    public Admin(String adminName, String password, String email) {
+    public AdminEntity(String adminName, String password, String email) {
         this.adminName = adminName;
         this.password = password;
         this.email = email;
@@ -53,10 +53,10 @@ public class Admin implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the adminId fields are not set
-        if (!(object instanceof Admin)) {
+        if (!(object instanceof AdminEntity)) {
             return false;
         }
-        Admin other = (Admin) object;
+        AdminEntity other = (AdminEntity) object;
         if ((this.adminId == null && other.adminId != null) || (this.adminId != null && !this.adminId.equals(other.adminId))) {
             return false;
         }

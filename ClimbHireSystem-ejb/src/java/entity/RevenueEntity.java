@@ -20,7 +20,7 @@ import javax.persistence.Temporal;
  * @author Casse
  */
 @Entity
-public class Revenue implements Serializable {
+public class RevenueEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -33,12 +33,12 @@ public class Revenue implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate; //end of revenueMonth
     @OneToMany
-    private ArrayList<Payment> paymentRecords;
+    private ArrayList<PaymentEntity> paymentRecords;
 
-    public Revenue() {
+    public RevenueEntity() {
     }
 
-    public Revenue(ArrayList<Payment> paymentRecords, Double totalRevenue, String month, Date startDate, Date endDate) {
+    public RevenueEntity(ArrayList<PaymentEntity> paymentRecords, Double totalRevenue, String month, Date startDate, Date endDate) {
         this.paymentRecords = paymentRecords;
         this.totalRevenue = totalRevenue;
         this.revenueMonth = month;
@@ -46,11 +46,11 @@ public class Revenue implements Serializable {
         this.endDate = endDate;
     }
 
-    public ArrayList<Payment> getPaymentRecords() {
+    public ArrayList<PaymentEntity> getPaymentRecords() {
         return paymentRecords;
     }
 
-    public void setPaymentRecords(ArrayList<Payment> paymentRecords) {
+    public void setPaymentRecords(ArrayList<PaymentEntity> paymentRecords) {
         this.paymentRecords = paymentRecords;
     }
 
@@ -104,10 +104,10 @@ public class Revenue implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the revenueId fields are not set
-        if (!(object instanceof Revenue)) {
+        if (!(object instanceof RevenueEntity)) {
             return false;
         }
-        Revenue other = (Revenue) object;
+        RevenueEntity other = (RevenueEntity) object;
         if ((this.revenueId == null && other.revenueId != null) || (this.revenueId != null && !this.revenueId.equals(other.revenueId))) {
             return false;
         }

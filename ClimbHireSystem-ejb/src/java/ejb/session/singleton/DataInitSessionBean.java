@@ -5,8 +5,7 @@
  */
 package ejb.session.singleton;
 
-import ejb.session.stateless.AdminSessionBeanLocal;
-import entity.Admin;
+import entity.AdminEntity;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.ejb.Singleton;
@@ -14,6 +13,7 @@ import javax.ejb.LocalBean;
 import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import ejb.session.stateless.AdminEntitySessionBeanLocal;
 
 /**
  *
@@ -24,8 +24,8 @@ import javax.persistence.PersistenceContext;
 @Startup
 public class DataInitSessionBean {
 
-    @EJB(name = "AdminSessionBeanLocal")
-    private AdminSessionBeanLocal adminSessionBeanLocal;
+    @EJB(name = "AdminEntitySessionBeanLocal")
+    private AdminEntitySessionBeanLocal adminSessionBeanLocal;
 
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
@@ -36,10 +36,10 @@ public class DataInitSessionBean {
     @PostConstruct
     public void postConstruct()
     {
-        if(em.find(Admin.class, 111l) == null)
+        if(em.find(AdminEntity.class, 111l) == null)
         {
-            adminSessionBeanLocal.createNewAdmin(new Admin("Admin One", "password", "adminone@gmail.com"));
-            adminSessionBeanLocal.createNewAdmin(new Admin("Admin Two", "password", "admintwo@gmail.com"));
+            adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin One", "password", "adminone@gmail.com"));
+            adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin Two", "password", "admintwo@gmail.com"));
         }
     }
 }

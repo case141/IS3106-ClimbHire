@@ -5,7 +5,7 @@
  */
 package ejb.session.stateless;
 
-import entity.Admin;
+import entity.AdminEntity;
 import java.util.List;
 import javax.ejb.Local;
 
@@ -14,10 +14,10 @@ import javax.ejb.Local;
  * @author Casse
  */
 @Local
-public interface AdminSessionBeanLocal {
+public interface AdminEntitySessionBeanLocal {
 
-    public Long createNewAdmin(Admin newAdmin);
+    public Long createNewAdmin(AdminEntity newAdmin);
 
-    public List<Admin> retrieveAllAdmins();
+    public List<AdminEntity> retrieveAllAdmins();
     
 }

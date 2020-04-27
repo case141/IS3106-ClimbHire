@@ -5,7 +5,7 @@
  */
 package ejb.session.stateless;
 
-import entity.Admin;
+import entity.AdminEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,7 +17,7 @@ import javax.persistence.Query;
  * @author Casse
  */
 @Stateless
-public class AdminSessionBean implements AdminSessionBeanLocal {
+public class AdminEntitySessionBean implements AdminEntitySessionBeanLocal {
 
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
@@ -26,7 +26,7 @@ public class AdminSessionBean implements AdminSessionBeanLocal {
     // "Insert Code > Add Business Method")
     
     @Override
-    public Long createNewAdmin(Admin newAdmin)
+    public Long createNewAdmin(AdminEntity newAdmin)
     {
         em.persist(newAdmin);
         em.flush();
@@ -35,9 +35,9 @@ public class AdminSessionBean implements AdminSessionBeanLocal {
     }
     
     @Override
-    public List<Admin> retrieveAllAdmins()
+    public List<AdminEntity> retrieveAllAdmins()
     {
-        Query query = em.createQuery("SELECT a FROM Admin a");
+        Query query = em.createQuery("SELECT a FROM AdminEntity a");
         
         return query.getResultList();
     }

@@ -17,7 +17,7 @@ import javax.persistence.OneToMany;
  * @author Casse
  */
 @Entity
-public class Payment implements Serializable {
+public class PaymentEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -26,12 +26,12 @@ public class Payment implements Serializable {
     private Double amountPaid;
     private String status;
     @OneToMany(mappedBy = "paymentHistory")
-    private Company company;
+    private CompanyEntity company;
     
-    public Payment() {
+    public PaymentEntity() {
     }
 
-    public Payment(Double amountPaid, String status, Company company) {
+    public PaymentEntity(Double amountPaid, String status, CompanyEntity company) {
         this.amountPaid = amountPaid;
         this.status = status;
         this.company = company;
@@ -53,11 +53,11 @@ public class Payment implements Serializable {
         this.status = status;
     }
 
-    public Company getCompany() {
+    public CompanyEntity getCompany() {
         return company;
     }
 
-    public void setCompany(Company company) {
+    public void setCompany(CompanyEntity company) {
         this.company = company;
     } 
 
@@ -79,10 +79,10 @@ public class Payment implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the paymentId fields are not set
-        if (!(object instanceof Payment)) {
+        if (!(object instanceof PaymentEntity)) {
             return false;
         }
-        Payment other = (Payment) object;
+        PaymentEntity other = (PaymentEntity) object;
         if ((this.paymentId == null && other.paymentId != null) || (this.paymentId != null && !this.paymentId.equals(other.paymentId))) {
             return false;
         }

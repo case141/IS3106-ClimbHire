@@ -5,14 +5,14 @@
  */
 package jsf.managedbean;
 
-import ejb.session.stateless.AdminSessionBeanLocal;
-import entity.Admin;
+import entity.AdminEntity;
 import javafx.event.ActionEvent;
 import javax.ejb.EJB;
 import javax.inject.Named;
 import javax.enterprise.context.RequestScoped;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
+import ejb.session.stateless.AdminEntitySessionBeanLocal;
 
 /**
  *
@@ -23,9 +23,9 @@ import javax.faces.context.FacesContext;
 public class CreateNewAdminManagedBean {
 
     @EJB(name = "AdminSessionBeanLocal")
-    private AdminSessionBeanLocal adminSessionBeanLocal;
+    private AdminEntitySessionBeanLocal adminSessionBeanLocal;
 
-    private Admin newAdmin;
+    private AdminEntity newAdmin;
     
     /**
      * Creates a new instance of CreateNewAdminManagedBean
@@ -33,7 +33,7 @@ public class CreateNewAdminManagedBean {
     public CreateNewAdminManagedBean() 
     {
         
-        newAdmin = new Admin();
+        newAdmin = new AdminEntity();
     }
 
     public void createNewAdmin(ActionEvent event)
@@ -43,12 +43,12 @@ public class CreateNewAdminManagedBean {
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New Admin created successfully: " + newAdminId, null));
     }
     
-    public Admin getNewAdmin() 
+    public AdminEntity getNewAdmin() 
     {
         return newAdmin;
     }
 
-    public void setNewAdmin(Admin newAdmin) 
+    public void setNewAdmin(AdminEntity newAdmin) 
     {
         this.newAdmin = newAdmin;
     }
