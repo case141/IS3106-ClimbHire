@@ -12,6 +12,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -25,13 +26,14 @@ public class Revenue implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long revenueId;
-    private ArrayList<Payment> paymentRecords;
     private Double totalRevenue;
     private String revenueMonth;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date startDate; //beginning of revenueMonth
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate; //end of revenueMonth
+    @OneToMany
+    private ArrayList<Payment> paymentRecords;
 
     public Revenue() {
     }

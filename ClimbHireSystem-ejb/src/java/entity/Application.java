@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -27,7 +28,9 @@ public class Application implements Serializable {
     private String applicationStatus;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
+    @OneToMany(mappedBy = "jobsApplied")
     private Professional createdBy;
+    @OneToMany(mappedBy = "applicationList")
     private JobListing createdFor;
 
     public Application() {

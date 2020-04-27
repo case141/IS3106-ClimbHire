@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -30,6 +31,8 @@ public class Subscription implements Serializable {
     private String status;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date renewalDate;
+    @OneToOne(optional=false)
+    private Company company;
 
     public Subscription() {
     }
@@ -48,6 +51,14 @@ public class Subscription implements Serializable {
 
     public void setSubscriptionId(Long subscriptionId) {
         this.subscriptionId = subscriptionId;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
     }
 
     @Override

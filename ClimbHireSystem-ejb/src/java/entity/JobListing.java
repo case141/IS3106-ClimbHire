@@ -39,10 +39,12 @@ public class JobListing implements Serializable {
     private String contract;
     private String status; //same as vacancy status (i.e. Pending, Closed, etc)
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
-    @ManyToOne(optional=false)
-    @JoinColumn(nullable = false)
+    @ManyToOne(optional=true)
+    @JoinColumn(nullable = true)
     private Company company;
-    //private ArrayList<Application> applicationList;
+    @ManyToOne(optional=true)
+    @JoinColumn(nullable = true)
+    private ArrayList<Application> applicationList;
 
     public JobListing() {
     }
@@ -97,6 +99,30 @@ public class JobListing implements Serializable {
 
     public void setPayPerHour(Double payPerHour) {
         this.payPerHour = payPerHour;
+    }
+
+    public ArrayList<String> getQualifications() {
+        return qualifications;
+    }
+
+    public void setQualifications(ArrayList<String> qualifications) {
+        this.qualifications = qualifications;
+    }
+
+    public ArrayList<String> getSkillsRequired() {
+        return skillsRequired;
+    }
+
+    public void setSkillsRequired(ArrayList<String> skillsRequired) {
+        this.skillsRequired = skillsRequired;
+    }
+
+    public ArrayList<Application> getApplicationList() {
+        return applicationList;
+    }
+
+    public void setApplicationList(ArrayList<Application> applicationList) {
+        this.applicationList = applicationList;
     }
 
     public String getResponsibilities() {

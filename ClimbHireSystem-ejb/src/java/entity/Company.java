@@ -6,11 +6,14 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
@@ -34,9 +37,11 @@ public class Company implements Serializable {
     private Date dateOfFounding;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateJoined;
-    @OneToOne
+    @OneToOne(optional=false)
     private Subscription subscription;
-    //private ArrayList<Payment> paymentHistory;
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
+    private ArrayList<Payment> paymentHistory;
 
     public Company() {
     }
@@ -56,6 +61,14 @@ public class Company implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public ArrayList<Payment> getPaymentHistory() {
+        return paymentHistory;
+    }
+
+    public void setPaymentHistory(ArrayList<Payment> paymentHistory) {
+        this.paymentHistory = paymentHistory;
     }
 
     public String getEmail() {

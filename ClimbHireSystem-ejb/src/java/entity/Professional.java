@@ -12,6 +12,8 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -41,8 +43,12 @@ public class Professional implements Serializable { //Professional for A Profess
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
-    //private ArrayList<JobListing> jobsApplied; //nullable
-    //private ArrayList<TimeSheet> timeSheetList; //nullable
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
+    private ArrayList<Application> jobsApplied;
+    @ManyToOne(optional = true)
+    @JoinColumn(nullable = true)
+    private ArrayList<TimeSheet> timeSheetList;
 
     public Professional() {
     }
@@ -129,6 +135,22 @@ public class Professional implements Serializable { //Professional for A Profess
 
     public void setPreviousWorkExperiences(ArrayList<String> previousWorkExperiences) {
         this.previousWorkExperiences = previousWorkExperiences;
+    }
+
+    public ArrayList<Application> getJobsApplied() {
+        return jobsApplied;
+    }
+
+    public void setJobsApplied(ArrayList<Application> jobsApplied) {
+        this.jobsApplied = jobsApplied;
+    }
+
+    public ArrayList<TimeSheet> getTimeSheetList() {
+        return timeSheetList;
+    }
+
+    public void setTimeSheetList(ArrayList<TimeSheet> timeSheetList) {
+        this.timeSheetList = timeSheetList;
     }
     
     public String getQualifications() {

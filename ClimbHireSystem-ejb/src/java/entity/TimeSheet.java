@@ -11,6 +11,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 
 /**
@@ -35,6 +36,7 @@ public class TimeSheet implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date overTimeHours;
     private Double totalPay;
+    @OneToMany(mappedBy = "timeSheetList")
     private Professional employee; 
 
     public TimeSheet() {
