@@ -20,7 +20,7 @@ public interface SubscriptionEntitySessionBeanLocal {
 
     public List<SubscriptionEntity> retrieveAllSubscription();
 
-    public Long createNewSubscription(SubscriptionEntity newSubscription);
+    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription);
 
     public SubscriptionEntity retrieveSubscriptionByCompany(CompanyEntity company) throws CompanyNotFoundException;
     

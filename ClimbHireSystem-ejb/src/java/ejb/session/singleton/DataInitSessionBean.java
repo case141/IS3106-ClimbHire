@@ -68,14 +68,13 @@ public class DataInitSessionBean {
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin Two", "password", "admintwo@gmail.com"));
 
             //create base company
-            companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
+            CompanyEntity baseCompany = companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
                     "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())));
             
             //create subscription for base company
-            SubscriptionEntity subscription = new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
-                    100.00, SubscriptionStatusEnum.ACTIVE, new Date(), companySessionBeanLocal.retrieveCompanyByEmail("basecompany@gmail.com"));
-            subscriptionSessionBeanLocal.createNewSubscription(subscription);
-            companySessionBeanLocal.retrieveCompanyByEmail("companyone@gmail.com").setSubscription(subscription);
+            SubscriptionEntity newSubscription = subscriptionSessionBeanLocal.createNewSubscription(new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
+                    100.00, SubscriptionStatusEnum.ACTIVE, new Date(), baseCompany));
+            baseCompany.setSubscription(subscriptionSessionBeanLocal.retrieveSubscriptionByCompany(baseCompany));
         }
         catch(CompanyNotFoundException ex)
         {

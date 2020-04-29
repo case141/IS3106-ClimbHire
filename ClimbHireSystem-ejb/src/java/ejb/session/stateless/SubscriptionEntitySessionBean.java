@@ -30,12 +30,12 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
     private EntityManager em;
 
     @Override
-    public Long createNewSubscription(SubscriptionEntity newSubscription)
+    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription)
     {
         em.persist(newSubscription);
         em.flush();
         
-        return newSubscription.getSubscriptionId();
+        return newSubscription;
     }
     
     @Override

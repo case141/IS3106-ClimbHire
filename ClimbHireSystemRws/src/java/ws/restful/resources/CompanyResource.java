@@ -83,8 +83,8 @@ public class CompanyResource {
         {
          try
          {
-             Long newCompanyId = companyEntitySessionBean.createNewCompany(createNewCompanyReq.getNewCompany());
-             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
+             CompanyEntity newCompany = companyEntitySessionBean.createNewCompany(createNewCompanyReq.getNewCompany());
+             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompany.getCompanyId());
              return Response.status(Status.OK).entity(createNewCompanyRsp).build();
          }
          catch(Exception ex)

@@ -11,5 +11,5 @@ package util.enumeration;
  */
 public enum SubscriptionStatusEnum {
     ACTIVE,
-    TERMINATED
+    INACTIVE
 }

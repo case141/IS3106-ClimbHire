@@ -29,12 +29,12 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     private EntityManager em;
 
     @Override
-    public Long createNewCompany(CompanyEntity newCompany)
+    public CompanyEntity createNewCompany(CompanyEntity newCompany)
     {
         em.persist(newCompany);
         em.flush();
         
-        return newCompany.getCompanyId();
+        return newCompany;
     }
     
     @Override
