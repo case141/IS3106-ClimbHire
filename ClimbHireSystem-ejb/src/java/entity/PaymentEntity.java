@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -13,6 +14,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -30,14 +32,17 @@ public class PaymentEntity implements Serializable {
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private CompanyEntity company;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date paymentDate;
     
     public PaymentEntity() {
     }
 
-    public PaymentEntity(Double amountPaid, String status, CompanyEntity company) {
+    public PaymentEntity(Double amountPaid, String status, CompanyEntity company, Date paymentDate) {
         this.amountPaid = amountPaid;
         this.status = status;
         this.company = company;
+        this.paymentDate = paymentDate;
     }
 
     public Long getPaymentId() {
@@ -46,6 +51,14 @@ public class PaymentEntity implements Serializable {
 
     public void setPaymentId(Long paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public Date getDatePaid() {
+        return paymentDate;
+    }
+
+    public void setDatePaid(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 
     public Double getAmountPaid() {

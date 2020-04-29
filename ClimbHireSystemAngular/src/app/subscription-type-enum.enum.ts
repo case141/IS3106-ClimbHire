@@ -1,2 +1,5 @@
-export enum SubscriptionTypeEnum {
+export enum SubscriptionTypeEnum 
+{
+	MONTHLY,
+	YEARLY
 }

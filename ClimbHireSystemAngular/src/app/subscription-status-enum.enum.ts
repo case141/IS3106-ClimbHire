@@ -1,2 +1,5 @@
-export enum SubscriptionStatusEnum {
+export enum SubscriptionStatusEnum 
+{
+	ACTIVE,
+	INACTIVE
 }

@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import util.enumeration.UserTypeEnum;
 
 /**
  *
@@ -49,19 +50,22 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     private List<ApplicationEntity> jobsApplied;
     @OneToMany(mappedBy = "employee")
     private List<TimeSheetEntity> timeSheetList;
+    private UserTypeEnum userTypeEnum;
 
     public ProfessionalEntity() {
     }
 
-    public ProfessionalEntity(String password, String firstName, String lastName, String address, String email, Integer contactNumber, Date dateJoined, Date dateOfBirth) {
+    public ProfessionalEntity(String password, String firstName, String lastName, String address, String email, char gender, Integer contactNumber, Date dateJoined, Date dateOfBirth, UserTypeEnum userTypeEnum) {
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
+        this.gender = gender;
         this.email = email;
         this.contactNumber = contactNumber;
         this.dateJoined = dateJoined;
         this.dateOfBirth = dateOfBirth;
+        this.userTypeEnum = userTypeEnum;
     }
 
     public Long getUserId() {
@@ -70,6 +74,14 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
 
     public void setUserId(Long userId) {
         this.userId = userId;
+    }
+
+    public UserTypeEnum getUserTypeEnum() {
+        return userTypeEnum;
+    }
+
+    public void setUserTypeEnum(UserTypeEnum userTypeEnum) {
+        this.userTypeEnum = userTypeEnum;
     }
 
     public String getPassword() {

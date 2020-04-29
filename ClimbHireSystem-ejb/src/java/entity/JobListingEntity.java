@@ -50,7 +50,8 @@ public class JobListingEntity implements Serializable {
     public JobListingEntity() {
     }
 
-    public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, String responsibilities, String contract, String status, Integer numOfPositionAvailable) {
+    public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, 
+            String responsibilities, String contract, String status, Integer numOfPositionAvailable, CompanyEntity company) {
         this.jobTitle = jobTitle;
         this.workLocation = workLocation;
         this.datePosted = datePosted;
@@ -60,6 +61,7 @@ public class JobListingEntity implements Serializable {
         this.contract = contract;
         this.status = status;
         this.numOfPositionAvailable = numOfPositionAvailable;
+        this.company = company;
     }
 
     public Long getJobListingId() {
