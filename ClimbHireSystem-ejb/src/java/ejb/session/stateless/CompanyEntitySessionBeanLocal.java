@@ -17,7 +17,7 @@ import util.exception.CompanyNotFoundException;
 @Local
 public interface CompanyEntitySessionBeanLocal {
 
-    public List<CompanyEntity> retrieveAllCompany();
+    public List<CompanyEntity> retrieveAllCompanies();
 
     public Long createNewCompany(CompanyEntity newCompany);
 

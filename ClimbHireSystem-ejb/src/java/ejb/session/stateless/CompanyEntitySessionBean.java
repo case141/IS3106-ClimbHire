@@ -38,7 +38,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public List<CompanyEntity> retrieveAllCompany()
+    public List<CompanyEntity> retrieveAllCompanies()
     {
         Query query = em.createQuery("SELECT c FROM CompanyEntity c");
         
