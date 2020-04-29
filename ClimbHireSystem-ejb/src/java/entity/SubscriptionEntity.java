@@ -7,12 +7,18 @@ package entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
+import javax.validation.constraints.NotNull;
+import util.enumeration.SubscriptionStatusEnum;
+import util.enumeration.SubscriptionTypeEnum;
 
 /**
  *
@@ -25,11 +31,14 @@ public class SubscriptionEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subscriptionId;
-    private String subscriptionType;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    @NotNull
+    private SubscriptionTypeEnum subscriptionTypeEnum;
     private String description;
     private Double amount;
-    private String status;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    private SubscriptionStatusEnum statusEnum;
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date renewalDate;
     @OneToOne(optional=false)
     private CompanyEntity company;
@@ -37,12 +46,13 @@ public class SubscriptionEntity implements Serializable {
     public SubscriptionEntity() {
     }
 
-    public SubscriptionEntity(String subscriptionType, String description, Double amount, String status, Date renewalDate) {
-        this.subscriptionType = subscriptionType;
+    public SubscriptionEntity(SubscriptionTypeEnum subscriptionTypeEnum, String description, Double amount, SubscriptionStatusEnum statusEnum, Date renewalDate, CompanyEntity company) {
+        this.subscriptionTypeEnum = subscriptionTypeEnum;
         this.description = description;
         this.amount = amount;
-        this.status = status;
+        this.statusEnum = statusEnum;
         this.renewalDate = renewalDate;
+        this.company = company;
     }
 
     public Long getSubscriptionId() {
@@ -53,12 +63,12 @@ public class SubscriptionEntity implements Serializable {
         this.subscriptionId = subscriptionId;
     }
 
-    public String getSubscriptionType() {
-        return subscriptionType;
+    public SubscriptionTypeEnum getSubscriptionType() {
+        return subscriptionTypeEnum;
     }
 
-    public void setSubscriptionType(String subscriptionType) {
-        this.subscriptionType = subscriptionType;
+    public void setSubscriptionType(SubscriptionTypeEnum subscriptionTypeEnum) {
+        this.subscriptionTypeEnum = subscriptionTypeEnum;
     }
 
     public String getDescription() {
@@ -77,12 +87,12 @@ public class SubscriptionEntity implements Serializable {
         this.amount = amount;
     }
 
-    public String getStatus() {
-        return status;
+    public SubscriptionStatusEnum getStatus() {
+        return statusEnum;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(SubscriptionStatusEnum statusEnum) {
+        this.statusEnum = statusEnum;
     }
 
     public Date getRenewalDate() {

@@ -22,8 +22,8 @@ import ejb.session.stateless.AdminEntitySessionBeanLocal;
 @RequestScoped
 public class CreateNewAdminManagedBean {
 
-    @EJB(name = "AdminSessionBeanLocal")
-    private AdminEntitySessionBeanLocal adminSessionBeanLocal;
+    @EJB(name = "AdminEntitySessionBeanLocal")
+    private AdminEntitySessionBeanLocal adminEntitySessionBeanLocal;
 
     private AdminEntity newAdmin;
     
@@ -32,13 +32,12 @@ public class CreateNewAdminManagedBean {
      */
     public CreateNewAdminManagedBean() 
     {
-        
         newAdmin = new AdminEntity();
     }
 
     public void createNewAdmin(ActionEvent event)
     {
-        Long newAdminId = adminSessionBeanLocal.createNewAdmin(newAdmin);
+        Long newAdminId = adminEntitySessionBeanLocal.createNewAdmin(newAdmin);
         
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "New Admin created successfully: " + newAdminId, null));
     }
@@ -54,3 +53,4 @@ public class CreateNewAdminManagedBean {
     }
     
 }
+

@@ -14,6 +14,16 @@ import javax.ejb.Startup;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import ejb.session.stateless.AdminEntitySessionBeanLocal;
+import ejb.session.stateless.CompanyEntitySessionBeanLocal;
+import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
+import entity.CompanyEntity;
+import entity.SubscriptionEntity;
+import java.sql.Timestamp;
+import java.util.Date;
+import util.enumeration.SubscriptionStatusEnum;
+import util.enumeration.SubscriptionTypeEnum;
+import util.exception.AdminNotFoundException;
+import util.exception.CompanyNotFoundException;
 
 /**
  *
@@ -26,6 +36,10 @@ public class DataInitSessionBean {
 
     @EJB(name = "AdminEntitySessionBeanLocal")
     private AdminEntitySessionBeanLocal adminSessionBeanLocal;
+    @EJB(name = "CompanyEntitySessionBeanLocal")
+    private CompanyEntitySessionBeanLocal companySessionBeanLocal;
+    @EJB(name = "SubscriptionEntitySessionBeanLocal")
+    private SubscriptionEntitySessionBeanLocal subscriptionSessionBeanLocal;
 
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
@@ -36,10 +50,36 @@ public class DataInitSessionBean {
     @PostConstruct
     public void postConstruct()
     {
-        if(em.find(AdminEntity.class, 111l) == null)
+        try
         {
+            adminSessionBeanLocal.retrieveAdminByName("Admin One");
+        }
+        catch(AdminNotFoundException ex)
+        {
+            initializeData();
+        }
+    }
+    private void initializeData()
+    {
+        try
+        {
+            //create admin
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin One", "password", "adminone@gmail.com"));
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin Two", "password", "admintwo@gmail.com"));
+
+            //create base company
+            companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
+                    "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())));
+            
+            //create subscription for base company
+            SubscriptionEntity subscription = new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
+                    100.00, SubscriptionStatusEnum.ACTIVE, new Date(), companySessionBeanLocal.retrieveCompanyByEmail("basecompany@gmail.com"));
+            subscriptionSessionBeanLocal.createNewSubscription(subscription);
+            companySessionBeanLocal.retrieveCompanyByEmail("companyone@gmail.com").setSubscription(subscription);
         }
+        catch(CompanyNotFoundException ex)
+        {
+            ex.printStackTrace();
+        }    
     }
 }

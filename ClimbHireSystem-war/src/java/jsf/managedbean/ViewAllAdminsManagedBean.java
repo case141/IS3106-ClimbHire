@@ -22,7 +22,7 @@ import ejb.session.stateless.AdminEntitySessionBeanLocal;
 public class ViewAllAdminsManagedBean {
 
     @EJB(name = "AdminSessionBeanLocal")
-    private AdminEntitySessionBeanLocal adminSessionBeanLocal;
+    private AdminEntitySessionBeanLocal adminEntitySessionBeanLocal;
     
     private List<AdminEntity> admins;
 
@@ -35,7 +35,7 @@ public class ViewAllAdminsManagedBean {
     @PostConstruct
     public void postConstruct()
     {
-        admins = adminSessionBeanLocal.retrieveAllAdmins();
+        admins = adminEntitySessionBeanLocal.retrieveAllAdmins();
     }
 
     public List<AdminEntity> getAdmins() {

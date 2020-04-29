@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.AdminEntity;
 import java.util.List;
 import javax.ejb.Local;
+import util.exception.AdminNotFoundException;
 
 /**
  *
@@ -19,5 +20,7 @@ public interface AdminEntitySessionBeanLocal {
     public Long createNewAdmin(AdminEntity newAdmin);
 
     public List<AdminEntity> retrieveAllAdmins();
+
+    public AdminEntity retrieveAdminByName(String adminName) throws AdminNotFoundException;
     
 }

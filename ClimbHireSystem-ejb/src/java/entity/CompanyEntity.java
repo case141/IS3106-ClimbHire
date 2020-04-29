@@ -12,8 +12,6 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -33,20 +31,21 @@ public class CompanyEntity implements Serializable {
     private String password;
     private String email;
     private Integer contactNumber;
-    private String companyBio;
+    private String companyBio; //optional
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfFounding;
-    @Temporal(javax.persistence.TemporalType.DATE)
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateJoined;
     @OneToOne(optional=false)
     private SubscriptionEntity subscription;
     @OneToMany(mappedBy = "company")
-    private List<PaymentEntity> paymentHistory;
+    private List<PaymentEntity> paymentHistory; //optional
 
     public CompanyEntity() {
     }
 
-    public CompanyEntity(String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
+    public CompanyEntity(String companyName, String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
+        this.companyName = companyName;
         this.password = password;
         this.email = email;
         this.contactNumber = contactNumber;
