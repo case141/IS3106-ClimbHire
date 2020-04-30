@@ -5,7 +5,13 @@
  */
 package ejb.session.stateless;
 
+import entity.AdminEntity;
+import entity.ProfessionalEntity;
+import java.util.List;
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -16,4 +22,16 @@ public class ProfessionalEntitySessionBean implements ProfessionalEntitySessionB
 
     // Add business logic below. (Right-click in editor and choose
     // "Insert Code > Add Business Method")
+    
+    @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
+    private EntityManager em;
+    
+    @Override
+    public List<ProfessionalEntity> retrieveAllProfessionals()
+    {
+        Query query = em.createQuery("SELECT p FROM ProfessionalEntity p");
+        
+        return query.getResultList();
+    }
+    
 }
