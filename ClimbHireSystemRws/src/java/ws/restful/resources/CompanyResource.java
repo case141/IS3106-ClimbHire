@@ -38,12 +38,18 @@ public class CompanyResource {
     @Context
     private UriInfo context;
 
-    private CompanyEntitySessionBeanLocal companyEntitySessionBean = lookupCompanyEntitySessionBeanLocal();
+    private final SessionBeanLookup sessionBeanLookup;
+    
+    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal = lookupCompanyEntitySessionBeanLocal();
     
     /**
      * Creates a new instance of CompanyResource
      */
-    public CompanyResource() {
+    public CompanyResource() 
+    {
+        sessionBeanLookup = new SessionBeanLookup();
+        companyEntitySessionBeanLocal = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
+        
     }
 
     /**
@@ -53,13 +59,17 @@ public class CompanyResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllCompanies() {
-        
-        try
-        {
-            List<CompanyEntity> companies = companyEntitySessionBean.retrieveAllCompanies();
-
-            RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);
+        try 
+        {        
+            List<CompanyEntity> companies = companyEntitySessionBeanLocal.retrieveAllCompanies();
             
+            for (CompanyEntity company : companies) 
+            {
+                company.setSubscription(null);
+            }
+            
+            RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);
+
             return Response.status(Status.OK).entity(retrieveAllCompaniesRsp).build();
         }
         catch(Exception ex)
@@ -77,27 +87,28 @@ public class CompanyResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response putXml(CreateNewCompanyReq createNewCompanyReq) {
+     public Response createNewCompany(CreateNewCompanyReq createNewCompanyReq) {
+        
         if(createNewCompanyReq != null)
         {
-            try
-            {
-                Long newCompanyId = companyEntitySessionBean.createNewCompany(createNewCompanyReq.getNewCompany()).getCompanyId();
-
-                CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
-
-                return Response.status(Status.OK).entity(createNewCompanyRsp).build();
-            }
-            catch(Exception ex)
-            {
-                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
-                
-                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
-            }
+         try
+         {           
+             Long newCompanyId = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany()).getCompanyId();
+             
+             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
+             
+             return Response.status(Status.OK).entity(createNewCompanyRsp).build();
+         }
+         catch(Exception ex)
+         {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+         }
         }
-        else
+        else 
         {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid Request");
+            ErrorRsp errorRsp = new ErrorRsp("Invalid request");
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         }
