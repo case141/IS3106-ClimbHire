@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.CompanyEntity;
+import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -13,15 +14,21 @@ import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
+import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.enumeration.SubscriptionStatusEnum;
+import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewCompanyException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.SetCompanySubscriptionException;
+import util.exception.SubscriptionNotFoundException;
+import util.exception.UnknownPersistenceException;
 import util.exception.UpdateCompanyException;
 import util.security.CryptographicHelper;
 
@@ -48,12 +55,42 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public CompanyEntity createNewCompany(CompanyEntity newCompany)
+    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException
     {
-        em.persist(newCompany);
-        em.flush();
+        try
+        {
+            Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
         
-        return newCompany;
+            if(constraintViolations.isEmpty())
+            {
+                em.persist(newCompany);
+                em.flush();
+
+                return newCompany;
+            }
+            else
+            {
+                throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+            }            
+        }
+        catch(PersistenceException ex)
+        {
+            if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
+            {
+                if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
+                {
+                    throw new CompanyEmailExistException();
+                }
+                else
+                {
+                    throw new UnknownPersistenceException(ex.getMessage());
+                }
+            }
+            else
+            {
+                throw new UnknownPersistenceException(ex.getMessage());
+            }
+        }
     }
     
     @Override
@@ -149,7 +186,29 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         }
         else
         {
-            throw new CompanyNotFoundException("Staff ID not provided for staff to be updated");
+            throw new CompanyNotFoundException("Company Id not provided for company to be updated");
+        }
+    }
+    
+    @Override
+    public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException
+    {
+        if(companyEntity != null && companyEntity.getCompanyId()!= null)
+        {
+            CompanyEntity companyEntityToUpdate = retrieveCompanyByCompanyId(companyEntity.getCompanyId());
+
+            if(subscriptionEntity.getCompany().equals(companyEntity))
+            {
+                companyEntityToUpdate.setSubscription(subscriptionEntity);           
+            }
+            else
+            {
+                throw new SetCompanySubscriptionException("Email of company record to be updated does not match the existing record");
+            }
+        }
+        else
+        {
+            throw new CompanyNotFoundException("Company Id not provided for company to be updated");
         }
     }
     

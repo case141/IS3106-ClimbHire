@@ -5,15 +5,13 @@
  */
 package ejb.session.stateless;
 
-import javax.ejb.Stateless;
+import javax.ejb.Local;
 
 /**
  *
  * @author Casse
  */
-@Stateless
-public class JobListingSessionBean implements JobListingSessionBeanLocal {
-
-    // Add business logic below. (Right-click in editor and choose
-    // "Insert Code > Add Business Method")
+@Local
+public interface ApplicationEntitySessionBeanLocal {
+    
 }

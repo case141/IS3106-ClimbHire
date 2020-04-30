@@ -3,12 +3,15 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ws.restful.resources;
+package ejb.session.stateless;
+
+import javax.ejb.Local;
 
 /**
  *
  * @author Casse
  */
-public class SubscriptionResource {
+@Local
+public interface JobListingEntitySessionBeanLocal {
     
 }

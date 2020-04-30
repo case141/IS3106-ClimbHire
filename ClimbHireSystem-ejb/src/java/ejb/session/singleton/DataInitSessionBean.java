@@ -74,7 +74,7 @@ public class DataInitSessionBean {
             //create subscription for base company
             SubscriptionEntity newSubscription = subscriptionSessionBeanLocal.createNewSubscription(new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
                     100.00, SubscriptionStatusEnum.ACTIVE, new Date(), baseCompany));
-            baseCompany.setSubscription(newSubscription);
+            companySessionBeanLocal.setCompanySubscription(baseCompany, newSubscription);
         }
         catch(Exception ex)
         {

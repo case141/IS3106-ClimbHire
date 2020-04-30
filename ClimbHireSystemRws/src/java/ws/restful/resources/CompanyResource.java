@@ -38,7 +38,7 @@ public class CompanyResource {
     @Context
     private UriInfo context;
 
-    CompanyEntitySessionBeanLocal companyEntitySessionBean = lookupCompanyEntitySessionBeanLocal();
+    private CompanyEntitySessionBeanLocal companyEntitySessionBean = lookupCompanyEntitySessionBeanLocal();
     
 
     /**

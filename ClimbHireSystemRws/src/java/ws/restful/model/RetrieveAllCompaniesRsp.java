@@ -5,7 +5,6 @@
  */
 package ws.restful.model;
 
-import entity.AdminEntity;
 import entity.CompanyEntity;
 import java.util.List;
 
