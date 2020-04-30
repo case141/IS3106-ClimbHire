@@ -22,5 +22,7 @@ public interface CompanyEntitySessionBeanLocal {
     public CompanyEntity createNewCompany(CompanyEntity newCompany);
 
     public CompanyEntity retrieveCompanyByEmail(String companyEmail) throws CompanyNotFoundException;
+
+    public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException;
     
 }

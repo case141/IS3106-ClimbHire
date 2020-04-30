@@ -48,10 +48,16 @@ public class JobListingEntity implements Serializable {
     private List<ApplicationEntity> applicationList;
 
     public JobListingEntity() {
+        applicationList = new ArrayList<>();
+        qualifications = new ArrayList<>();
+        skillsRequired = new ArrayList<>();
     }
 
     public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, 
             String responsibilities, String contract, String status, Integer numOfPositionAvailable, CompanyEntity company) {
+        
+        this(); 
+        
         this.jobTitle = jobTitle;
         this.workLocation = workLocation;
         this.datePosted = datePosted;

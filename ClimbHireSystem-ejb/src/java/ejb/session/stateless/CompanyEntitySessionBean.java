@@ -7,13 +7,23 @@ package ejb.session.stateless;
 
 import entity.CompanyEntity;
 import java.util.List;
+import java.util.Set;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.validation.ConstraintViolation;
+import javax.validation.Validation;
+import javax.validation.Validator;
+import javax.validation.ValidatorFactory;
+import util.enumeration.SubscriptionStatusEnum;
 import util.exception.CompanyNotFoundException;
+import util.exception.InputDataValidationException;
+import util.exception.InvalidLoginCredentialException;
+import util.exception.UpdateCompanyException;
+import util.security.CryptographicHelper;
 
 /**
  *
@@ -27,7 +37,16 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
+    
+    private final ValidatorFactory validatorFactory;
+    private final Validator validator;
 
+    public CompanyEntitySessionBean()
+    {
+        validatorFactory = Validation.buildDefaultValidatorFactory();
+        validator = validatorFactory.getValidator();
+    }
+    
     @Override
     public CompanyEntity createNewCompany(CompanyEntity newCompany)
     {
@@ -59,5 +78,90 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         {
             throw new CompanyNotFoundException("Company Username " + companyEmail + " does not exist!");
         }
+    }
+    
+    @Override
+    public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException
+    {
+        CompanyEntity companyEntity = em.find(CompanyEntity.class, companyId);
+        
+        if(companyEntity != null)
+        {
+            return companyEntity;
+        }
+        else
+        {
+            throw new CompanyNotFoundException("Company ID " + companyId + " does not exist!");
+        }
+    }
+    
+    
+    public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException 
+    {
+        try
+        {
+            CompanyEntity companyEntity = retrieveCompanyByEmail(companyEmail);            
+            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + companyEntity.getSalt()));
+            
+            //if password matches and company is active
+            if(companyEntity.getPassword().equals(passwordHash) && companyEntity.getSubscription().getStatus() == SubscriptionStatusEnum.ACTIVE)
+            {             
+                return companyEntity;
+            }
+            else
+            {
+                throw new InvalidLoginCredentialException("Username does not exist or invalid password!");
+            }
+        }
+        catch(CompanyNotFoundException ex)
+        {
+            throw new InvalidLoginCredentialException("Username does not exist or invalid password!");
+        }
+    }
+    
+    public void updateCompanyProfile(CompanyEntity companyEntity) throws CompanyNotFoundException, UpdateCompanyException, InputDataValidationException
+    {
+        if(companyEntity != null && companyEntity.getCompanyId()!= null)
+        {
+            Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(companyEntity);
+        
+            if(constraintViolations.isEmpty())
+            {
+                CompanyEntity companyEntityToUpdate = retrieveCompanyByCompanyId(companyEntity.getCompanyId());
+
+                if(companyEntityToUpdate.getEmail().equals(companyEntity.getEmail()))
+                {
+                    companyEntityToUpdate.setCompanyName(companyEntity.getCompanyName());
+                    companyEntityToUpdate.setContactNumber(companyEntity.getContactNumber());
+                    companyEntityToUpdate.setCompanyBio(companyEntity.getCompanyBio());
+                    companyEntityToUpdate.setDateOfFounding(companyEntity.getDateOfFounding());         
+                    // company cannot update account credentials: email and password through this business method       
+                }
+                else
+                {
+                    throw new UpdateCompanyException("Email of company record to be updated does not match the existing record");
+                }
+            }
+            else
+            {
+                throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+            }
+        }
+        else
+        {
+            throw new CompanyNotFoundException("Staff ID not provided for staff to be updated");
+        }
+    }
+    
+    private String prepareInputDataValidationErrorsMessage(Set<ConstraintViolation<CompanyEntity>>constraintViolations)
+    {
+        String msg = "Input data validation error!:";
+            
+        for(ConstraintViolation constraintViolation:constraintViolations)
+        {
+            msg += "\n\t" + constraintViolation.getPropertyPath() + " - " + constraintViolation.getInvalidValue() + "; " + constraintViolation.getMessage();
+        }
+        
+        return msg;
     }
 }
