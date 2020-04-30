@@ -9,6 +9,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,6 +18,9 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import util.enumeration.UserTypeEnum;
 
 /**
@@ -34,7 +38,11 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     private String firstName;
     private String lastName;
     private String address;
-    private String email;
+    @Column(nullable = false, unique = true, length = 64)
+    @NotNull
+    @Size(max = 64)
+    @Email
+    private String email; //no 2 accounts with the same emails
     private char gender;
     private Integer contactNumber;
     private String profilePicture;

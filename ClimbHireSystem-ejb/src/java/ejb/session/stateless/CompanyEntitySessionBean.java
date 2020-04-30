@@ -104,8 +104,8 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     @Override
     public CompanyEntity retrieveCompanyByEmail(String companyEmail) throws CompanyNotFoundException
     {
-        Query query = em.createQuery("SELECT c FROM CompanyEntity c WHERE c.companyName = :inCompanyName");
-        query.setParameter("inCompanyName", companyEmail);
+        Query query = em.createQuery("SELECT c FROM CompanyEntity c WHERE c.email = :inCompanyEmail");
+        query.setParameter("inCompanyEmail", companyEmail);
         
         try
         {
@@ -113,7 +113,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         }
         catch(NoResultException | NonUniqueResultException ex)
         {
-            throw new CompanyNotFoundException("Company Username " + companyEmail + " does not exist!");
+            throw new CompanyNotFoundException("Company Email " + companyEmail + " does not exist!");
         }
     }
     
