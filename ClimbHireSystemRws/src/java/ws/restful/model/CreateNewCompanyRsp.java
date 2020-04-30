@@ -12,11 +12,11 @@ package ws.restful.model;
 public class CreateNewCompanyRsp {
     
     private Long newCompanyId;
-
-    public CreateNewCompanyRsp(){
+    
+    public CreateNewCompanyRsp() {
         
     }
-    
+
     public CreateNewCompanyRsp(Long newCompanyId) {
         this.newCompanyId = newCompanyId;
     }
@@ -28,6 +28,5 @@ public class CreateNewCompanyRsp {
     public void setNewCompanyId(Long newCompanyId) {
         this.newCompanyId = newCompanyId;
     }
-    
     
 }

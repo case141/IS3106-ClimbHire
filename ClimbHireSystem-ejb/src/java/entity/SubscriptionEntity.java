@@ -40,7 +40,7 @@ public class SubscriptionEntity implements Serializable {
     private SubscriptionStatusEnum statusEnum;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date renewalDate;
-    @OneToOne(optional=false)
+    @OneToOne(optional=true)
     private CompanyEntity company;
 
     public SubscriptionEntity() {

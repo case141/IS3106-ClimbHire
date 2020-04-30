@@ -5,7 +5,16 @@
  */
 package ejb.session.stateless;
 
+import entity.CompanyEntity;
+import entity.JobListingEntity;
+import java.util.List;
 import javax.ejb.Local;
+import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewJobListingException;
+import util.exception.InputDataValidationException;
+import util.exception.JobListingExistException;
+import util.exception.JobListingNotFoundException;
+import util.exception.UnknownPersistenceException;
 
 /**
  *
@@ -13,5 +22,11 @@ import javax.ejb.Local;
  */
 @Local
 public interface JobListingEntitySessionBeanLocal {
+
+    public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException, JobListingExistException;
+
+    public List<CompanyEntity> retrieveAllJobListings();
+
+    public JobListingEntity retrieveJobListingById(Long jobListingId) throws JobListingNotFoundException;
     
 }

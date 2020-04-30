@@ -12,10 +12,9 @@ import entity.CompanyEntity;
  * @author Casse
  */
 public class CreateNewCompanyReq {
-    
     private CompanyEntity newCompany;
 
-    public CreateNewCompanyReq() {
+    public CreateNewCompanyReq(){
         
     }
     

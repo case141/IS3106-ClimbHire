@@ -3,12 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ws.restful.model;
+package util.enumeration;
 
 /**
  *
  * @author Casse
  */
-public class ViewSubscriptionPlan {
-    
+public enum ApplicationStatusEnum {
+    REJECTED,
+    ACCEPTED,
+    PENDING
 }

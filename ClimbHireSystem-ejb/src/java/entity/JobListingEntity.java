@@ -17,6 +17,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import util.enumeration.ApplicationStatusEnum;
 
 /**
  *
@@ -46,6 +47,8 @@ public class JobListingEntity implements Serializable {
     private CompanyEntity company;
     @OneToMany(mappedBy = "createdFor")
     private List<ApplicationEntity> applicationList;
+    @Temporal(javax.persistence.TemporalType.DATE)
+    private Date expiryDate; //date joblisting expires
 
     public JobListingEntity() {
         applicationList = new ArrayList<>();
@@ -69,6 +72,32 @@ public class JobListingEntity implements Serializable {
         this.numOfPositionAvailable = numOfPositionAvailable;
         this.company = company;
     }
+    
+    public void addApplication(ApplicationEntity applicationEntity)
+    {
+        if(applicationEntity != null)
+        {
+            if(!this.applicationList.contains(applicationEntity) 
+                    && applicationEntity.getCreatedFor().equals(this))
+            {
+                this.applicationList.add(applicationEntity);
+            }
+        }
+    }
+    
+    
+    
+    public void removeApplication(ApplicationEntity applicationEntity)
+    {
+        if(applicationEntity != null)
+        {
+            if(this.applicationList.contains(applicationEntity) 
+                    && applicationEntity.getCreatedFor().equals(this))
+            {
+                this.applicationList.remove(applicationEntity);
+            }
+        }
+    }
 
     public Long getJobListingId() {
         return jobListingId;
@@ -76,6 +105,14 @@ public class JobListingEntity implements Serializable {
 
     public void setJobListingId(Long jobListingId) {
         this.jobListingId = jobListingId;
+    }
+
+    public Date getExpiryDate() {
+        return expiryDate;
+    }
+
+    public void setExpiryDate(Date expiryDate) {
+        this.expiryDate = expiryDate;
     }
 
     public String getJobTitle() {

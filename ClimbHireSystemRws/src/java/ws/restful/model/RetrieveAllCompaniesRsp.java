@@ -24,13 +24,12 @@ public class RetrieveAllCompaniesRsp {
         this.companies = companies;
     }
 
-    public List<CompanyEntity> getCompanies() {
+    public List<CompanyEntity> getCompanyEntity() {
         return companies;
     }
 
-    public void setCompanies(List<CompanyEntity> companies) {
+    public void setCompanyEntity(List<CompanyEntity> companies) {
         this.companies = companies;
     }
-    
     
 }

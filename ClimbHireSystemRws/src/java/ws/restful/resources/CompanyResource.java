@@ -40,7 +40,6 @@ public class CompanyResource {
 
     private CompanyEntitySessionBeanLocal companyEntitySessionBean = lookupCompanyEntitySessionBeanLocal();
     
-
     /**
      * Creates a new instance of CompanyResource
      */
@@ -51,15 +50,18 @@ public class CompanyResource {
      * Retrieves representation of an instance of ws.restful.resources.CompanyResource
      * @return an instance of java.lang.String
      */
+    @Path("retrieveAllCompanies")
     @GET
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllCompanies() {
         
-        try{
+        try
+        {
             List<CompanyEntity> companies = companyEntitySessionBean.retrieveAllCompanies();
 
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);
-
+            
             return Response.status(Status.OK).entity(retrieveAllCompaniesRsp).build();
         }
         catch(Exception ex)
@@ -78,31 +80,30 @@ public class CompanyResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     public Response putXml(CreateNewCompanyReq createNewCompanyReq) {
-        
         if(createNewCompanyReq != null)
         {
-         try
-         {
-             CompanyEntity newCompany = companyEntitySessionBean.createNewCompany(createNewCompanyReq.getNewCompany());
-             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompany.getCompanyId());
-             return Response.status(Status.OK).entity(createNewCompanyRsp).build();
-         }
-         catch(Exception ex)
-         {
-            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
-            
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
-         }
+            try
+            {
+                Long newCompanyId = companyEntitySessionBean.createNewCompany(createNewCompanyReq.getNewCompany()).getCompanyId();
+
+                CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
+
+                return Response.status(Status.OK).entity(createNewCompanyRsp).build();
+            }
+            catch(Exception ex)
+            {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+                
+                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            }
         }
-        else 
+        else
         {
-            ErrorRsp errorRsp = new ErrorRsp("Invalid request");
+            ErrorRsp errorRsp = new ErrorRsp("Invalid Request");
             
             return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
         }
     }
-    
-    
 
     private CompanyEntitySessionBeanLocal lookupCompanyEntitySessionBeanLocal() {
         try {

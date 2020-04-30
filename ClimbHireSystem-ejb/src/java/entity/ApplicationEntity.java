@@ -15,6 +15,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
+import util.enumeration.ApplicationStatusEnum;
 
 /**
  *
@@ -27,7 +28,7 @@ public class ApplicationEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long applicationId;
-    private String applicationStatus;
+    private ApplicationStatusEnum applicationStatusEnum;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
     @ManyToOne(optional = true)
@@ -40,8 +41,8 @@ public class ApplicationEntity implements Serializable {
     public ApplicationEntity() {
     }
 
-    public ApplicationEntity(String applicationStatus, Date applicationCreatedDate, ProfessionalEntity createdBy, JobListingEntity createdFor) {
-        this.applicationStatus = applicationStatus;
+    public ApplicationEntity(ApplicationStatusEnum applicationStatusEnum, Date applicationCreatedDate, ProfessionalEntity createdBy, JobListingEntity createdFor) {
+        this.applicationStatusEnum = applicationStatusEnum;
         this.applicationCreatedDate = applicationCreatedDate;
         this.createdBy = createdBy;
         this.createdFor = createdFor;
@@ -55,12 +56,12 @@ public class ApplicationEntity implements Serializable {
         this.applicationId = applicationId;
     }
 
-    public String getApplicationStatus() {
-        return applicationStatus;
+    public ApplicationStatusEnum getApplicationStatusEnum() {
+        return applicationStatusEnum;
     }
 
-    public void setApplicationStatus(String applicationStatus) {
-        this.applicationStatus = applicationStatus;
+    public void setApplicationStatusEnum(ApplicationStatusEnum applicationStatusEnum) {
+        this.applicationStatusEnum = applicationStatusEnum;
     }
 
     public Date getApplicationCreatedDate() {

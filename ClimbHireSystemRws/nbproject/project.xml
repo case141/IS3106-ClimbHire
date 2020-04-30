@@ -15,7 +15,6 @@
                 </library>
                 <library dirs="100">
                     <file>${reference.ClimbHireSystem-ejb.dist}</file>
-                    <path-in-war>WEB-INF/lib</path-in-war>
                 </library>
             </web-module-libraries>
             <web-module-additional-libraries/>
