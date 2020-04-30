@@ -37,6 +37,7 @@ public class RevenueEntity implements Serializable {
     private List<PaymentEntity> paymentRecords;
 
     public RevenueEntity() {
+        paymentRecords = new ArrayList<>();
     }
 
     public RevenueEntity(ArrayList<PaymentEntity> paymentRecords, Double totalRevenue, String month, Date startDate, Date endDate) {

@@ -53,6 +53,11 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     private UserTypeEnum userTypeEnum;
 
     public ProfessionalEntity() {
+        previousWorkExperiences = new ArrayList<>();
+        skills = new ArrayList();
+        jobsApplied = new ArrayList<>();
+        timeSheetList = new ArrayList<>();
+        userTypeEnum = UserTypeEnum.CANDIDATE;
     }
 
     public ProfessionalEntity(String password, String firstName, String lastName, String address, String email, char gender, Integer contactNumber, Date dateJoined, Date dateOfBirth, UserTypeEnum userTypeEnum) {
