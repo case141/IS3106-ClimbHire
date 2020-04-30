@@ -61,6 +61,9 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     }
 
     public ProfessionalEntity(String password, String firstName, String lastName, String address, String email, char gender, Integer contactNumber, Date dateJoined, Date dateOfBirth, UserTypeEnum userTypeEnum) {
+        
+        this();
+        
         this.password = password;
         this.firstName = firstName;
         this.lastName = lastName;

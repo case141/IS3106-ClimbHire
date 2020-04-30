@@ -41,6 +41,8 @@ public class RevenueEntity implements Serializable {
     }
 
     public RevenueEntity(ArrayList<PaymentEntity> paymentRecords, Double totalRevenue, String month, Date startDate, Date endDate) {
+        this();
+        
         this.paymentRecords = paymentRecords;
         this.totalRevenue = totalRevenue;
         this.revenueMonth = month;
