@@ -23,7 +23,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import ws.restful.model.ErrorRsp;
-import ws.restful.model.RetrieveAllAdmins;
+import ws.restful.model.RetrieveAllAdminsRsp;
 import ws.restful.model.RetrieveAllCompaniesRsp;
 
 /**
@@ -56,7 +56,7 @@ public class AdminResource {
         {
             List<AdminEntity> admins = adminEntitySessionBean.retrieveAllAdmins();
 
-            return Response.status(Response.Status.OK).entity(new RetrieveAllAdmins(admins)).build();
+            return Response.status(Response.Status.OK).entity(new RetrieveAllAdminsRsp(admins)).build();
         }
         catch(Exception ex)
         {

@@ -50,9 +50,7 @@ public class CompanyResource {
      * Retrieves representation of an instance of ws.restful.resources.CompanyResource
      * @return an instance of java.lang.String
      */
-    @Path("retrieveAllCompanies")
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllCompanies() {
         

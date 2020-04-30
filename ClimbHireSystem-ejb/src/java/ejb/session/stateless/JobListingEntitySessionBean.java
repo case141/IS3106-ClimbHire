@@ -20,7 +20,6 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
-import util.enumeration.ApplicationStatusEnum;
 import util.exception.ApplicationNotFoundException;
 import util.exception.CompanyNotFoundException;
 import util.exception.CreateNewJobListingException;
@@ -131,7 +130,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
         }
     }
     
-    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException
+    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds, List<String> qualifications, List<String> skillsRequired) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException
     {
         if(jobListingEntity != null && jobListingEntity.getJobListingId()!= null)
         {
@@ -149,6 +148,18 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
                         jobListingEntityToUpdate.addApplication(applicationEntity);
                     }
                 }
+                if(qualifications != null)
+                {
+                    qualifications.forEach((qualification) -> {
+                        jobListingEntityToUpdate.addQualification(qualification);
+                    });
+                }
+                if(skillsRequired != null)
+                {
+                    skillsRequired.forEach((skillRequired) -> {
+                        jobListingEntityToUpdate.addSkillsRequired(skillRequired);
+                    });
+                }
                 
                 //A job listing's company cannot be changed
                 jobListingEntityToUpdate.setJobTitle(jobListingEntity.getJobTitle());
@@ -157,6 +168,8 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
                 jobListingEntityToUpdate.setContract(jobListingEntity.getContract());
                 jobListingEntityToUpdate.setPayPerHour(jobListingEntity.getPayPerHour());
                 jobListingEntityToUpdate.setResponsibilities(jobListingEntity.getResponsibilities());
+                jobListingEntityToUpdate.setJobListingStatusEnum(jobListingEntity.getJobListingStatusEnum());
+                jobListingEntityToUpdate.setExpiryDate(jobListingEntity.getExpiryDate());
             }
             else
             {

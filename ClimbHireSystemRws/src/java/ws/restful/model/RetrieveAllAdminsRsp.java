@@ -12,15 +12,15 @@ import java.util.List;
  *
  * @author Casse
  */
-public class RetrieveAllAdmins {
+public class RetrieveAllAdminsRsp {
     
     public List<AdminEntity> admins;
 
-    public RetrieveAllAdmins(){
+    public RetrieveAllAdminsRsp(){
         
     }
             
-    public RetrieveAllAdmins(List<AdminEntity> admins) {
+    public RetrieveAllAdminsRsp(List<AdminEntity> admins) {
         this.admins = admins;
     }
 

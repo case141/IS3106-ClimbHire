@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import util.enumeration.ApplicationStatusEnum;
+import util.enumeration.JobListingStatusEnum;
 
 /**
  *
@@ -40,7 +41,7 @@ public class JobListingEntity implements Serializable {
     private ArrayList<String> qualifications; //e.g. university, secondary, certifications, etc
     private ArrayList<String> skillsRequired; //e.g. knowledge in Java, etc
     private String contract;
-    private String status; //same as vacancy status (i.e. Pending, Closed, etc)
+    private JobListingStatusEnum jobListingStatusEnum; //same as listing jobListingStatusEnum (i.e. Open, Closed)
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
@@ -57,7 +58,7 @@ public class JobListingEntity implements Serializable {
     }
 
     public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, 
-            String responsibilities, String contract, String status, Integer numOfPositionAvailable, CompanyEntity company) {
+            String responsibilities, String contract, JobListingStatusEnum jobListingStatusEnum, Integer numOfPositionAvailable, CompanyEntity company) {
         
         this(); 
         
@@ -68,17 +69,48 @@ public class JobListingEntity implements Serializable {
         this.payPerHour = payPerHour;
         this.responsibilities = responsibilities;
         this.contract = contract;
-        this.status = status;
+        this.jobListingStatusEnum = jobListingStatusEnum;
         this.numOfPositionAvailable = numOfPositionAvailable;
         this.company = company;
+    }
+    
+    public void addQualification(String qualification)
+    {
+        if(!qualification.equals(""))
+        {
+            this.qualifications.add(qualification);
+        }
+    }
+    
+    public void removeQualification(String qualification)
+    {
+        if(!qualification.equals(""))
+        {
+            this.qualifications.remove(qualification);
+        }
+    }
+    
+    public void addSkillsRequired(String skillRequired)
+    {
+        if(!skillRequired.equals(""))
+        {
+            this.skillsRequired.add(skillRequired);
+        }
+    }
+    
+    public void removeSkillsRequired(String skillRequired)
+    {
+        if(!skillRequired.equals(""))
+        {
+            this.skillsRequired.remove(skillRequired);
+        }
     }
     
     public void addApplication(ApplicationEntity applicationEntity)
     {
         if(applicationEntity != null)
         {
-            if(!this.applicationList.contains(applicationEntity) 
-                    && applicationEntity.getCreatedFor().equals(this))
+            if(!this.applicationList.contains(applicationEntity))
             {
                 this.applicationList.add(applicationEntity);
             }
@@ -91,8 +123,7 @@ public class JobListingEntity implements Serializable {
     {
         if(applicationEntity != null)
         {
-            if(this.applicationList.contains(applicationEntity) 
-                    && applicationEntity.getCreatedFor().equals(this))
+            if(this.applicationList.contains(applicationEntity))
             {
                 this.applicationList.remove(applicationEntity);
             }
@@ -187,12 +218,12 @@ public class JobListingEntity implements Serializable {
         this.contract = contract;
     }
 
-    public String getStatus() {
-        return status;
+    public JobListingStatusEnum getJobListingStatusEnum() {
+        return jobListingStatusEnum;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setJobListingStatusEnum(JobListingStatusEnum jobListingStatusEnum) {
+        this.jobListingStatusEnum = jobListingStatusEnum;
     }
 
     public Integer getNumOfPositionAvailable() {
