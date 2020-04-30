@@ -22,6 +22,7 @@ public class ApplicationConfig extends Application {
     private void addRestResourceClasses(Set<Class<?>> resources) {
         resources.add(ws.restful.resources.AdminResource.class);
         resources.add(ws.restful.resources.CompanyResource.class);
+        resources.add(ws.restful.resources.JobListingResource.class);
         resources.add(ws.restful.resources.SubscriptionResource.class);
     }
 }

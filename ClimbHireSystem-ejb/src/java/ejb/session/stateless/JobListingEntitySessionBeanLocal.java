@@ -25,7 +25,7 @@ public interface JobListingEntitySessionBeanLocal {
 
     public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException, JobListingExistException;
 
-    public List<CompanyEntity> retrieveAllJobListings();
+    public List<JobListingEntity> retrieveAllJobListings();
 
     public JobListingEntity retrieveJobListingById(Long jobListingId) throws JobListingNotFoundException;
     

@@ -7,6 +7,7 @@ package ws.restful.resources;
 
 import ejb.session.stateless.AdminEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
+import ejb.session.stateless.JobListingEntitySessionBeanLocal;
 import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -43,6 +44,16 @@ public class SessionBeanLookup {
         try {
             javax.naming.Context c = new InitialContext();
             return (SubscriptionEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/SubscriptionEntitySessionBean!ejb.session.stateless.SubscriptionEntitySessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+
+    public JobListingEntitySessionBeanLocal lookupJobListingEntitySessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (JobListingEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/JobListingEntitySessionBean!ejb.session.stateless.JobListingEntitySessionBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);
