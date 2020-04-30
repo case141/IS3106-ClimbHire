@@ -7,6 +7,7 @@ package ws.restful.resources;
 
 import ejb.session.stateless.AdminEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
+import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -14,11 +15,8 @@ import javax.naming.NamingException;
 
 public class SessionBeanLookup {
     
-    private final String ejbModuleJndiPath;
-    
     public SessionBeanLookup()
     {
-        ejbModuleJndiPath = "java:global/ClimbHireSystem/ClimbHireSystem-ejb/";
     }
     
     public AdminEntitySessionBeanLocal lookupAdminEntitySessionBeanLocal() {
@@ -30,7 +28,7 @@ public class SessionBeanLookup {
             throw new RuntimeException(ne);
         }
     }
-    
+
     public CompanyEntitySessionBeanLocal lookupCompanyEntitySessionBeanLocal() {
         try {
             javax.naming.Context c = new InitialContext();
@@ -41,4 +39,13 @@ public class SessionBeanLookup {
         }
     }
     
+    public SubscriptionEntitySessionBeanLocal lookupSubscriptionEntitySessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (SubscriptionEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/SubscriptionEntitySessionBean!ejb.session.stateless.SubscriptionEntitySessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
 }

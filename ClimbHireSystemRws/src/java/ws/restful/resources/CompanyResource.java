@@ -19,9 +19,11 @@ import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
+import util.exception.InvalidLoginCredentialException;
+import ws.restful.model.CompanyLoginRsp;
 import ws.restful.model.CreateNewCompanyReq;
 import ws.restful.model.CreateNewCompanyRsp;
 import ws.restful.model.ErrorRsp;
@@ -37,21 +39,54 @@ public class CompanyResource {
 
     @Context
     private UriInfo context;
-
+    
     private final SessionBeanLookup sessionBeanLookup;
-    
-    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal = lookupCompanyEntitySessionBeanLocal();
-    
+            
+    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal;
+
     /**
      * Creates a new instance of CompanyResource
      */
-    public CompanyResource() 
-    {
-        sessionBeanLookup = new SessionBeanLookup();
-        companyEntitySessionBeanLocal = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
+    public CompanyResource() {
         
+        sessionBeanLookup = new SessionBeanLookup();
+        
+        companyEntitySessionBeanLocal = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
     }
 
+    
+    @Path("companyLogin")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response companyLogin(@QueryParam("email") String email, 
+                                @QueryParam("password") String password)
+    {
+        try
+        {
+            CompanyEntity companyEntity = companyEntitySessionBeanLocal.companyLogin(email, password);
+            System.out.println("********** CompanyResource.companyLogin(): Company " + companyEntity.getEmail()+ " login remotely via web service");
+            companyEntity.setPassword(null);
+            companyEntity.setSalt(null);
+            companyEntity.setSubscription(null);
+            companyEntity.getPaymentHistory().clear();            
+            
+            return Response.status(Response.Status.OK).entity(new CompanyLoginRsp(companyEntity)).build();
+        }
+        catch(InvalidLoginCredentialException ex)
+        {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Response.Status.UNAUTHORIZED).entity(errorRsp).build();
+        }
+        catch(Exception ex)
+        {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+        }
+    }
+    
     /**
      * Retrieves representation of an instance of ws.restful.resources.CompanyResource
      * @return an instance of java.lang.String
@@ -59,8 +94,8 @@ public class CompanyResource {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllCompanies() {
-        try 
-        {        
+        try
+        {
             List<CompanyEntity> companies = companyEntitySessionBeanLocal.retrieveAllCompanies();
             
             for (CompanyEntity company : companies) 
@@ -70,13 +105,13 @@ public class CompanyResource {
             
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);
 
-            return Response.status(Status.OK).entity(retrieveAllCompaniesRsp).build();
+            return Response.status(Response.Status.OK).entity(retrieveAllCompaniesRsp).build();
         }
         catch(Exception ex)
         {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
         }
     }
 
@@ -97,30 +132,21 @@ public class CompanyResource {
              
              CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
              
-             return Response.status(Status.OK).entity(createNewCompanyRsp).build();
+             return Response.status(Response.Status.OK).entity(createNewCompanyRsp).build();
          }
          catch(Exception ex)
          {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
          }
         }
         else 
         {
             ErrorRsp errorRsp = new ErrorRsp("Invalid request");
             
-            return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
+            return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
         }
     }
-
-    private CompanyEntitySessionBeanLocal lookupCompanyEntitySessionBeanLocal() {
-        try {
-            javax.naming.Context c = new InitialContext();
-            return (CompanyEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/CompanyEntitySessionBean!ejb.session.stateless.CompanyEntitySessionBeanLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
+     
 }

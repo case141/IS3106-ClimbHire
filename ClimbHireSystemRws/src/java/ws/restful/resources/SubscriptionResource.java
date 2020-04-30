@@ -34,7 +34,9 @@ import ws.restful.model.RetrieveAllSubscriptionsRsp;
 @Path("Subscription")
 public class SubscriptionResource {
 
-    private SubscriptionEntitySessionBeanLocal subscriptionEntitySessionBean = lookupSubscriptionEntitySessionBeanLocal();
+    private SessionBeanLookup sessionBeanLookup;
+    
+    private SubscriptionEntitySessionBeanLocal subscriptionEntitySessionBean;
 
     @Context
     private UriInfo context;
@@ -43,6 +45,9 @@ public class SubscriptionResource {
      * Creates a new instance of SubscriptionResource
      */
     public SubscriptionResource() {
+        sessionBeanLookup = new SessionBeanLookup();
+        
+        subscriptionEntitySessionBean = sessionBeanLookup.lookupSubscriptionEntitySessionBeanLocal();
     }
 
     /**
@@ -55,7 +60,12 @@ public class SubscriptionResource {
         try
         {
             List<SubscriptionEntity> subscriptions = subscriptionEntitySessionBean.retrieveAllSubscription();
-
+            
+            for (SubscriptionEntity subscription : subscriptions) 
+            {
+                subscription.setCompany(null);
+            }
+            
             RetrieveAllSubscriptionsRsp retrieveAllSubscriptionsRsp = new RetrieveAllSubscriptionsRsp(subscriptions);
 
             return Response.status(Response.Status.OK).entity(retrieveAllSubscriptionsRsp).build();
@@ -77,13 +87,4 @@ public class SubscriptionResource {
     public void putXml(String content) {
     }
 
-    private SubscriptionEntitySessionBeanLocal lookupSubscriptionEntitySessionBeanLocal() {
-        try {
-            javax.naming.Context c = new InitialContext();
-            return (SubscriptionEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/SubscriptionEntitySessionBean!ejb.session.stateless.SubscriptionEntitySessionBeanLocal");
-        } catch (NamingException ne) {
-            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
-            throw new RuntimeException(ne);
-        }
-    }
 }

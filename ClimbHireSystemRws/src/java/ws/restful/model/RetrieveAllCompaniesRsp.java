@@ -14,21 +14,20 @@ import java.util.List;
  */
 public class RetrieveAllCompaniesRsp {
     
-    public List<CompanyEntity> companies;
+    private List<CompanyEntity> companies;
 
-    public RetrieveAllCompaniesRsp(){
-        
+    public RetrieveAllCompaniesRsp() {
     }
-    
+
     public RetrieveAllCompaniesRsp(List<CompanyEntity> companies) {
         this.companies = companies;
     }
 
-    public List<CompanyEntity> getCompanyEntity() {
+    public List<CompanyEntity> getCompanies() {
         return companies;
     }
 
-    public void setCompanyEntity(List<CompanyEntity> companies) {
+    public void setCompanies(List<CompanyEntity> companies) {
         this.companies = companies;
     }
     

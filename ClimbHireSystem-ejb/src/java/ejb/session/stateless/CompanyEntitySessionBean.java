@@ -132,7 +132,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         }
     }
     
-    
+    @Override
     public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException 
     {
         try
@@ -147,7 +147,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
             }
             else
             {
-                throw new InvalidLoginCredentialException("Username does not exist or invalid password!");
+                throw new InvalidLoginCredentialException("Email does not exist or invalid password!");
             }
         }
         catch(CompanyNotFoundException ex)

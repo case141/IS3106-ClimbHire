@@ -12,9 +12,9 @@ import javax.ejb.Local;
 import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
 import util.exception.InputDataValidationException;
+import util.exception.InvalidLoginCredentialException;
 import util.exception.SetCompanySubscriptionException;
 import util.exception.UnknownPersistenceException;
-import util.exception.UpdateCompanyException;
 
 /**
  *
@@ -32,5 +32,7 @@ public interface CompanyEntitySessionBeanLocal {
     public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException;
 
     public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException;
+
+    public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException;
    
 }
