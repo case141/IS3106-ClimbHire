@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import util.enumeration.PaymentStatusEnum;
 
@@ -30,19 +29,20 @@ public class PaymentEntity implements Serializable {
     private Long paymentId;
     private Double amountPaid;
     private PaymentStatusEnum paymentStatusEnum;
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
-    private CompanyEntity company;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date paymentDate;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CompanyEntity company;
+    
     
     public PaymentEntity() {
     }
 
-    public PaymentEntity(Double amountPaid, PaymentStatusEnum paymentStatusEnum, CompanyEntity company, Date paymentDate) {
+    public PaymentEntity(Double amountPaid, PaymentStatusEnum paymentStatusEnum, Date paymentDate) {
         this.amountPaid = amountPaid;
         this.paymentStatusEnum = paymentStatusEnum;
-        this.company = company;
         this.paymentDate = paymentDate;
     }
 
@@ -110,5 +110,6 @@ public class PaymentEntity implements Serializable {
     public String toString() {
         return "entity.Payment[ id=" + paymentId + " ]";
     }
+
     
 }

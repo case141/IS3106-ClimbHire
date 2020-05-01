@@ -75,21 +75,24 @@ public class DataInitSessionBean {
             //create admin
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin One", "password", "adminone@gmail.com"));
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin Two", "password", "admintwo@gmail.com"));
-
+            
+            
             //create base company
             CompanyEntity baseCompany = companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
-                    "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())));
+                    "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())), null, null);
             
             //create subscription for base company
             SubscriptionEntity newSubscription = subscriptionSessionBeanLocal.createNewSubscription(new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
-                    100.00, SubscriptionStatusEnum.ACTIVE, new Date(), baseCompany));
+                    100.00, SubscriptionStatusEnum.ACTIVE, new Date()), baseCompany.getCompanyId());
             companySessionBeanLocal.setCompanySubscription(baseCompany, newSubscription);
             
             jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("IOS Application Developer", "Clementi Building 1", new Date(), 5000.00, 30.00, 
                     "Designing and building mobile applications for Apple's IOS platform.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
         
-            PaymentEntity payment = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            PaymentEntity payment = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, new Date()), baseCompany.getCompanyId());
             baseCompany.getPaymentHistory().add(payment);
+            
+            
         }
         catch(Exception ex)
         {

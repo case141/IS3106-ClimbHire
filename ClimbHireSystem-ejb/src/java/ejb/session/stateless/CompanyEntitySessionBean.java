@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.CompanyEntity;
+import entity.PaymentEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
@@ -23,11 +24,9 @@ import javax.validation.ValidatorFactory;
 import util.enumeration.SubscriptionStatusEnum;
 import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
-import util.exception.CreateNewCompanyException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.SetCompanySubscriptionException;
-import util.exception.SubscriptionNotFoundException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UpdateCompanyException;
 import util.security.CryptographicHelper;
@@ -55,7 +54,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException
+    public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException
     {
         try
         {
@@ -64,6 +63,9 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
             if(constraintViolations.isEmpty())
             {
                 em.persist(newCompany);
+                newCompany.setSubscription(newSubscription);
+                newCompany.getPaymentHistory().add(newPaymentRecord);
+                
                 em.flush();
 
                 return newCompany;

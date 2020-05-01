@@ -38,6 +38,7 @@ public class TimeSheetEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date overTimeHours;
     private Double totalPay;
+    
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private ProfessionalEntity employee; 

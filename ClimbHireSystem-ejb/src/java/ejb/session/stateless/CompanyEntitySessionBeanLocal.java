@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.CompanyEntity;
+import entity.PaymentEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import javax.ejb.Local;
@@ -29,7 +30,7 @@ public interface CompanyEntitySessionBeanLocal {
 
     public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException;
 
-    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException;
+     public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException;
 
     public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException;
 

@@ -13,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Temporal;
 import util.enumeration.ApplicationStatusEnum;
 
@@ -31,9 +30,11 @@ public class ApplicationEntity implements Serializable {
     private ApplicationStatusEnum applicationStatusEnum;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date applicationCreatedDate;
+    
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private ProfessionalEntity createdBy;
+    
     @ManyToOne(optional = true)
     @JoinColumn(nullable = true)
     private JobListingEntity createdFor;

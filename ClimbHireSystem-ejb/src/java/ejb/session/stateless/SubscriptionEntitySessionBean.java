@@ -9,6 +9,7 @@ import entity.CompanyEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -21,11 +22,11 @@ import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewSubscriptionException;
 import util.exception.InputDataValidationException;
 import util.exception.SubscriptionCompanyExistException;
 import util.exception.SubscriptionNotFoundException;
 import util.exception.UnknownPersistenceException;
-import util.exception.UpdateCompanyException;
 
 /**
  *
@@ -39,6 +40,9 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
     
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
+    
+    @EJB
+    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal;
 
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
@@ -50,36 +54,34 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
     }
     
     @Override
-    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription) throws SubscriptionCompanyExistException, UnknownPersistenceException, InputDataValidationException
+    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription, Long companyId) throws SubscriptionCompanyExistException, UnknownPersistenceException, InputDataValidationException, CreateNewSubscriptionException
     {
-        Set<ConstraintViolation<SubscriptionEntity>>constraintViolations = validator.validate(newSubscription);
-        
+        Set<ConstraintViolation<SubscriptionEntity>>constraintViolations = validator.validate(newSubscription);       
         if(constraintViolations.isEmpty())
         {  
             try
             {
+                if(companyId == null)
+                {
+                    throw new CreateNewSubscriptionException("The new subscription must be associated with a company");
+                }
+                
+                CompanyEntity companyEntity = companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(companyId);
+                
                 em.persist(newSubscription);
+                newSubscription.setCompany(companyEntity);
+                
                 em.flush();
 
                 return newSubscription;
             }
             catch(PersistenceException ex)
             {
-                if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
-                {
-                    if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
-                    {
-                        throw new SubscriptionCompanyExistException();
-                    }
-                    else
-                    {
-                        throw new UnknownPersistenceException(ex.getMessage());
-                    }
-                }
-                else
-                {
-                    throw new UnknownPersistenceException(ex.getMessage());
-                }
+                throw new UnknownPersistenceException(ex.getMessage());
+            }
+            catch(CompanyNotFoundException ex)
+            {
+                throw new CreateNewSubscriptionException("An error has occurred while creating the new subscription: " + ex.getMessage());
             }
         }
         else

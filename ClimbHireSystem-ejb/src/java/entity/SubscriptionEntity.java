@@ -6,7 +6,9 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -14,6 +16,7 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 import javax.validation.constraints.NotNull;
@@ -40,19 +43,24 @@ public class SubscriptionEntity implements Serializable {
     private SubscriptionStatusEnum statusEnum;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date renewalDate;
-    @OneToOne(optional=true)
+    
+    @OneToOne(optional = false)
     private CompanyEntity company;
+    
+   
+   
 
     public SubscriptionEntity() {
+        
+  
     }
 
-    public SubscriptionEntity(SubscriptionTypeEnum subscriptionTypeEnum, String description, Double amount, SubscriptionStatusEnum statusEnum, Date renewalDate, CompanyEntity company) {
+    public SubscriptionEntity(SubscriptionTypeEnum subscriptionTypeEnum, String description, Double amount, SubscriptionStatusEnum statusEnum, Date renewalDate) {
         this.subscriptionTypeEnum = subscriptionTypeEnum;
         this.description = description;
         this.amount = amount;
         this.statusEnum = statusEnum;
         this.renewalDate = renewalDate;
-        this.company = company;
     }
 
     public Long getSubscriptionId() {

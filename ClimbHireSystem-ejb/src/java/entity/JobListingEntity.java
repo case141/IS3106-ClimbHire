@@ -43,9 +43,11 @@ public class JobListingEntity implements Serializable {
     private String contract;
     private JobListingStatusEnum jobListingStatusEnum; //same as listing jobListingStatusEnum (i.e. Open, Closed)
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
+    
     @ManyToOne(optional = false)
     @JoinColumn(nullable = false)
     private CompanyEntity company;
+    
     @OneToMany(mappedBy = "createdFor")
     private List<ApplicationEntity> applicationList;
     @Temporal(javax.persistence.TemporalType.DATE)

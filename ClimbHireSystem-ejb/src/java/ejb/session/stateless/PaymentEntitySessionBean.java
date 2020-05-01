@@ -6,9 +6,11 @@
 package ejb.session.stateless;
 
 import entity.AdminEntity;
+import entity.CompanyEntity;
 import entity.PaymentEntity;
 import java.util.List;
 import java.util.Set;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -18,6 +20,8 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewPaymentRecordException;
 import util.exception.InputDataValidationException;
 import util.exception.PaymentCompanyExistException;
 import util.exception.UnknownPersistenceException;
@@ -34,6 +38,8 @@ public class PaymentEntitySessionBean implements PaymentEntitySessionBeanLocal {
     
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
+    @EJB
+    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal;
     
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
@@ -45,36 +51,35 @@ public class PaymentEntitySessionBean implements PaymentEntitySessionBeanLocal {
     }
     
     @Override
-    public PaymentEntity createNewPayment(PaymentEntity newPayment) throws PaymentCompanyExistException, UnknownPersistenceException, InputDataValidationException
+    public PaymentEntity createNewPayment(PaymentEntity newPaymentRecord, Long companyId) throws PaymentCompanyExistException, UnknownPersistenceException, InputDataValidationException, CreateNewPaymentRecordException
     {
-        Set<ConstraintViolation<PaymentEntity>>constraintViolations = validator.validate(newPayment);
+        Set<ConstraintViolation<PaymentEntity>>constraintViolations = validator.validate(newPaymentRecord);
         
         if(constraintViolations.isEmpty())
         {  
             try
             {
-                em.persist(newPayment);
+                if(companyId == null)
+                {
+                    throw new CreateNewPaymentRecordException("The new payment record must be associated with a company");
+                }
+                
+                CompanyEntity companyEntity = companyEntitySessionBeanLocal.retrieveCompanyByCompanyId(companyId);
+                
+                em.persist(newPaymentRecord);
+                newPaymentRecord.setCompany(companyEntity);
+                
                 em.flush();
 
-                return newPayment;
+                return newPaymentRecord;
             }
             catch(PersistenceException ex)
             {
-                if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
-                {
-                    if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
-                    {
-                        throw new PaymentCompanyExistException();
-                    }
-                    else
-                    {
-                        throw new UnknownPersistenceException(ex.getMessage());
-                    }
-                }
-                else
-                {
-                    throw new UnknownPersistenceException(ex.getMessage());
-                }
+                throw new UnknownPersistenceException(ex.getMessage());
+            }
+            catch(CompanyNotFoundException ex)
+            {
+                throw new CreateNewPaymentRecordException("An error has occurred while creating the new payment record: " + ex.getMessage());
             }
         }
         else

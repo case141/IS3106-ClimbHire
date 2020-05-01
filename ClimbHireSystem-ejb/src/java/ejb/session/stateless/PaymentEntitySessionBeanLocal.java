@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.PaymentEntity;
 import java.util.List;
 import javax.ejb.Local;
+import util.exception.CreateNewPaymentRecordException;
 import util.exception.InputDataValidationException;
 import util.exception.PaymentCompanyExistException;
 import util.exception.UnknownPersistenceException;
@@ -19,7 +20,7 @@ import util.exception.UnknownPersistenceException;
 @Local
 public interface PaymentEntitySessionBeanLocal {
 
-    public PaymentEntity createNewPayment(PaymentEntity newPayment) throws PaymentCompanyExistException, UnknownPersistenceException, InputDataValidationException;
+    public PaymentEntity createNewPayment(PaymentEntity newPaymentRecord, Long companyId) throws PaymentCompanyExistException, UnknownPersistenceException, InputDataValidationException, CreateNewPaymentRecordException;
     
     public List<PaymentEntity> retrieveAllPaymentRecords();
     

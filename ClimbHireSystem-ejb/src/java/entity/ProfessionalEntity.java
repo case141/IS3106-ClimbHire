@@ -54,17 +54,26 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
+    
     @OneToMany(mappedBy = "createdBy")
     private List<ApplicationEntity> jobsApplied;
+    
     @OneToMany(mappedBy = "employee")
-    private List<TimeSheetEntity> timeSheetList;
+    private List<TimeSheetEntity> timeSheets;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CompanyEntity company;
+    
+    
+    
     private UserTypeEnum userTypeEnum;
 
     public ProfessionalEntity() {
         previousWorkExperiences = new ArrayList<>();
         skills = new ArrayList();
         jobsApplied = new ArrayList<>();
-        timeSheetList = new ArrayList<>();
+        timeSheets = new ArrayList<>();
         userTypeEnum = UserTypeEnum.CANDIDATE;
     }
 
@@ -212,12 +221,12 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
         this.jobsApplied = jobsApplied;
     }
 
-    public List<TimeSheetEntity> getTimeSheetList() {
-        return timeSheetList;
+    public List<TimeSheetEntity> getTimeSheets() {
+        return timeSheets;
     }
 
-    public void setTimeSheetList(List<TimeSheetEntity> timeSheetList) {
-        this.timeSheetList = timeSheetList;
+    public void setTimeSheets(List<TimeSheetEntity> timeSheets) {
+        this.timeSheets = timeSheets;
     }
 
     @Override
@@ -243,6 +252,14 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     @Override
     public String toString() {
         return "entity.Candidate[ id=" + userId + " ]";
+    }
+
+    public CompanyEntity getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyEntity company) {
+        this.company = company;
     }
     
 }

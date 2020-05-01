@@ -6,6 +6,8 @@
 package ws.restful.model;
 
 import entity.CompanyEntity;
+import entity.PaymentEntity;
+import entity.SubscriptionEntity;
 
 /**
  *
@@ -13,13 +15,17 @@ import entity.CompanyEntity;
  */
 public class CreateNewCompanyReq {
     private CompanyEntity newCompany;
+    private SubscriptionEntity newSubscription;
+    private PaymentEntity newPaymentRecord;
 
     public CreateNewCompanyReq(){
         
     }
     
-    public CreateNewCompanyReq(CompanyEntity newCompany) {
+    public CreateNewCompanyReq(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) {
         this.newCompany = newCompany;
+        this.newSubscription = newSubscription;
+        this.newPaymentRecord = newPaymentRecord;
     }
 
     public CompanyEntity getNewCompany() {
@@ -28,6 +34,22 @@ public class CreateNewCompanyReq {
 
     public void setNewCompany(CompanyEntity newCompany) {
         this.newCompany = newCompany;
+    }
+
+    public SubscriptionEntity getNewSubscription() {
+        return newSubscription;
+    }
+
+    public void setNewSubscription(SubscriptionEntity newSubscription) {
+        this.newSubscription = newSubscription;
+    }
+
+    public PaymentEntity getNewPaymentRecord() {
+        return newPaymentRecord;
+    }
+
+    public void setNewPaymentRecord(PaymentEntity newPaymentRecord) {
+        this.newPaymentRecord = newPaymentRecord;
     }
     
     

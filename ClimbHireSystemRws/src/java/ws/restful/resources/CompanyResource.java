@@ -8,10 +8,6 @@ package ws.restful.resources;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import entity.CompanyEntity;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -126,15 +122,15 @@ public class CompanyResource {
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-     public Response createNewCompany(CreateNewCompanyReq createNewCompanyReq) {
-        
+     public Response createNewCompany(CreateNewCompanyReq createNewCompanyReq) 
+     {    
         if(createNewCompanyReq != null)
         {
          try
          {           
-             Long newCompanyId = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany()).getCompanyId();
+             CompanyEntity companyEntity = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany(), createNewCompanyReq.getNewSubscription(), createNewCompanyReq.getNewPaymentRecord());
              
-             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(newCompanyId);
+             CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(companyEntity.getCompanyId());
              
              return Response.status(Response.Status.OK).entity(createNewCompanyRsp).build();
          }

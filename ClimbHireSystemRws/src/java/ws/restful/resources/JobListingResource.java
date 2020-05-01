@@ -45,7 +45,7 @@ public class JobListingResource {
     private final SessionBeanLookup sessionBeanLookup;
 
     private final JobListingEntitySessionBeanLocal jobListingEntitySessionBean;
-    private final CompanyEntitySessionBeanLocal companyEntitySessionBean;
+    private final CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal;
     
     
     /**
@@ -55,7 +55,7 @@ public class JobListingResource {
         sessionBeanLookup = new SessionBeanLookup();
         
         jobListingEntitySessionBean = sessionBeanLookup.lookupJobListingEntitySessionBeanLocal();
-        companyEntitySessionBean = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
+        companyEntitySessionBeanLocal = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
     }
 
     /**
@@ -101,7 +101,7 @@ public class JobListingResource {
         if(createJobListingReq != null){
             try {
                     
-                CompanyEntity companyEntity = companyEntitySessionBean.companyLogin(createJobListingReq.getEmail(), createJobListingReq.getPassword());
+                CompanyEntity companyEntity = companyEntitySessionBeanLocal.companyLogin(createJobListingReq.getEmail(), createJobListingReq.getPassword());
                 
                 JobListingEntity jobListingEntity  = jobListingEntitySessionBean.createNewJobListing(createJobListingReq.getJobListingEntity(), createJobListingReq.getCompanyId());
                 CreateJobListingRsp createJobListingRsp = new CreateJobListingRsp(jobListingEntity.getJobListingId());
@@ -145,7 +145,7 @@ public class JobListingResource {
     {
         try 
         {
-            CompanyEntity companyEntity = companyEntitySessionBean.companyLogin(email, password);
+            CompanyEntity companyEntity = companyEntitySessionBeanLocal.companyLogin(email, password);
             
             jobListingEntitySessionBean.closeJobListing(jobListingEntitySessionBean.retrieveJobListingById(jobListingId));
                     
