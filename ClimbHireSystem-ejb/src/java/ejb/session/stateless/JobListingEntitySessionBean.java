@@ -78,7 +78,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
     }
     
     @Override
-    public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException, JobListingExistException
+    public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException
     {
         
         Set<ConstraintViolation<JobListingEntity>>constraintViolations = validator.validate(newJobListing);
@@ -103,21 +103,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
             }
             catch(PersistenceException ex)
             {
-                if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
-                {
-                    if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
-                    {
-                        throw new JobListingExistException();
-                    }
-                    else
-                    {
-                        throw new UnknownPersistenceException(ex.getMessage());
-                    }
-                }
-                else
-                {
-                    throw new UnknownPersistenceException(ex.getMessage());
-                }
+                throw new UnknownPersistenceException(ex.getMessage());
             }
             catch(CompanyNotFoundException ex)
             {

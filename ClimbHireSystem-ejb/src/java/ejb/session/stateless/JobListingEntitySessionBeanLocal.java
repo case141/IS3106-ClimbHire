@@ -23,7 +23,7 @@ import util.exception.UnknownPersistenceException;
 @Local
 public interface JobListingEntitySessionBeanLocal {
 
-    public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException, JobListingExistException;
+    public JobListingEntity createNewJobListing(JobListingEntity newJobListing, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewJobListingException, CompanyNotFoundException;
 
     public List<JobListingEntity> retrieveAllJobListings();
 

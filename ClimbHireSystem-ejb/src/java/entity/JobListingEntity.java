@@ -43,8 +43,8 @@ public class JobListingEntity implements Serializable {
     private String contract;
     private JobListingStatusEnum jobListingStatusEnum; //same as listing jobListingStatusEnum (i.e. Open, Closed)
     private Integer numOfPositionAvailable; //number goes down whenever company accepts a candidate
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
     private CompanyEntity company;
     @OneToMany(mappedBy = "createdFor")
     private List<ApplicationEntity> applicationList;
@@ -58,7 +58,7 @@ public class JobListingEntity implements Serializable {
     }
 
     public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, 
-            String responsibilities, String contract, JobListingStatusEnum jobListingStatusEnum, Integer numOfPositionAvailable, CompanyEntity company) {
+            String responsibilities, String contract, JobListingStatusEnum jobListingStatusEnum, Integer numOfPositionAvailable) {
         
         this(); 
         
@@ -71,7 +71,6 @@ public class JobListingEntity implements Serializable {
         this.contract = contract;
         this.jobListingStatusEnum = jobListingStatusEnum;
         this.numOfPositionAvailable = numOfPositionAvailable;
-        this.company = company;
     }
     
     public void addQualification(String qualification)

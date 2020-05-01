@@ -15,11 +15,14 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import ejb.session.stateless.AdminEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
+import ejb.session.stateless.JobListingEntitySessionBeanLocal;
 import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
 import entity.CompanyEntity;
+import entity.JobListingEntity;
 import entity.SubscriptionEntity;
 import java.sql.Timestamp;
 import java.util.Date;
+import util.enumeration.JobListingStatusEnum;
 import util.enumeration.SubscriptionStatusEnum;
 import util.enumeration.SubscriptionTypeEnum;
 import util.exception.AdminNotFoundException;
@@ -40,6 +43,8 @@ public class DataInitSessionBean {
     private CompanyEntitySessionBeanLocal companySessionBeanLocal;
     @EJB(name = "SubscriptionEntitySessionBeanLocal")
     private SubscriptionEntitySessionBeanLocal subscriptionSessionBeanLocal;
+    @EJB(name = "JobListingEntitySessionBeanLocal")
+    private JobListingEntitySessionBeanLocal jobListingEntitySessionBeanLocal;
 
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
@@ -75,6 +80,9 @@ public class DataInitSessionBean {
             SubscriptionEntity newSubscription = subscriptionSessionBeanLocal.createNewSubscription(new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
                     100.00, SubscriptionStatusEnum.ACTIVE, new Date(), baseCompany));
             companySessionBeanLocal.setCompanySubscription(baseCompany, newSubscription);
+            
+            jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("IOS Application Developer", "Clementi Building 1", new Date(), 5000.00, 30.00, 
+                    "Designing and building mobile applications for Apple's IOS platform.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
         }
         catch(Exception ex)
         {

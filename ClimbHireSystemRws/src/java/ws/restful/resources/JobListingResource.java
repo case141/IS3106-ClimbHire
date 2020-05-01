@@ -5,7 +5,9 @@
  */
 package ws.restful.resources;
 
+import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import ejb.session.stateless.JobListingEntitySessionBeanLocal;
+import entity.CompanyEntity;
 import entity.JobListingEntity;
 import java.util.List;
 import java.util.logging.Level;
@@ -17,10 +19,19 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewJobListingException;
+import util.exception.InputDataValidationException;
+import util.exception.InvalidLoginCredentialException;
+import util.exception.JobListingExistException;
+import util.exception.UnknownPersistenceException;
+import ws.restful.model.CreateJobListingReq;
+import ws.restful.model.CreateJobListingRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllCompaniesRsp;
 import ws.restful.model.RetrieveAllJobListingsRsp;
@@ -39,6 +50,7 @@ public class JobListingResource {
     private final SessionBeanLookup sessionBeanLookup;
 
     private final JobListingEntitySessionBeanLocal jobListingEntitySessionBean;
+    private final CompanyEntitySessionBeanLocal companyEntitySessionBean;
     
     
     /**
@@ -48,6 +60,7 @@ public class JobListingResource {
         sessionBeanLookup = new SessionBeanLookup();
         
         jobListingEntitySessionBean = sessionBeanLookup.lookupJobListingEntitySessionBeanLocal();
+        companyEntitySessionBean = sessionBeanLookup.lookupCompanyEntitySessionBeanLocal();
     }
 
     /**
@@ -85,9 +98,54 @@ public class JobListingResource {
      * PUT method for updating or creating an instance of JobListingResource
      * @param content representation for the resource
      */
+    @Path("createJobListing")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
-    public void putXml(String content) {
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response createJobListing(CreateJobListingReq createJobListingReq) {
+        if(createJobListingReq != null){
+            try {
+                    
+                CompanyEntity companyEntity = companyEntitySessionBean.companyLogin(createJobListingReq.getEmail(), createJobListingReq.getPassword());
+                
+                JobListingEntity jobListingEntity  = jobListingEntitySessionBean.createNewJobListing(createJobListingReq.getJobListingEntity(), createJobListingReq.getCompanyId());
+                CreateJobListingRsp createJobListingRsp = new CreateJobListingRsp(jobListingEntity.getJobListingId());
+                
+                return Response.status(Response.Status.OK).entity(createJobListingRsp).build();
+                
+            } catch (InvalidLoginCredentialException ex) {
+                
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+                return Response.status(Response.Status.UNAUTHORIZED).entity(errorRsp).build();
+                
+            } catch (CreateNewJobListingException ex) {
+                
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+                
+                return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+            }
+            catch(Exception ex)
+            {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            }
+        }
+        else
+        {
+            ErrorRsp errorRsp = new ErrorRsp("Invalid create new job listing request");
+            
+            return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+        }
     }
+    
+    
+//    @POST
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response closeJobListing(){
+//        
+//    }
     
 }
