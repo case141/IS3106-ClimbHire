@@ -55,6 +55,7 @@ public class JobListingEntity implements Serializable {
         applicationList = new ArrayList<>();
         qualifications = new ArrayList<>();
         skillsRequired = new ArrayList<>();
+        this.jobListingStatusEnum = JobListingStatusEnum.OPEN;
     }
 
     public JobListingEntity(String jobTitle, String workLocation, Date datePosted, Double basicMonthlyPay, Double payPerHour, 

@@ -103,6 +103,7 @@ public class CompanyResource {
             for (CompanyEntity company : companies) 
             {
                 company.setSubscription(null);
+                company.getPaymentHistory().clear();
             }
             
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);

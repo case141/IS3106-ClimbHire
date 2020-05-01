@@ -9,6 +9,7 @@ import entity.CompanyEntity;
 import entity.JobListingEntity;
 import java.util.List;
 import javax.ejb.Local;
+import util.exception.ApplicationNotFoundException;
 import util.exception.CompanyNotFoundException;
 import util.exception.CreateNewJobListingException;
 import util.exception.InputDataValidationException;
@@ -28,5 +29,9 @@ public interface JobListingEntitySessionBeanLocal {
     public List<JobListingEntity> retrieveAllJobListings();
 
     public JobListingEntity retrieveJobListingById(Long jobListingId) throws JobListingNotFoundException;
+
+    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds, List<String> qualifications, List<String> skillsRequired) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException;
+
+    public void closeJobListing(JobListingEntity jobListingEntity) throws JobListingNotFoundException;
     
 }

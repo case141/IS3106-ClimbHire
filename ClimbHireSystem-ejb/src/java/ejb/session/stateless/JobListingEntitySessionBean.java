@@ -10,6 +10,8 @@ import entity.CompanyEntity;
 import entity.JobListingEntity;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -20,6 +22,7 @@ import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
+import util.enumeration.JobListingStatusEnum;
 import util.exception.ApplicationNotFoundException;
 import util.exception.CompanyNotFoundException;
 import util.exception.CreateNewJobListingException;
@@ -116,6 +119,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
         }
     }
     
+    @Override
     public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds, List<String> qualifications, List<String> skillsRequired) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException
     {
         if(jobListingEntity != null && jobListingEntity.getJobListingId()!= null)
@@ -165,6 +169,22 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
         else
         {
             throw new JobListingNotFoundException("Product ID not provided for product to be updated");
+        }
+    }
+    
+    public void closeJobListing(JobListingEntity jobListingEntity) throws JobListingNotFoundException
+    {
+        if(jobListingEntity != null)
+        {
+            try 
+            {
+                JobListingEntity jobListingToClose = retrieveJobListingById(jobListingEntity.getJobListingId());
+                jobListingToClose.setJobListingStatusEnum(JobListingStatusEnum.CLOSED);
+            } 
+            catch (JobListingNotFoundException ex) 
+            {
+                throw new JobListingNotFoundException("Job Listing provided does not exist");
+            }
         }
     }
     

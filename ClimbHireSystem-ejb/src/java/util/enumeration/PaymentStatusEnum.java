@@ -3,18 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ejb.session.stateless;
-
-import entity.PaymentEntity;
-import javax.ejb.Local;
+package util.enumeration;
 
 /**
  *
  * @author Casse
  */
-@Local
-public interface PaymentEntitySessionBeanLocal {
-
-    public PaymentEntity createNewPayment(PaymentEntity newPayment);
-    
+public enum PaymentStatusEnum {
+    PAID, OVERDUE
 }

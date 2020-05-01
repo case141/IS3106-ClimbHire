@@ -23,7 +23,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import ws.restful.model.ErrorRsp;
-import ws.restful.model.RetrieveAllCompaniesRsp;
 import ws.restful.model.RetrieveAllSubscriptionsRsp;
 
 /**
