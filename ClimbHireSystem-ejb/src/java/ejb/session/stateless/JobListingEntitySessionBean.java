@@ -57,7 +57,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
     @Override
     public List<JobListingEntity> retrieveAllJobListings()
     {
-        Query query = em.createQuery("SELECT j FROM JobListing j");
+        Query query = em.createQuery("SELECT j FROM JobListingEntity j");
         
         return query.getResultList();
     }

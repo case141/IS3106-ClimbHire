@@ -139,13 +139,14 @@ public class JobListingResource {
             return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
         }
     }
-    
-    
+//    
+//    @Path("closeJobListing")
 //    @POST
 //    @Consumes(MediaType.APPLICATION_JSON)
 //    @Produces(MediaType.APPLICATION_JSON)
 //    public Response closeJobListing(){
 //        
+//        return Response.status(Response.Status.OK).entity(createJobListingRsp).build();
 //    }
     
 }
