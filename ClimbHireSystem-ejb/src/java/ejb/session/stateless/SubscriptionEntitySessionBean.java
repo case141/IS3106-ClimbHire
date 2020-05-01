@@ -112,6 +112,7 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
         }
     }
     
+    @Override
     public void switchSubscriptionPlan(SubscriptionEntity subscription) throws InputDataValidationException, SubscriptionNotFoundException, CompanyNotFoundException
     {
         if(subscription != null && subscription.getSubscriptionId()!= null)
@@ -139,6 +140,7 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
         }
     }
     
+    @Override
     public void terminateSubscriptionPlan(SubscriptionEntity subscription) throws SubscriptionNotFoundException, InputDataValidationException, CompanyNotFoundException
     {
         if(subscription != null && subscription.getCompany()!= null)

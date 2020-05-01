@@ -120,7 +120,7 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
     }
     
     @Override
-    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds, List<String> qualifications, List<String> skillsRequired) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException
+    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException
     {
         if(jobListingEntity != null && jobListingEntity.getJobListingId()!= null)
         {
@@ -132,24 +132,18 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
                     
                 if(applicationIds != null)
                 {
-                    for(Long applicationId:applicationIds)
+                    for(Long applicationId: applicationIds)
                     {
                         ApplicationEntity applicationEntity = applicationEntitySessionBeanLocal.retrieveApplicationByApplicationId(applicationId);
                         jobListingEntityToUpdate.addApplication(applicationEntity);
                     }
                 }
-                if(qualifications != null)
-                {
-                    qualifications.forEach((qualification) -> {
-                        jobListingEntityToUpdate.addQualification(qualification);
-                    });
-                }
-                if(skillsRequired != null)
-                {
-                    skillsRequired.forEach((skillRequired) -> {
-                        jobListingEntityToUpdate.addSkillsRequired(skillRequired);
-                    });
-                }
+                jobListingEntity.getQualifications().forEach((qualification) -> {
+                    jobListingEntityToUpdate.addQualification(qualification);
+                });
+                jobListingEntity.getSkillsRequired().forEach((skillRequired) -> {
+                    jobListingEntityToUpdate.addSkillsRequired(skillRequired);
+                });
                 
                 //A job listing's company cannot be changed
                 jobListingEntityToUpdate.setJobTitle(jobListingEntity.getJobTitle());
@@ -172,19 +166,19 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
         }
     }
     
-    public void closeJobListing(JobListingEntity jobListingEntity) throws JobListingNotFoundException
+    @Override
+    public void closeJobListing(Long jobListingId) throws JobListingNotFoundException
     {
-        if(jobListingEntity != null)
+        JobListingEntity jobListingToClose = em.find(JobListingEntity.class, jobListingId);
+        
+        if(jobListingToClose != null)
         {
-            try 
-            {
-                JobListingEntity jobListingToClose = retrieveJobListingById(jobListingEntity.getJobListingId());
-                jobListingToClose.setJobListingStatusEnum(JobListingStatusEnum.CLOSED);
-            } 
-            catch (JobListingNotFoundException ex) 
-            {
-                throw new JobListingNotFoundException("Job Listing provided does not exist");
-            }
+            jobListingToClose.setJobListingStatusEnum(JobListingStatusEnum.CLOSED);
+            
+        }
+        else
+        {
+            throw new JobListingNotFoundException("Job Listing ID " + jobListingId + " does not exist!");
         }
     }
     

@@ -10,6 +10,8 @@ import ejb.session.stateless.JobListingEntitySessionBeanLocal;
 import entity.CompanyEntity;
 import entity.JobListingEntity;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
@@ -23,13 +25,17 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import util.exception.ApplicationNotFoundException;
 import util.exception.CreateNewJobListingException;
+import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.JobListingNotFoundException;
 import ws.restful.model.CreateJobListingReq;
 import ws.restful.model.CreateJobListingRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllJobListingsRsp;
+import ws.restful.model.CloseJobListingRsp;
+import ws.restful.model.UpdateJobListingRsp;
 
 /**
  * REST Web Service
@@ -106,13 +112,13 @@ public class JobListingResource {
                 JobListingEntity jobListingEntity  = jobListingEntitySessionBean.createNewJobListing(createJobListingReq.getJobListingEntity(), createJobListingReq.getCompanyId());
                 CreateJobListingRsp createJobListingRsp = new CreateJobListingRsp(jobListingEntity.getJobListingId());
                 
-                return Response.status(Response.Status.OK).entity(createJobListingRsp).build();
+                return Response.status(Status.OK).entity(createJobListingRsp).build();
                 
             } catch (InvalidLoginCredentialException ex) {
                 
                 ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
-                return Response.status(Response.Status.UNAUTHORIZED).entity(errorRsp).build();
+                return Response.status(Status.UNAUTHORIZED).entity(errorRsp).build();
                 
             } catch (CreateNewJobListingException ex) {
                 
@@ -135,27 +141,42 @@ public class JobListingResource {
         }
     }
     
-    @Path("closeJobListing/{jobListingId}")
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response closeJobListing(@QueryParam("email") String email, 
-                                        @QueryParam("password") String password,
-                                        @PathParam("jobListingId") Long jobListingId)
+    public Response updateJobListing(UpdateJobListingRsp updateJobListingRsp) 
     {
         try 
         {
-            CompanyEntity companyEntity = companyEntitySessionBean.companyLogin(email, password);
-            
-            jobListingEntitySessionBean.closeJobListing(jobListingEntitySessionBean.retrieveJobListingById(jobListingId));
+            jobListingEntitySessionBean.updateJobListingDetails(updateJobListingRsp.getJobListingEntity(), updateJobListingRsp.getApplicationIds());
                     
-            return Response.status(Response.Status.OK).build();
+            return Response.status(Status.OK).build();
         } 
-        catch (InvalidLoginCredentialException ex) 
+        catch (JobListingNotFoundException ex) 
         {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
-            return Response.status(Status.UNAUTHORIZED).entity(errorRsp).build();
+            return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
+        } 
+        catch(Exception ex)
+        {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+        }
+    }
+    
+    @Path("closeJobListing")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response closeJobListing(CloseJobListingRsp closeJobListingRsp)
+    {
+        try 
+        {
+            jobListingEntitySessionBean.closeJobListing(closeJobListingRsp.getJobListingId());
+                    
+            return Response.status(Status.OK).build();
         } 
         catch (JobListingNotFoundException ex) 
         {

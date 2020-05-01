@@ -21,10 +21,10 @@ export class SessionService {
       {
           return null;
       }
-
-  // setCompanies(companies: Company[]): void
-  // {
-  //     sessionStorage.companies = JSON.stringify(companies);
-  // }
+  }
+  setCompanies(companies: Company[]): void
+  {
+      sessionStorage.companies = JSON.stringify(companies);
+  }
   
 }

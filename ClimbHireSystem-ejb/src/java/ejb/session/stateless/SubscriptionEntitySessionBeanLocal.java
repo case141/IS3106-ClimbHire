@@ -12,6 +12,7 @@ import javax.ejb.Local;
 import util.exception.CompanyNotFoundException;
 import util.exception.InputDataValidationException;
 import util.exception.SubscriptionCompanyExistException;
+import util.exception.SubscriptionNotFoundException;
 import util.exception.UnknownPersistenceException;
 
 /**
@@ -26,5 +27,9 @@ public interface SubscriptionEntitySessionBeanLocal {
     public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription) throws SubscriptionCompanyExistException, UnknownPersistenceException, InputDataValidationException;
 
     public SubscriptionEntity retrieveSubscriptionByCompany(CompanyEntity company) throws CompanyNotFoundException;
+
+    public void switchSubscriptionPlan(SubscriptionEntity subscription) throws InputDataValidationException, SubscriptionNotFoundException, CompanyNotFoundException;
+
+    public void terminateSubscriptionPlan(SubscriptionEntity subscription) throws SubscriptionNotFoundException, InputDataValidationException, CompanyNotFoundException;
     
 }

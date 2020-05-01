@@ -30,8 +30,8 @@ public interface JobListingEntitySessionBeanLocal {
 
     public JobListingEntity retrieveJobListingById(Long jobListingId) throws JobListingNotFoundException;
 
-    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds, List<String> qualifications, List<String> skillsRequired) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException;
+    public void closeJobListing(Long jobListingId) throws JobListingNotFoundException;
 
-    public void closeJobListing(JobListingEntity jobListingEntity) throws JobListingNotFoundException;
+    public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException;
     
 }

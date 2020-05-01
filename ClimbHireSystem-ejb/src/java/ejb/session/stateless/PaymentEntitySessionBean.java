@@ -6,10 +6,13 @@
 package ejb.session.stateless;
 
 import entity.AdminEntity;
+import entity.JobListingEntity;
 import entity.PaymentEntity;
+import java.util.List;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 /**
  *
@@ -31,5 +34,13 @@ public class PaymentEntitySessionBean implements PaymentEntitySessionBeanLocal {
         em.flush();
         
         return newPayment;
+    }
+    
+    @Override
+    public List<PaymentEntity> retrieveAllPayments()
+    {
+        Query query = em.createQuery("SELECT p FROM PaymentEntity p");
+        
+        return query.getResultList();
     }
 }

@@ -30,11 +30,13 @@ public class PaymentEntity implements Serializable {
     private Long paymentId;
     private Double amountPaid;
     private PaymentStatusEnum paymentStatusEnum;
-    @ManyToOne(optional = true)
-    @JoinColumn(nullable = true)
-    private CompanyEntity company;
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date paymentDate;
+    
+    @ManyToOne(optional = false)
+    @JoinColumn(nullable = false)
+    private CompanyEntity company;
+    
     
     public PaymentEntity() {
     }

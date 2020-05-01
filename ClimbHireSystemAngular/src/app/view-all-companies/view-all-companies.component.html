@@ -1,1 +1,22 @@
-<p>view-all-companies works!</p>
+<h2> View All Companies</h2>
+
+<div *ngIf=errorMessage">
+    {{errorMessage}}
+</div>
+
+<div *ngIf="!errorMessage">
+    <table>
+        <thead>
+            <th>Company ID</th>
+            <th>Company Name</th>
+            <th>Email</th>
+        </thead>
+        <tbody>
+            <tr *ngFor="let company of companies">
+                <th>{{company.companyId}}</th>
+                <th>{{company.companyName}}</th>
+                <th>{{company.email}}</th>
+            </tr>
+        </tbody>
+    </table>
+</div>

@@ -6,6 +6,7 @@
 package ejb.session.stateless;
 
 import entity.PaymentEntity;
+import java.util.List;
 import javax.ejb.Local;
 
 /**
@@ -16,5 +17,7 @@ import javax.ejb.Local;
 public interface PaymentEntitySessionBeanLocal {
 
     public PaymentEntity createNewPayment(PaymentEntity newPayment);
+
+    public List<PaymentEntity> retrieveAllPayments();
     
 }

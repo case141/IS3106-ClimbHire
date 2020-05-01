@@ -17,17 +17,20 @@ import javax.ws.rs.core.UriInfo;
 import javax.ws.rs.Produces;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.UpdateCompanyException;
 import ws.restful.model.CompanyLoginRsp;
 import ws.restful.model.CreateNewCompanyReq;
 import ws.restful.model.CreateNewCompanyRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllCompaniesRsp;
+import ws.restful.model.UpdateCompanyRsp;
 
 /**
  * REST Web Service
@@ -91,7 +94,7 @@ public class CompanyResource {
      * Retrieves representation of an instance of ws.restful.resources.CompanyResource
      * @return an instance of java.lang.String
      */
-    @Path("retrieveAllCompanies")
+//    @Path("retrieveAllCompanies")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
@@ -153,4 +156,38 @@ public class CompanyResource {
         }
     }
      
+    @Path("updateCompanyProfile")
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
+     public Response updateCompanyProfile(UpdateCompanyRsp updateCompanyRsp)
+    {  
+         if(updateCompanyRsp != null)
+         {                
+             try 
+             {
+                 companyEntitySessionBeanLocal.updateCompanyProfile(updateCompanyRsp.getCompany());
+                 
+                 return Response.status(Response.Status.OK).build();
+             } 
+             catch (UpdateCompanyException ex) 
+             {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+                
+                return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+             }
+            catch(Exception ex)
+            {
+                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+
+                return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            }
+         }
+         else
+         {
+            ErrorRsp errorRsp = new ErrorRsp("Invalid update company request");
+            
+            return Response.status(Response.Status.BAD_REQUEST).entity(errorRsp).build();
+         }
+    }
 }

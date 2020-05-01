@@ -156,6 +156,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         }
     }
     
+    @Override
     public void updateCompanyProfile(CompanyEntity companyEntity) throws CompanyNotFoundException, UpdateCompanyException, InputDataValidationException
     {
         if(companyEntity != null && companyEntity.getCompanyId()!= null)

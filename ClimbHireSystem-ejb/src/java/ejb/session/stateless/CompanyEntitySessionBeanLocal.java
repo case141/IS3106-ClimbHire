@@ -15,6 +15,7 @@ import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.SetCompanySubscriptionException;
 import util.exception.UnknownPersistenceException;
+import util.exception.UpdateCompanyException;
 
 /**
  *
@@ -34,5 +35,7 @@ public interface CompanyEntitySessionBeanLocal {
     public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException;
 
     public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException;
+
+    public void updateCompanyProfile(CompanyEntity companyEntity) throws CompanyNotFoundException, UpdateCompanyException, InputDataValidationException;
    
 }
