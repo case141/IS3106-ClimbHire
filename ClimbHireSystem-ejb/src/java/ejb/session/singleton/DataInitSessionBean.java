@@ -29,7 +29,6 @@ import util.enumeration.PaymentStatusEnum;
 import util.enumeration.SubscriptionStatusEnum;
 import util.enumeration.SubscriptionTypeEnum;
 import util.exception.AdminNotFoundException;
-import util.exception.CompanyNotFoundException;
 
 /**
  *

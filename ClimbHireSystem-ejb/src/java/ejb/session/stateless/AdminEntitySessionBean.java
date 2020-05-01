@@ -14,6 +14,8 @@ import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import util.exception.AdminNotFoundException;
+import util.exception.InvalidLoginCredentialException;
+import util.security.CryptographicHelper;
 
 /**
  *
@@ -46,6 +48,22 @@ public class AdminEntitySessionBean implements AdminEntitySessionBeanLocal {
     }
     
     @Override
+    public AdminEntity retrieveAdminByEmail(String adminEmail) throws AdminNotFoundException
+    {
+        Query query = em.createQuery("SELECT a FROM AdminEntity a WHERE a.adminEmail = :inAdminEmail");
+        query.setParameter("inAdminName", adminEmail);
+        
+        try
+        {
+            return (AdminEntity)query.getSingleResult();
+        }
+        catch(NoResultException | NonUniqueResultException ex)
+        {
+            throw new AdminNotFoundException("Admin Username " + adminEmail + " does not exist!");
+        }
+    }
+    
+    @Override
     public AdminEntity retrieveAdminByName(String adminName) throws AdminNotFoundException
     {
         Query query = em.createQuery("SELECT a FROM AdminEntity a WHERE a.adminName = :inAdminName");
@@ -58,6 +76,31 @@ public class AdminEntitySessionBean implements AdminEntitySessionBeanLocal {
         catch(NoResultException | NonUniqueResultException ex)
         {
             throw new AdminNotFoundException("Admin Username " + adminName + " does not exist!");
+        }
+    }
+    
+    
+    @Override
+    public AdminEntity adminLogin(String adminEmail, String password) throws InvalidLoginCredentialException 
+    {
+        try
+        {
+            AdminEntity adminEntity = retrieveAdminByEmail(adminEmail);            
+            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + adminEntity.getSalt()));
+            
+            //if password matches and company is active
+            if(adminEntity.getPassword().equals(passwordHash))
+            {             
+                return adminEntity;
+            }
+            else
+            {
+                throw new InvalidLoginCredentialException("Email does not exist or invalid password!");
+            }
+        }
+        catch(AdminNotFoundException ex)
+        {
+            throw new InvalidLoginCredentialException("Username does not exist or invalid password!");
         }
     }
 }
