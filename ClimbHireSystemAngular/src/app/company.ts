@@ -1,15 +1,16 @@
-export class Company {
+export class Company 
+{
     companyId: number;
     companyName: string;
     password: string; 
     email: string;
     contactNumber: number;
     companyBio: string;
-    dateOfFounding: Date;
-    dateJoined: Date;
+    dateOfFounding: any;
+    dateJoined: any;
 
     constructor(companyId?: number, companyName?: string, password?: string, email?: string, 
-        contactNumber?: number, companyBio?: string, dateOfFounding?: Date, dateJoined?: Date)
+                contactNumber?: number, companyBio?: string, dateOfFounding?: any, dateJoined?: any)
     {
         this.companyId = companyId;
         this.companyName = companyName;

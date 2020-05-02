@@ -22,20 +22,11 @@ export class CompanyService
 
   }
 
-  getCompany(): Observable<any>
+  getCompanies(): Observable<any>
   {
       return this.httpClient.get<any>(this.baseUrl).pipe
       (
         catchError(this.handleError)
-      );
-  }
-
-  createNewCompany(newCompany: Company)
-  {
-      let createNewCompanyReq = {'newCompany': newCompany};
-      return this.httpClient.put<any>(this.baseUrl, createNewCompanyReq, httpOptions).pipe
-      (
-          catchError(this.handleError)
       );
   }
 

@@ -7,14 +7,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
 import { ViewAllCompaniesComponent } from './view-all-companies/view-all-companies.component';
-import { CreateNewCompanyComponent } from './create-new-company/create-new-company.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     IndexComponent,
-    ViewAllCompaniesComponent,
-    CreateNewCompanyComponent
+    ViewAllCompaniesComponent
   ],
   imports: [
     BrowserModule,

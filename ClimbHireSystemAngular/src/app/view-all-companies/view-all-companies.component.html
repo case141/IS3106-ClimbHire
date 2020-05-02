@@ -1,6 +1,6 @@
 <h2> View All Companies</h2>
 
-<div *ngIf=errorMessage">
+<div *ngIf="errorMessage">
     {{errorMessage}}
 </div>
 
@@ -10,12 +10,20 @@
             <th>Company ID</th>
             <th>Company Name</th>
             <th>Email</th>
+            <th>Contact Number</th>
+            <th>Company Bio</th>
+            <th>Date Founded</th>
+            <th>Date Joined</th>
         </thead>
         <tbody>
             <tr *ngFor="let company of companies">
                 <th>{{company.companyId}}</th>
                 <th>{{company.companyName}}</th>
                 <th>{{company.email}}</th>
+                <th>{{company.contactNumber}}</th>
+                <th>{{company.companyBio}}</th>
+                <th>{{company.dateOfFounding}}</th>
+                <th>{{company.dateJoined}}</th>
             </tr>
         </tbody>
     </table>
