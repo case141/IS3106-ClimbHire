@@ -33,6 +33,8 @@ public class RevenueEntity implements Serializable {
     private Date startDate; //beginning of revenueMonth
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate; //end of revenueMonth
+    
+    
     @OneToMany
     private List<PaymentEntity> paymentRecords;
 

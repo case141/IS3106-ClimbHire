@@ -80,11 +80,11 @@ public class DataInitSessionBean {
             //create base company
             CompanyEntity baseCompany = companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
                     "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())));
-            /*,
+                     /*       
                     new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
                     100.00, SubscriptionStatusEnum.ACTIVE, new Date()), 
                     new PaymentEntity(100.00, PaymentStatusEnum.PAID, new Date()));
-            */
+                    `*/
             
             jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("IOS Application Developer", "Clementi Building 1", new Date(), 5000.00, 30.00, 
                     "Designing and building mobile applications for Apple's IOS platform.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());

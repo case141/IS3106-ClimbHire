@@ -1,1 +1,31 @@
-<p>view-all-companies works!</p>
+<h2> View All Companies </h2>
+
+<div *ngIf="errorMessage">
+	{{errorMessage}}
+</div>
+
+
+<div *ngIf="!errorMessage">
+	<table>
+		<thead>
+			<th> Company ID</th>
+			<th> Company Name</th>
+			<th> Email</th>
+			<th> Contact Number</th>
+			<th> Company Bio</th>
+			<th> Date Founded</th>
+			<th> Date Joined</th>
+		</thead>
+		<tbody>
+			<tr *ngFor="let company of companies">
+				<td> {{company.companyId}}</td>
+				<td> {{company.companyName}}</td>
+				<td> {{company.email}}</td>
+				<td> {{company.contactNumber}}</td>
+				<td> {{company.companyBio}}</td>
+				<td> {{company.dateOfFounding}}</td>
+				<td> {{company.dateJoined}}</td>
+			</tr>
+		</tbody>
+	</table>
+</div>

@@ -44,7 +44,7 @@ public class SubscriptionEntity implements Serializable {
     
     
     @OneToOne(optional = true)
-    @JoinColumn(nullable = false)
+    @JoinColumn(nullable = true)
     private CompanyEntity company;
     
 

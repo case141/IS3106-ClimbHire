@@ -10,22 +10,18 @@ import entity.PaymentEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
 import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
-import javax.persistence.PersistenceException;
 import javax.persistence.Query;
 import javax.validation.ConstraintViolation;
 import javax.validation.Validation;
 import javax.validation.Validator;
 import javax.validation.ValidatorFactory;
 import util.enumeration.SubscriptionStatusEnum;
-import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
 import util.exception.CreateNewPaymentRecordException;
 import util.exception.CreateNewSubscriptionException;
@@ -68,6 +64,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         validator = validatorFactory.getValidator();
     }
     
+    
     @Override
     public CompanyEntity createNewCompany(CompanyEntity newCompany) throws 
             UnknownPersistenceException, InputDataValidationException, CompanyNotFoundException
@@ -89,6 +86,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
             throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
         }  
     }
+    
     /*
     @Override
     public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws 
@@ -100,8 +98,9 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         if(constraintViolations.isEmpty())
         {  
             try
-            {                        
-                em.persist(newCompany);      
+            {                
+                em.persist(newCompany);
+                em.persist(newSubscription);
                 companyEntitySessionBeanLocal.setCompanySubscription(newCompany, subscriptionEntitySessionBeanLocal.createNewSubscription(newSubscription, newCompany.getCompanyId()));            
                 newCompany.getPaymentHistory().add(paymentEntitySessionBeanLocal.createNewPayment(newPaymentRecord, newCompany.getCompanyId()));
 

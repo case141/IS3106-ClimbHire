@@ -28,7 +28,7 @@ import ws.restful.model.RetrieveAllCompaniesRsp;
 /**
  * REST Web Service
  *
- * @author Casse
+ * @author rycan
  */
 @Path("Company")
 public class CompanyResource {
@@ -100,7 +100,10 @@ public class CompanyResource {
             for (CompanyEntity company : companies) 
             {
                 company.setSubscription(null);
-                company.getPaymentHistory().clear();
+                company.setPaymentHistory(null);
+                company.setListOfJobs(null);
+                company.setProfessionalsList(null);
+                
             }
             
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);

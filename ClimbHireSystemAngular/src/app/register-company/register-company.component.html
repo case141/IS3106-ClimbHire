@@ -1,0 +1,97 @@
+<h2>Register Company</h2>
+
+<div *ngIf="infoMessage">
+	{{infoMessage}}
+</div>
+
+<div *ngIf="errorMessage">
+	{{errorMessage}}
+</div>
+
+<form #registerCompanyForm="ngForm" (ngSubmit)="create(registerCompanyForm)">
+	
+	<table>		
+		<tr>
+			<td>Company Name</td>
+			<td><input id="companyName" name="companyName" #companyName="ngModel" type="text" [(ngModel)]="newCompany.companyName" required="true" /></td>	
+			<td>
+				<div *ngIf="companyName.invalid && (companyName.dirty || companyName.touched || submitted)" style="color: red;">
+					<div *ngIf="companyName.errors.required">
+						Company Name is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Password</td>
+			<td><input id="password" name="password" #password="ngModel" type="text" [(ngModel)]="newCompany.password" required="true" /></td>	
+			<td>
+				<div *ngIf="password.invalid && (password.dirty || password.touched || submitted)" style="color: red;">
+					<div *ngIf="password.errors.required">
+						Password is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Email</td>
+			<td><input id="email" name="email" #email="ngModel" type="text" [(ngModel)]="newCompany.email" required="true" /></td>	
+			<td>
+				<div *ngIf="email.invalid && (email.dirty || email.touched || submitted)" style="color: red;">
+					<div *ngIf="email.errors.required">
+						Email is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Contact Number</td>
+			<td><input id="contactNumber" name="contactNumber" #contactNumber="ngModel" type="text" [(ngModel)]="newCompany.contactNumber" required="true" /></td>	
+			<td>
+				<div *ngIf="contactNumber.invalid && (contactNumber.dirty || contactNumber.touched || submitted)" style="color: red;">
+					<div *ngIf="contactNumber.errors.required">
+						Contact Number is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Company Bio</td>
+			<td><input id="companyBio" name="companyBio" #companyBio="ngModel" type="text" [(ngModel)]="newCompany.companyBio" required="true" /></td>	
+			<td>
+				<div *ngIf="companyBio.invalid && (companyBio.dirty || companyBio.touched || submitted)" style="color: red;">
+					<div *ngIf="companyBio.errors.required">
+						Company Bio is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td>Date founded</td>
+			<td><input id="dateOfFounding" name="dateOfFounding" #dateOfFounding="ngModel" type="text" [(ngModel)]="newCompany.dateOfFounding" required="true" /></td>	
+			<td>
+				<div *ngIf="dateOfFounding.invalid && (dateOfFounding.dirty || dateOfFounding.touched || submitted)" style="color: red;">
+					<div *ngIf="dateOfFounding.errors.required">
+						Date founded is required
+					</div>
+				</div>
+			</td>
+		</tr>
+		
+		<tr>
+			<td colspan="7">
+				<button (click)="clear()">Clear</button>
+				<input type="submit" value="Register Company" />
+		</tr>
+		
+		
+	
+	</table>
+
+
+</form>

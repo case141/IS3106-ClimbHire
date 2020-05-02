@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 import { Company } from './company';
 
 @Injectable({
@@ -7,24 +6,22 @@ import { Company } from './company';
 })
 export class SessionService {
 
-  constructor() 
-  { 
-
-  }
+  constructor() { }
+  
   getCompanies(): Company[]
   {
-      try
-      {
-          return JSON.parse(sessionStorage.companies);
-      }
-      catch
-      {
-          return null;
-      }
-
-  // setCompanies(companies: Company[]): void
-  // {
-  //     sessionStorage.companies = JSON.stringify(companies);
-  // }
+	  try
+	  {
+		  return JSON.parse(sessionStorage.companies);
+	  }
+	  catch
+	  {
+		  return null;
+	  }
+  }
   
+  setCompanies(companies: Company[]): void
+  {
+	 sessionStorage.companies = JSON.stringify(companies);
+  }
 }
