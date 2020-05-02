@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { IndexComponent } from './index/index.component';
-import { ViewAllCompaniesComponent } from './view-all-companies/view-all-companies.component';
+import { ViewAllCompaniesComponent } from './admin/view-all-companies/view-all-companies.component';
 import { RegisterCompanyComponent } from './register-company/register-company.component';
 
 

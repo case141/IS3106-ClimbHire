@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
-import { CompanyService } from '../company.service';
-import { Company } from '../company';
+import { CompanyService } from '../../company.service';
+import { Company } from '../../company';
 
 @Component({
   selector: 'app-view-all-companies',

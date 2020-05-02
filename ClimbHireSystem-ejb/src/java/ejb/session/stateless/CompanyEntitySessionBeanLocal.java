@@ -6,19 +6,13 @@
 package ejb.session.stateless;
 
 import entity.CompanyEntity;
-import entity.PaymentEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import javax.ejb.Local;
-import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
-import util.exception.CreateNewPaymentRecordException;
-import util.exception.CreateNewSubscriptionException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
-import util.exception.PaymentCompanyExistException;
 import util.exception.SetCompanySubscriptionException;
-import util.exception.SubscriptionCompanyExistException;
 import util.exception.UnknownPersistenceException;
 
 /**

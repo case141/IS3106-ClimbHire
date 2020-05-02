@@ -6,12 +6,12 @@ import { HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { IndexComponent } from './index/index.component';
-import { ViewAllCompaniesComponent } from './view-all-companies/view-all-companies.component';
-import { RegisterCompanyComponent } from './register-company/register-company.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { MainMenuComponent } from './main-menu/main-menu.component';
 import { SidebarComponent } from './sidebar/sidebar.component';
+import { ViewAllCompaniesComponent } from './admin/view-all-companies/view-all-companies.component';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
 
 
 @NgModule({
