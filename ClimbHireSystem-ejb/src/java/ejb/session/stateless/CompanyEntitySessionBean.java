@@ -10,6 +10,9 @@ import entity.PaymentEntity;
 import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.NoResultException;
@@ -24,9 +27,13 @@ import javax.validation.ValidatorFactory;
 import util.enumeration.SubscriptionStatusEnum;
 import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewPaymentRecordException;
+import util.exception.CreateNewSubscriptionException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.PaymentCompanyExistException;
 import util.exception.SetCompanySubscriptionException;
+import util.exception.SubscriptionCompanyExistException;
 import util.exception.UnknownPersistenceException;
 import util.exception.UpdateCompanyException;
 import util.security.CryptographicHelper;
@@ -44,6 +51,14 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
     
+    @EJB
+    private SubscriptionEntitySessionBeanLocal subscriptionEntitySessionBeanLocal;  
+    @EJB
+    private PaymentEntitySessionBeanLocal paymentEntitySessionBeanLocal;
+    
+    @EJB
+    private CompanyEntitySessionBeanLocal companyEntitySessionBeanLocal;
+    
     private final ValidatorFactory validatorFactory;
     private final Validator validator;
 
@@ -54,46 +69,74 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException
+    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws 
+            UnknownPersistenceException, InputDataValidationException, CompanyNotFoundException
     {
-        try
-        {
-            Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
+        Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
         
-            if(constraintViolations.isEmpty())
-            {
-                em.persist(newCompany);
-                newCompany.setSubscription(newSubscription);
-                newCompany.getPaymentHistory().add(newPaymentRecord);
+        if(constraintViolations.isEmpty())
+        {  
+                                    
+                em.persist(newCompany);      
+                em.flush();
+
+                return newCompany;
+            
                 
+        }
+        else
+        {
+            throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+        }  
+    }
+    /*
+    @Override
+    public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws 
+            UnknownPersistenceException, InputDataValidationException, CreateNewSubscriptionException, SubscriptionCompanyExistException, CreateNewPaymentRecordException, PaymentCompanyExistException,
+            CompanyNotFoundException, SetCompanySubscriptionException
+    {
+        Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
+        
+        if(constraintViolations.isEmpty())
+        {  
+            try
+            {                        
+                em.persist(newCompany);      
+                companyEntitySessionBeanLocal.setCompanySubscription(newCompany, subscriptionEntitySessionBeanLocal.createNewSubscription(newSubscription, newCompany.getCompanyId()));            
+                newCompany.getPaymentHistory().add(paymentEntitySessionBeanLocal.createNewPayment(newPaymentRecord, newCompany.getCompanyId()));
+
                 em.flush();
 
                 return newCompany;
             }
-            else
+            catch(CompanyNotFoundException ex)
             {
-                throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
-            }            
+                throw new CompanyNotFoundException("The company does not exist!");
+            }
+            
+            catch(CreateNewSubscriptionException ex)
+            {
+                throw new CreateNewSubscriptionException("The new subscription must be associated with a company");
+            }      
+            catch(SubscriptionCompanyExistException ex)
+            {
+                throw new SubscriptionCompanyExistException("The subscription already exists with a company");
+            }
+            catch(CreateNewPaymentRecordException ex)
+            {
+                throw new CreateNewPaymentRecordException("The new payment record must be associated with a company");
+            }
+            catch(PaymentCompanyExistException ex)
+            {
+                throw new SubscriptionCompanyExistException("The payment record already exists with a company");
+            }
         }
-        catch(PersistenceException ex)
+        else
         {
-            if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
-            {
-                if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
-                {
-                    throw new CompanyEmailExistException();
-                }
-                else
-                {
-                    throw new UnknownPersistenceException(ex.getMessage());
-                }
-            }
-            else
-            {
-                throw new UnknownPersistenceException(ex.getMessage());
-            }
-        }
+            throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+        }  
     }
+    */
     
     @Override
     public List<CompanyEntity> retrieveAllCompanies()

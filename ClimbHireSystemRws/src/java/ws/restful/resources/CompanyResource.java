@@ -91,7 +91,8 @@ public class CompanyResource {
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response retrieveAllCompanies() {
+    public Response retrieveAllCompanies() 
+    {
         try
         {
             List<CompanyEntity> companies = companyEntitySessionBeanLocal.retrieveAllCompanies();
@@ -128,8 +129,8 @@ public class CompanyResource {
         {
          try
          {           
-             CompanyEntity companyEntity = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany(), createNewCompanyReq.getNewSubscription(), createNewCompanyReq.getNewPaymentRecord());
-             
+             //CompanyEntity companyEntity = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany(), createNewCompanyReq.getNewSubscription(), createNewCompanyReq.getNewPaymentRecord());
+             CompanyEntity companyEntity = companyEntitySessionBeanLocal.createNewCompany(createNewCompanyReq.getNewCompany());
              CreateNewCompanyRsp createNewCompanyRsp = new CreateNewCompanyRsp(companyEntity.getCompanyId());
              
              return Response.status(Response.Status.OK).entity(createNewCompanyRsp).build();

@@ -54,7 +54,7 @@ public class SubscriptionEntitySessionBean implements SubscriptionEntitySessionB
     }
     
     @Override
-    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription, Long companyId) throws SubscriptionCompanyExistException, UnknownPersistenceException, InputDataValidationException, CreateNewSubscriptionException
+    public SubscriptionEntity createNewSubscription(SubscriptionEntity newSubscription, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewSubscriptionException
     {
         Set<ConstraintViolation<SubscriptionEntity>>constraintViolations = validator.validate(newSubscription);       
         if(constraintViolations.isEmpty())

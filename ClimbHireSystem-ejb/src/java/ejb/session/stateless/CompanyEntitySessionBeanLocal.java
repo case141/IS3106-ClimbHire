@@ -12,9 +12,13 @@ import java.util.List;
 import javax.ejb.Local;
 import util.exception.CompanyEmailExistException;
 import util.exception.CompanyNotFoundException;
+import util.exception.CreateNewPaymentRecordException;
+import util.exception.CreateNewSubscriptionException;
 import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
+import util.exception.PaymentCompanyExistException;
 import util.exception.SetCompanySubscriptionException;
+import util.exception.SubscriptionCompanyExistException;
 import util.exception.UnknownPersistenceException;
 
 /**
@@ -29,9 +33,16 @@ public interface CompanyEntitySessionBeanLocal {
     public CompanyEntity retrieveCompanyByEmail(String companyEmail) throws CompanyNotFoundException;
 
     public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException;
-
-     public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException;
-
+    
+    /*
+    public CompanyEntity createNewCompany(CompanyEntity newCompany, SubscriptionEntity newSubscription, PaymentEntity newPaymentRecord) throws 
+            UnknownPersistenceException, InputDataValidationException, CreateNewSubscriptionException, SubscriptionCompanyExistException, CreateNewPaymentRecordException, PaymentCompanyExistException,
+            CompanyNotFoundException, SetCompanySubscriptionException;
+    */
+    
+    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws 
+            UnknownPersistenceException, InputDataValidationException, CompanyNotFoundException;
+    
     public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException;
 
     public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException;

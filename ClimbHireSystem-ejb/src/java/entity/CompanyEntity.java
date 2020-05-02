@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -49,7 +50,7 @@ public class CompanyEntity implements Serializable {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateJoined;
     
-    @OneToOne(optional = false)
+    @OneToOne(mappedBy = "company")
     private SubscriptionEntity subscription;
     
     @OneToMany(mappedBy = "company")
