@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Point of Sale System (v5.0) :: Create New Category</title>
+		<link rel="stylesheet" type="text/css" href="css/default.css">
+	</head>
+	<body>
+		<header id="header" class="header">
+			<h1>Point of Sale System (v5.0) :: Home</h1>
+			<div id="loginbox" class="loginbox">
+				<form action="" method="post">
+					<label for="username">Username</label>
+					<input type="text" name="username" id="username"/>
+					<label for="password">Password</label>
+					<input type="text" name="password" id="username"/>
+					<input type="reset" value="Clear"/>
+					<input type="submit" value="Login"/>
+				</form>
+			</div>
+		</header>
+		<div id="mainmenu" class="mainmenu">
+
+			<h3>Main Menu</h3><br/>
+			<a href="index.html">Home</a><br/><br/>
+			<a href="url">Logout</a><br/><br/>
+
+			<div>
+				<h4 class="menuHeader1">Cashier Operation</h4>
+				<ul class="secondaryMenu">
+					<li><a href="cashierOperation/checkout.html">Checkout</a></li>
+					<li><a href="cashierOperation/voidRefund.html">Void/Refund</a></li>
+					<li><a href="cashierOperation/viewMySaleTransactions.html">View My Sale Transactions</a></li>
+				</ul>
+				<h4 class="menuHeader1">System Administration</h4>
+				<h5 class="menuHeader2">Staff</h5>
+				<ul class="secondaryMenu">
+					<li><a href="systemAdministration/createNewStaff.html">Create New Staff</a></li>
+					<li><a href="systemAdministration/viewStaffDetails.html">View Staff Details</a></li>
+					<li><a href="systemAdministration/viewAllStaffs.html">View All Staffs</a></li>
+				</ul>
+				<h5 class="menuHeader2">Product</h5>
+				<ul class="secondaryMenu">
+					<li><a href="systemAdministration/createNewProduct.html">Create New Product</a></li>
+					<li><a href="systemAdministration/viewProductDetails.html">View Product Details</a></li>
+					<li><a href="systemAdministration/viewAllProducts.html">View All Products</a></li>
+				</ul>
+				<h5 class="menuHeader2">Category</h5>
+				<ul class="secondaryMenu">
+					<li><a href="systemAdministration/createNewCategory.html">Create New Category</a></li>
+					<li><a href="systemAdministration/filterProductsByCategory.html">Filter Products By Category</a></li>
+					<li><a href="systemAdministration/filterProductsByTags.html">Filter Products By Tags</a></li>
+				</ul>
+				<br/><br/>
+			</div>
+
+		</div>
+		<div id="content" class="content">
+			<h3>Create New Category</h3>
+                        <form action="" method="post">
+                            <table>
+                                <tr>
+                                    <td style="width: 20%;"><b>Category Name</b></td>
+                                    <td style="width: 80%;"><input id="name" name="name" type="text" placeholder="Electronics" required /></td>
+                                </tr>
+                                <tr>
+                                    <td style="width: 20%;"><b>Category Description</b></td>
+                                    <td style="width: 80%;"><input id="description" name="description" type="text" placeholder="Electronics" required /></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2" style="text-align: center;">
+                                        <input type="reset" value="Clear" /> 
+                                        <input type="submit" value="Create" />
+                                    </td>
+                                </tr>
+                            </table>
+                        </form>
+		</div>
+		<div id="sidebar" class="sidebar">
+			<h3>Advertisement</h3>
+			<figure class="advertisement">
+				<img style="height: 120px; width: 120px;" src="images/300x300.png">
+				<figcaption>Advertisement 1</figcaption>
+			</figure>
+			<figure class="advertisement">
+				<img style="height: 120px; width: 120px;" src="images/300x300.png">
+				<figcaption>Advertisement 2</figcaption>
+			</figure>
+			<figure class="advertisement">
+				<img style="height: 120px; width: 120px;" src="images/300x300.png">
+				<figcaption>Advertisement 3</figcaption>
+			</figure>
+		</div>
+		<div id="footer" class="footer">
+			<h6>&copy; 2020 IS3106. All rights reserved.</h6>
+		</div>
+	</body>
+</html>

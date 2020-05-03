@@ -22,6 +22,14 @@ export class CompanyService
 
   }
 
+	companyLogin(email: string, password: string): Observable<any>
+	{
+		return this.httpClient.get<any>(this.baseUrl + "/companyLogin?email=" + email + "&password=" + password).pipe
+		(
+			catchError(this.handleError)
+		);
+  }
+  
   getCompanies(): Observable<any>
   {
       return this.httpClient.get<any>(this.baseUrl).pipe

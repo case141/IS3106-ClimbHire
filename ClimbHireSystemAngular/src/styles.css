@@ -1,1 +1,8 @@
-/* You can add global styles to this file, and also import other style files */
+/* * {
+    background: linear-gradient(87deg,#f5365c 0,#f56036 100%)!important;
+} */
+
+.header {
+	display: block;
+	background-color: whitesmoke;
+}

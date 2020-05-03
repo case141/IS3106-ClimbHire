@@ -1,0 +1,14 @@
+<header class="header">
+    <h3>ClimbHire</h3>
+    <form>
+        <div id="searchbox" class="searchbox">
+            <input style="float: left;" class="form-control" placeholder="Search" type="text">
+        </div>
+        <div *ngIf="sessionService.getIsLogin() == false">
+            <button type="button" class="btn btn-primary">Register</button>
+            <button type="button" class="btn btn-primary">Login</button>
+        </div>
+        <div *ngIf="sessionService.getIsLogin() == true">
+        </div>
+    </form>
+</header>
