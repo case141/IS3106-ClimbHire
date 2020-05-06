@@ -88,6 +88,12 @@ public class DataInitSessionBean {
             
             jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("IOS Application Developer", "Clementi Building 1", new Date(), 5000.00, 30.00, 
                     "Designing and building mobile applications for Apple's IOS platform.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
+               
+            jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("Android Developer", "Clementi Building 1", new Date(), 5000.00, 30.00, 
+                    "Designing and building mobile applications for Android platform.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
+               
+            jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("Data Scientist", "Clementi Building 1", new Date(), 5000.00, 30.00, 
+                    "To manage and analyze data for the company's projects.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
         
             PaymentEntity payment = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
             baseCompany.getPaymentHistory().add(payment);
