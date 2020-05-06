@@ -9,7 +9,7 @@ import {
 import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
-import { SessionService } from './session.service';
+import { SessionService } from "./session.service";
 import { Professional } from "./professional";
 
 const httpOptions = {
@@ -22,18 +22,44 @@ const httpOptions = {
 export class ProfessionalService {
   baseUrl: string = "/api/Professional";
 
-  constructor(private httpClient: HttpClient, private sessionService: SessionService) { }
-
-
+  constructor(
+    private httpClient: HttpClient,
+    private sessionService: SessionService
+  ) {}
 
   getProfessionals(): Observable<any> {
-    return this.httpClient.get<any>(this.baseUrl + "/retrieveAllProfessionals").pipe
-      (
-        catchError(this.handleError)
-      );
+    return this.httpClient
+      .get<any>(this.baseUrl + "/retrieveAllProfessionals")
+      .pipe(catchError(this.handleError));
   }
 
+  retrieveProfessionalById(professionalId: number): Observable<any> {
+    return this.httpClient
+      .get<any>(
+        this.baseUrl +
+          "/retrieveProfessional/" +
+          professionalId +
+          "?email=" +
+          this.sessionService.getEmail() +
+          "&password=" +
+          this.sessionService.getPassword()
+      )
+      .pipe(catchError(this.handleError));
+  }
 
+  deleteProduct(professionalId: number): Observable<any> {
+    return this.httpClient
+      .delete<any>(
+        this.baseUrl +
+          "/" +
+          professionalId +
+          "?username=" +
+          this.sessionService.getEmail() +
+          "&password=" +
+          this.sessionService.getPassword()
+      )
+      .pipe(catchError(this.handleError));
+  }
 
   private handleError(error: HttpErrorResponse) {
     let errorMessage: string = "";
@@ -48,7 +74,4 @@ export class ProfessionalService {
 
     return throwError(errorMessage);
   }
-
-
-
 }

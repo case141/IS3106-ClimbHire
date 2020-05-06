@@ -81,6 +81,21 @@ public class ProfessionalEntitySessionBean implements ProfessionalEntitySessionB
     }
     
     @Override
+    public ProfessionalEntity retrieveProfessionalById(Long professionalId) throws ProfessionalNotFoundException
+    {
+        ProfessionalEntity professionalEntity = em.find(ProfessionalEntity.class, professionalId);
+        
+        if(professionalEntity != null)
+        {
+            return professionalEntity;
+        }
+        else
+        {
+            throw new ProfessionalNotFoundException("Professional ID " + professionalId + " does not exist!");
+        }
+    }
+    
+    @Override
     public ProfessionalEntity createNewProfessional(ProfessionalEntity newProfessional, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewProfessionalException, ProfessionalNotFoundException
     {
         

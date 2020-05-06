@@ -24,6 +24,8 @@ public interface ProfessionalEntitySessionBeanLocal {
 
     public ProfessionalEntity retrieveProfessionalByEmail(String professionalEmail) throws ProfessionalNotFoundException;
     
+    public ProfessionalEntity retrieveProfessionalById(Long professionalId) throws ProfessionalNotFoundException;
+    
     public ProfessionalEntity createNewProfessional(ProfessionalEntity newProfessional, Long companyId) throws UnknownPersistenceException, InputDataValidationException, CreateNewProfessionalException, ProfessionalNotFoundException;
     
 }
