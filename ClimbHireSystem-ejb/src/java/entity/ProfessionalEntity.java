@@ -53,6 +53,8 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     private Date dateJoined;
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfBirth;
+    
+    private UserTypeEnum userTypeEnum;
     //private AccessRightEnum accessRightEnum; //EMPLOYEE or CANDIDATE
     
     @OneToMany(mappedBy = "createdBy")
@@ -67,7 +69,7 @@ public class ProfessionalEntity implements Serializable { //Professional for A P
     
     
     
-    private UserTypeEnum userTypeEnum;
+    
 
     public ProfessionalEntity() {
         previousWorkExperiences = new ArrayList<>();

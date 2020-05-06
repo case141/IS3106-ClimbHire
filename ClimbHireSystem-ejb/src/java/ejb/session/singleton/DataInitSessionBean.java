@@ -17,10 +17,12 @@ import ejb.session.stateless.AdminEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import ejb.session.stateless.JobListingEntitySessionBeanLocal;
 import ejb.session.stateless.PaymentEntitySessionBeanLocal;
+import ejb.session.stateless.ProfessionalEntitySessionBeanLocal;
 import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
 import entity.CompanyEntity;
 import entity.JobListingEntity;
 import entity.PaymentEntity;
+import entity.ProfessionalEntity;
 import entity.SubscriptionEntity;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -28,6 +30,7 @@ import util.enumeration.JobListingStatusEnum;
 import util.enumeration.PaymentStatusEnum;
 import util.enumeration.SubscriptionStatusEnum;
 import util.enumeration.SubscriptionTypeEnum;
+import util.enumeration.UserTypeEnum;
 import util.exception.AdminNotFoundException;
 
 /**
@@ -48,7 +51,11 @@ public class DataInitSessionBean {
     @EJB(name = "JobListingEntitySessionBeanLocal")
     private JobListingEntitySessionBeanLocal jobListingEntitySessionBeanLocal;
     @EJB(name = "PaymentEntitySessionBeanLocal")
-    private PaymentEntitySessionBeanLocal paymentEntitySessionBeanLocal;
+    private PaymentEntitySessionBeanLocal paymentEntitySessionBeanLocal; 
+    @EJB
+    private ProfessionalEntitySessionBeanLocal professionalEntitySessionBeanLocal;
+    
+    
 
     @PersistenceContext(unitName = "ClimbHireSystem-ejbPU")
     private EntityManager em;
@@ -97,6 +104,10 @@ public class DataInitSessionBean {
    
             PaymentEntity payment = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, new Date()), baseCompany.getCompanyId());
             baseCompany.getPaymentHistory().add(payment);
+            
+            ProfessionalEntity professional = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "John", "Tan", "Hougang Avenue 7", "johntan@gmail.com",
+            'M', 81345678, new Timestamp(System.currentTimeMillis()), new Date(), UserTypeEnum.EMPLOYEE), baseCompany.getCompanyId());
+            baseCompany.getProfessionalsList().add(professional);
             
             
         }

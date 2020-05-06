@@ -10,6 +10,7 @@ import { Observable, throwError } from "rxjs";
 import { catchError } from "rxjs/operators";
 
 import { Company } from "./company";
+import { Subscription } from "./subscription";
 
 const httpOptions = {
   headers: new HttpHeaders({ "Content-Type": "application/json" }),
@@ -18,34 +19,27 @@ const httpOptions = {
 @Injectable({
   providedIn: "root",
 })
-export class CompanyService {
-  baseUrl: string = "/api/Company";
+export class SubscriptionService {
+  baseUrl: string = "/api/Subscription";
 
-  constructor(private httpClient: HttpClient) { }
+  constructor(private httpClient: HttpClient) {}
 
-  getCompanies(): Observable<any> {
+  getSubscriptions(): Observable<any> {
     return this.httpClient
-      .get<any>(this.baseUrl + "/retrieveAllCompanies")
+      .get<any>(this.baseUrl + "/retrieveAllSubscriptions")
       .pipe(catchError(this.handleError));
   }
 
-  registerCompany(newCompany: Company): Observable<any> {
-    let registerNewCompanyReq = { newCompany: newCompany };
+  createNewSubscription(newSubscription: Subscription): Observable<any> {
+    let createNewSubscriptionReq = { newSubscription: newSubscription };
 
     return this.httpClient
       .put<any>(
-        this.baseUrl + "/createNewCompany",
-        registerNewCompanyReq,
+        this.baseUrl + "/createNewSubscription",
+        createNewSubscriptionReq,
         httpOptions
       )
       .pipe(catchError(this.handleError));
-  }
-
-  companyLogin(email: string, password: string): Observable<any> {
-    return this.httpClient.get<any>(this.baseUrl + "/companyLogin?email=" + email + "&password=" + password).pipe
-      (
-        catchError(this.handleError)
-      );
   }
 
   private handleError(error: HttpErrorResponse) {

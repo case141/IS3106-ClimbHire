@@ -5,6 +5,7 @@ import { NgForm } from "@angular/forms";
 
 import { CompanyService } from "../company.service";
 import { Company } from "../company";
+import { Subscription } from "../subscription";
 
 @Component({
   selector: "app-register-company",
@@ -16,6 +17,7 @@ export class RegisterCompanyComponent implements OnInit {
   newCompany: Company;
   infoMessage: string;
   errorMessage: string;
+  newSubscription: Subscription;
 
   constructor(private router: Router, private companyService: CompanyService) {
     this.submitted = false;

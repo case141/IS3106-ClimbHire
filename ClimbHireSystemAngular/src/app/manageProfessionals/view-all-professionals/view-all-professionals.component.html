@@ -1,0 +1,50 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+
+<section id="content" class="content">
+    <h4 style="float:left; margin:5px;">List of Professionals in your Company</h4>
+    <div style="float:right; margin:5px;">
+        <button id="createListingButton" type="button" class="btn btn-danger" routerLink="/createJobListing">Export
+            TimeSheet</button>
+        <button id="closeListingButton" type="button" class="btn btn-secondary" data-toggle="modal"
+            data-target="#removeProfessionalModal">Remove Professional</button>
+    </div>
+    <br />
+
+    <div>
+        <table class="table align-items-center table-flush" id="tableJobListings" style="width:100%; ">
+            <thead class="thead-light">
+                <tr>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">Address</th>
+                    <th scope="col">Email</th>
+                    <th scope="col">Gender</th>
+                    <th scope="col">Contract</th>
+                    <th scope="col">Date Joined</th>
+                    <th scope="col">Date of Birth</th>
+                    <th scope="col">User Type</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let professional of professionals">
+                    <td>{{professional.firstName}}</td>
+                    <td>{{professional.lastName}}</td>
+                    <td>{{professional.address}}</td>
+                    <td>{{professional.email}}</td>
+                    <td>{{professional.gender}}</td>
+                    <td>{{professional.contactNumber}}</td>
+                    <td>{{professional.dateJoined}}</td>
+                    <td>{{professional.dateOfBirth}}</td>
+                    <td>{{professional.userTypeEnum}}</td>
+                    <td><a routerLink="/manageProfessionals/viewProfessionalDetails/{{professional.userId}}">View</a>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<app-footer></app-footer>

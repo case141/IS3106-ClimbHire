@@ -5,6 +5,7 @@
  */
 package ws.restful.model;
 
+import entity.CompanyEntity;
 import entity.SubscriptionEntity;
 
 /**
@@ -14,14 +15,14 @@ import entity.SubscriptionEntity;
 public class CreateNewSubscriptionReq {
     
     private SubscriptionEntity subscriptionEntity;
-    private Long companyId;
+    private CompanyEntity companyEntity;
 
     public CreateNewSubscriptionReq() {
     }
 
-    public CreateNewSubscriptionReq(SubscriptionEntity subscriptionEntity, Long companyId) {
+    public CreateNewSubscriptionReq(SubscriptionEntity subscriptionEntity, CompanyEntity companyEntity) {
         this.subscriptionEntity = subscriptionEntity;
-        this.companyId = companyId;
+        this.companyEntity = companyEntity;
     }
 
     public SubscriptionEntity getSubscriptionEntity() {
@@ -32,13 +33,15 @@ public class CreateNewSubscriptionReq {
         this.subscriptionEntity = subscriptionEntity;
     }
 
-    public Long getCompanyId() {
-        return companyId;
+    public CompanyEntity getCompanyEntity() {
+        return companyEntity;
     }
 
-    public void setCompanyId(Long companyId) {
-        this.companyId = companyId;
+    public void setCompanyEntity(CompanyEntity companyEntity) {
+        this.companyEntity = companyEntity;
     }
+
+   
     
     
     

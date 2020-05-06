@@ -93,7 +93,7 @@ public class SubscriptionResource {
         if(createNewSubscriptionReq != null){
             try 
             {    
-                SubscriptionEntity subscriptionEntity  = subscriptionEntitySessionBeanLocal.createNewSubscription(createNewSubscriptionReq.getSubscriptionEntity(), createNewSubscriptionReq.getCompanyId());
+                SubscriptionEntity subscriptionEntity  = subscriptionEntitySessionBeanLocal.createNewSubscription(createNewSubscriptionReq.getSubscriptionEntity(), createNewSubscriptionReq.getCompanyEntity().getCompanyId());
                 CreateNewSubscriptionRsp createNewSubscriptionRsp = new CreateNewSubscriptionRsp(subscriptionEntity.getSubscriptionId());
                 
                 return Response.status(Response.Status.OK).entity(createNewSubscriptionRsp).build();
