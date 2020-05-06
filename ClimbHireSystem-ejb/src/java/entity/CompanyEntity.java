@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -46,6 +47,7 @@ public class CompanyEntity implements Serializable {
     private String companyBio; //optional
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfFounding;
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateJoined;
     
@@ -68,7 +70,7 @@ public class CompanyEntity implements Serializable {
         
         paymentHistory = new ArrayList<>();
         professionalsList = new ArrayList<>();
-        listOfJobs = new ArrayList<>();
+        listOfJobs = new ArrayList<>();  
     }
 
     public CompanyEntity(String companyName, String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
@@ -153,7 +155,7 @@ public class CompanyEntity implements Serializable {
     }
 
     public void setDateJoined(Date dateJoined) {
-        this.dateJoined = dateJoined;
+        this.dateJoined = dateJoined;     
     }
 
     public SubscriptionEntity getSubscription() {

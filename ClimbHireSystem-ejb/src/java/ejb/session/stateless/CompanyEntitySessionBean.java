@@ -8,6 +8,8 @@ package ejb.session.stateless;
 import entity.CompanyEntity;
 import entity.PaymentEntity;
 import entity.SubscriptionEntity;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.EJB;
@@ -73,7 +75,7 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
         
         if(constraintViolations.isEmpty())
         {  
-                                    
+                newCompany.setDateJoined(new Timestamp(System.currentTimeMillis()));
                 em.persist(newCompany);      
                 em.flush();
 
