@@ -1,1 +1,102 @@
-<p>view-company-profile works!</p>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<section id="content" class="content">	
+    <h3>View Company Profile</h3>
+    <form #createJobListingForm="ngForm" (ngSubmit)="create(createJobListingForm)" >
+	    <table *ngIf="retrieveCompanyError == false" width="100%" class="table align-items-center table-flush" id="tableCompanyProfile">	
+			<tr>
+				<td width="20%" style="font-weight: bold;">Company ID</td>
+				<td>
+                    <input value="1" class="form-control" id="companyId" name="companyId" #title="ngModel" 
+                    type="text" placeholder="Full-stack Web Developer" [(ngModel)]="companyToUpdate.companyId" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Company Name</td>
+				<td>
+                    <input value="1" class="form-control" id="companyName" name="companyName" #title="ngModel" 
+                    type="text" placeholder="Base Company" [(ngModel)]="companyToUpdate.companyName" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Bio</td>
+				<td>
+                    <input value="..." class="form-control" id="companyBio" name="companyBio" #title="ngModel" 
+                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.companyBio" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Contact Number</td>
+				<td>
+                    <input value="91234567" class="form-control" id="contactNumber" name="contactNumber" #title="ngModel" 
+                    type="number" placeholder="91234567" [(ngModel)]="companyToUpdate.contactNumber" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Email</td>
+				<td>
+                    <input value="basecompany@gmail.com" class="form-control" id="email" name="email" #title="ngModel" 
+                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.email" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Date of Founding</td>
+				<td>
+                    <input value="2020-01-10" class="form-control" id="dateOfFounding" name="dateOfFounding" #title="ngModel" 
+                    type="text" placeholder="Enter date company is founded." [(ngModel)]="companyToUpdate.dateOfFounding" required="true" />
+                </td>
+            </tr>
+            <tr>
+				<td width="20%" style="font-weight: bold;">Date Joined</td>
+				<td>
+                    <input value="2020-05-06" class="form-control" id="dateJoined" name="dateJoined" #title="ngModel" 
+                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.dateJoined" required="true" />
+                </td>
+            </tr>
+            <br/>
+			<tr>
+				<td colspan="3" style="text-align: center;">
+                    <button type="submit" class="btn btn-secondary">Update Company Details</button>
+				</td>
+			</tr>
+
+        <!-- <tbody>
+            <tr>
+                <td style="font-weight: bold;">Company ID</td>
+                <td>{{companyToView.companyId}}</td>
+            </tr>
+            <tr>
+                <td  style="font-weight: bold;">Company Name</td>
+                <td>{{companyToView.companyName}}</td>
+            </tr>
+            <tr>
+                <td  style="font-weight: bold;">Bio</td>
+                <td>{{companyToView.companyBio}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Contact Number</td>
+                <td>{{companyToView.contactNumber}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Email</td>
+                <td>{{companyToView.email}}</td>
+            </tr>
+            <tr>
+                <td style="font-weight: bold;">Date of Founding</td>
+                <td>{{companyToView.dateOfFounding}}</td>
+            </tr>
+            <tr>
+                <td  style="font-weight: bold;">Date Joined</td>
+                <td>{{companyToView.dateJoined}}</td>
+            </tr>	
+        </tbody>	 -->
+		
+    </table>
+    </form>
+	
+    
+</section>
+
+
+<app-footer></app-footer>

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http
 import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
+import { SessionService } from './session.service';
 import { Company } from './company';
 
 const httpOptions = {
@@ -17,7 +18,8 @@ export class CompanyService
 {
   baseUrl: string = '/api/Company';
 
-  constructor(private httpClient: HttpClient) 
+  constructor(private httpClient: HttpClient, 
+    public sessionService: SessionService) 
   { 
 
   }
@@ -37,6 +39,15 @@ export class CompanyService
         catchError(this.handleError)
       );
   }
+
+	getCompanyByCompanyEmail(productId: number): Observable<any>
+	{
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveCompany" + "?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+	
 
   private handleError(error: HttpErrorResponse)
   {

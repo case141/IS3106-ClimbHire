@@ -20,9 +20,11 @@ import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PUT;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import util.exception.CompanyNotFoundException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.UpdateCompanyException;
 import ws.restful.model.CompanyLoginRsp;
@@ -30,6 +32,7 @@ import ws.restful.model.CreateNewCompanyReq;
 import ws.restful.model.CreateNewCompanyRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllCompaniesRsp;
+import ws.restful.model.RetrieveCompanyRsp;
 import ws.restful.model.UpdateCompanyRsp;
 
 /**
@@ -112,6 +115,35 @@ public class CompanyResource {
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);
 
             return Response.status(Response.Status.OK).entity(retrieveAllCompaniesRsp).build();
+        }
+        catch(Exception ex)
+        {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+        }
+    }
+    
+    
+    @Path("retrieveCompany")
+    @GET
+    @Consumes(MediaType.TEXT_PLAIN)
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response retrieveCompany(@QueryParam("email") String email, 
+                                        @QueryParam("password") String password)
+    {
+        try {
+            CompanyEntity companyEntity = companyEntitySessionBeanLocal.companyLogin(email, password);
+            System.out.println("********** CompanyResource.retrieveCompany(): Company " + companyEntity.getEmail()+ " login remotely via web service");
+
+            companyEntity.getPaymentHistory().clear();
+            companyEntity.setSubscription(null);
+            
+            return Response.status(Response.Status.OK).entity(new RetrieveCompanyRsp(companyEntity)).build();
+        } catch (InvalidLoginCredentialException ex) {
+            ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+            
+            return Response.status(Response.Status.UNAUTHORIZED).entity(errorRsp).build();
         }
         catch(Exception ex)
         {

@@ -30,6 +30,7 @@ export class CreateJobListingComponent implements OnInit {
   this.submitted = false;
   this.newJobListing = new JobListing();
   this.newJobListing.jobListingStatusEnum = JobListingStatusEnum.OPEN;
+  this.newJobListing.datePosted = new Date();
 
   this.resultSuccess = false;
   this.resultError = false;

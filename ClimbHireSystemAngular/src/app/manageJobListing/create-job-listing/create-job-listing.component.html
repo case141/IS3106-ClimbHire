@@ -2,7 +2,7 @@
 <app-sidebar></app-sidebar>
 
 <section id="content" class="content">	
-	<h4>Create New Product</h4>
+	<h3>Create New Job Listing</h3>
 	<br/>
 	<div *ngIf="resultSuccess == true" style="color:blue;">
 		{{message}}
@@ -16,15 +16,119 @@
 		<table width="100%">			
 			<tr>
 				<td width="20%" style="font-weight: bold;">Job Title</td>
-				<td><input id="title" name="title" #title="ngModel" type="text" [(ngModel)]="newJobListing.title" required="true" /></td>
+				<td>
+                    <input class="form-control" id="title" name="title" #title="ngModel" type="text" placeholder="Full-stack Web Developer" [(ngModel)]="newJobListing.title" required="true" />
+                </td>
 				<td>
 					<div *ngIf="title.invalid && (title.dirty || title.touched || submitted)" class="errorText">
 						<div *ngIf="title.errors.required">
-							SKU Code is required.
+							Job Title is required.
+						</div>
+					</div>
+				</td>
+            </tr>			
+			<tr>
+				<td width="20%" style="font-weight: bold;">Work Location</td>
+				<td>
+                    <input class="form-control" id="workLocation" name="workLocation" #workLocation="ngModel" placeholder="Clementi Avenue 1" type="text" [(ngModel)]="newJobListing.workLocation" required="true" />
+                </td>
+				<td>
+					<div *ngIf="workLocation.invalid && (workLocation.dirty || workLocation.touched || submitted)" class="errorText">
+						<div *ngIf="workLocation.errors.required">
+							Work Location is required.
+						</div>
+					</div>
+				</td>
+            </tr>			
+			<tr>
+				<td width="20%" style="font-weight: bold;">Basic Monthly Pay</td>
+				<td>
+                    <input class="form-control" id="basicMonthlyPay" name="basicMonthlyPay" #basicMonthlyPay="ngModel" placeholder="5000" type="number" [(ngModel)]="newJobListing.basicMonthlyPay" required="true" />
+                </td>
+				<td>
+					<div *ngIf="basicMonthlyPay.invalid && (basicMonthlyPay.dirty || basicMonthlyPay.touched || submitted)" class="errorText">
+						<div *ngIf="basicMonthlyPay.errors.required">
+							Basic Monthly Pay is required.
+						</div>
+					</div>
+				</td>
+            </tr>	
+			<tr>
+				<td width="20%" style="font-weight: bold;">Pay Per Hour</td>
+				<td>
+                    <input class="form-control" id="payPerHour" name="payPerHour" #payPerHour="ngModel" placeholder="100" type="number" [(ngModel)]="newJobListing.payPerHour" required="true" />
+                </td>
+				<td>
+					<div *ngIf="payPerHour.invalid && (payPerHour.dirty || payPerHour.touched || submitted)" class="errorText">
+						<div *ngIf="payPerHour.errors.required">
+							Pay Per Hour is required.
 						</div>
 					</div>
 				</td>
             </tr>
+			<tr>
+				<td width="20%" style="font-weight: bold;">Responsibilities</td>
+				<td>
+                    <textarea id="responsibilities" name="responsibilities" #responsibilities="ngModel" 
+                    [(ngModel)]="newJobListing.responsibilities" required="true" type="text" 
+                    class="form-control form-control-alternative" rows="3" 
+                    placeholder="Enter responsibilities that will be required of employees..."></textarea>
+                </td>
+				<td>
+					<div *ngIf="responsibilities.invalid && (responsibilities.dirty || responsibilities.touched || submitted)" class="errorText">
+						<div *ngIf="responsibilities.errors.required">
+							Responsibilities is required.
+						</div>
+					</div>
+				</td>
+            </tr>	
+			<tr>
+				<td width="20%" style="font-weight: bold;">Contract Type</td>
+				<td>
+                    <input class="form-control" id="contractType" name="contractType" #contractType="ngModel" placeholder="Full Time, Part Time, Intern, etc." type="text" [(ngModel)]="newJobListing.contractType" required="true" />
+                </td>
+				<td>
+					<div *ngIf="contractType.invalid && (contractType.dirty || contractType.touched || submitted)" class="errorText">
+						<div *ngIf="contractType.errors.required">
+							Contract Type is required.
+						</div>
+					</div>
+				</td>
+            </tr>	
+			<tr>
+				<td width="20%" style="font-weight: bold;">Positions Available</td>
+				<td>
+                    <input class="form-control" id="numOfPositionAvailable" name="numOfPositionAvailable" #numOfPositionAvailable="ngModel" placeholder="2" type="number" [(ngModel)]="newJobListing.numOfPositionAvailable" required="true" />
+                </td>
+				<td>
+					<div *ngIf="numOfPositionAvailable.invalid && (numOfPositionAvailable.dirty || numOfPositionAvailable.touched || submitted)" class="errorText">
+						<div *ngIf="numOfPositionAvailable.errors.required">
+							Positions Available is required.
+						</div>
+					</div>
+				</td>
+            </tr>
+			<tr>
+				<td width="20%" style="font-weight: bold;">Listing Expiry Date</td>
+				<td>
+                    <input class="form-control" id="expiryDate" name="expiryDate" #expiryDate="ngModel" placeholder="When does this listing expire? 2020-05-30" type="string" [(ngModel)]="newJobListing.expiryDate" required="true" />
+                </td>
+				<td>
+					<div *ngIf="expiryDate.invalid && (expiryDate.dirty || expiryDate.touched || submitted)" class="errorText">
+						<div *ngIf="expiryDate.errors.required">
+							Positions Available is required.
+						</div>
+					</div>
+				</td>
+            </tr>
+            <br/>
+			<tr>
+				<td colspan="3" style="text-align: center;">
+					<button (click)="clear()" class="btn btn-secondary">Clear</button>
+					&nbsp;
+                    <button type="submit" class="btn btn-secondary">Create New Job Listing</button>
+				</td>
+			</tr>
         </table>
     </form>
 </section>

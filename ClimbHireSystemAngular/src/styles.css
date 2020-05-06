@@ -3,10 +3,11 @@
 } */
 
 .header {
-    background: linear-gradient(87deg,#f5365c 0,#f56036 100%)!important;
-	display: block;
+	background: linear-gradient(87deg,#f5365c 0,#f56036 100%)!important;
+	display: inline-block;
 	clear: both;
 	background-color: whitesmoke;
+	width:100%;
 }
 
 
@@ -14,8 +15,9 @@
 	display: block;
 	width: 15%;
 	height: 100%;
-	padding: 10px;;
+	padding: 10px;
 	float: left;
+	position:fixed;
 }
 
 .content {
@@ -24,7 +26,7 @@
 	right: 0;
 	height:100%;
 	padding: 10px;
-	float: left;
+	float: right;
 	background-color: whitesmoke;
 	position: relative;
 }
@@ -57,7 +59,8 @@
 	background-color:white;
 }
 
-#tabs-text-1-tab, #tabs-text-2-tab, #tabs-text-3-tab, #tabs-text-4-tab, #tabs-text-5-tab{
+#tabs-text-1-tab, #tabs-text-2-tab, #tabs-text-3-tab, 
+#tabs-text-4-tab, #tabs-text-5-tab, #tabs-text-6-tab, #tabs-text-7-tab, #tabs-text-8-tab, #tabs-text-9-tab{
 	width:100%;
 	margin-bottom:5px;
 }

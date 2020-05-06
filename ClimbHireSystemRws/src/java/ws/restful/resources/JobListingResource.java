@@ -99,7 +99,6 @@ public class JobListingResource {
      * PUT method for updating or creating an instance of JobListingResource
      * @param content representation for the resource
      */
-    @Path("createJobListing")
     @PUT
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
