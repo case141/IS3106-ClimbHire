@@ -1,8 +1,9 @@
 <header class="header navbar navbar-expand-lg bg-default">
-    <h3 style="float:left; overflow: auto; padding:3px; margin:3px;">ClimbHire</h3>
+    <img id="header-img" src="assets/img/climbhire-logo.png" height="50" width="50" alt="ClimbHire Logo" />
+    <h3 id="header-title">ClimbHire</h3>
     <form>
         <div id="searchbox" class="searchbox">
-            <input id="searchboxinput" class="form-control" placeholder="Search" type="text">
+            <input id="searchboxinput" class="form-control" placeholder="Search" type="text"/>
         </div>
     </form>
 	<aside id="loginbox" class="loginbox">	
@@ -40,9 +41,10 @@
                 </div>
             </div>
         </div>
-        <div *ngIf="sessionService.getIsLogin() == true">
-            You are login as {{sessionService.getCurrentCompany().email}}
-            <input type="button" (click)="companyLogout()" value="Logout" />
+        <div style="display:inline; " *ngIf="sessionService.getIsLogin() == true">
+            <label style="color:white; padding:10px 5px;">{{sessionService.getCurrentCompany().companyName}}</label>
+            <button type="button" class="btn btn-secondary"(click)="companyLogout()" value="Logout">Logout</button>	
+            <!-- <img  src="assets/img/company-profile-pic.png" height="40" width="40" alt="ClimbHire Logo" /> -->
         </div>
     </aside>
 

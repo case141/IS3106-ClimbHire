@@ -4,7 +4,7 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { SessionService } from './session.service';
-import { Company } from './company';
+import { JobListing } from './job-listing';
 
 const httpOptions = {
 	headers: new HttpHeaders({ 'Content-Type': 'application/json' })
@@ -19,9 +19,11 @@ export class JobListingService {
 	baseUrl: string = "/api/JobListing";
 	
 	
-	constructor(private httpClient: HttpClient) 
-  {		
-  }
+	constructor(private httpClient: HttpClient,
+		private sessionService: SessionService)
+	{		
+	}
+
 
 	getJobListings(): Observable<any>
 	{				
@@ -31,6 +33,21 @@ export class JobListingService {
 		);
   }
   
+	createNewJobListing(newJobListing: JobListing): Observable<any>
+	{		
+		let createProductReq = {
+			"email": this.sessionService.getEmail(),
+			"password": this.sessionService.getPassword(),
+			"jobListingEntity": newJobListing,
+			"companyId": this.sessionService.getCurrentCompany().companyId,
+		};
+		
+		return this.httpClient.put<any>(this.baseUrl, createProductReq, httpOptions).pipe
+		(
+			catchError(this.handleError)
+		);
+	}
+	
 	private handleError(error: HttpErrorResponse)
 	{
 		let errorMessage: string = "";

@@ -47,7 +47,11 @@ export class SessionService {
 		sessionStorage.currentCompany = JSON.stringify(currentCompany);
 	}
   
-	
+	getCompanyName(): string
+	{
+		return sessionStorage.companyName;
+	}
+
 	getEmail(): string
 	{
 		return sessionStorage.email;

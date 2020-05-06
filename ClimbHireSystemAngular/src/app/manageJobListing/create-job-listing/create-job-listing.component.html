@@ -1,1 +1,32 @@
-<p>create-job-listing works!</p>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<section id="content" class="content">	
+	<h4>Create New Product</h4>
+	<br/>
+	<div *ngIf="resultSuccess == true" style="color:blue;">
+		{{message}}
+	</div>
+	
+	<div *ngIf="resultError == true" style="color:red;">
+		{{message}}
+	</div>
+    <form #createJobListingForm="ngForm" (ngSubmit)="create(createJobListingForm)" >
+	
+		<table width="100%">			
+			<tr>
+				<td width="20%" style="font-weight: bold;">Job Title</td>
+				<td><input id="title" name="title" #title="ngModel" type="text" [(ngModel)]="newJobListing.title" required="true" /></td>
+				<td>
+					<div *ngIf="title.invalid && (title.dirty || title.touched || submitted)" class="errorText">
+						<div *ngIf="title.errors.required">
+							SKU Code is required.
+						</div>
+					</div>
+				</td>
+            </tr>
+        </table>
+    </form>
+</section>
+
+<app-footer></app-footer>

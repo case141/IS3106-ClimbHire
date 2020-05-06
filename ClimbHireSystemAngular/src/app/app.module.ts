@@ -13,6 +13,9 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { CreateJobListingComponent } from './manageJobListing/create-job-listing/create-job-listing.component';
 import { ViewAllJobListingsComponent } from './manageJobListing/view-all-job-listings/view-all-job-listings.component';
 import { ViewJobListingDetailsComponent } from './manageJobListing/view-job-listing-details/view-job-listing-details.component';
+import { ViewCompanyProfileComponent } from './manageCompanyProfile/view-company-profile/view-company-profile.component';
+import { ViewSubscriptionPlanComponent } from './manageSubscription/view-subscription-plan/view-subscription-plan.component';
+import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-history/view-payment-history.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,10 @@ import { ViewJobListingDetailsComponent } from './manageJobListing/view-job-list
     SidebarComponent,
     CreateJobListingComponent,
     ViewAllJobListingsComponent,
-    ViewJobListingDetailsComponent
+    ViewJobListingDetailsComponent,
+    ViewCompanyProfileComponent,
+    ViewSubscriptionPlanComponent,
+    ViewPaymentHistoryComponent
   ],
   imports: [
     BrowserModule,

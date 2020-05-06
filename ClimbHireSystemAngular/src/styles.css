@@ -48,11 +48,24 @@
 
 #searchboxinput{
 	float: left; 
-	width:75%; 
-	padding:3px; 
+	position:relative;
+	width:72%; 
 	margin:3px;
 }
 
 .table{
 	background-color:white;
+}
+
+#tabs-text-1-tab, #tabs-text-2-tab, #tabs-text-3-tab, #tabs-text-4-tab, #tabs-text-5-tab{
+	width:100%;
+	margin-bottom:5px;
+}
+
+#header-title{
+	color:white; float:left; overflow: auto; padding:3px; margin:3px;
+}
+
+#header-img{
+	float:left; overflow: auto; padding:3px; margin:3px;
 }
