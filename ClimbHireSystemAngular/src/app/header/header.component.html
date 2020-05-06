@@ -1,14 +1,49 @@
-<header class="header">
-    <h3>ClimbHire</h3>
+<header class="header navbar navbar-expand-lg bg-default">
+    <h3 style="float:left; overflow: auto; padding:3px; margin:3px;">ClimbHire</h3>
     <form>
         <div id="searchbox" class="searchbox">
-            <input style="float: left;" class="form-control" placeholder="Search" type="text">
-        </div>
-        <div *ngIf="sessionService.getIsLogin() == false">
-            <button type="button" class="btn btn-primary">Register</button>
-            <button type="button" class="btn btn-primary">Login</button>
-        </div>
-        <div *ngIf="sessionService.getIsLogin() == true">
+            <input id="searchboxinput" class="form-control" placeholder="Search" type="text">
         </div>
     </form>
+	<aside id="loginbox" class="loginbox">	
+        <div *ngIf="sessionService.getIsLogin() == false">
+            <button id="registerButton" type="button" class="btn btn-secondary">Register</button>	
+            <!-- Login trigger modal -->
+            <button  id="loginButton" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#loginModal">Login</button>
+          
+            <!-- Modal -->
+            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="loginModalLabel">Enter Your Company Login Details</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <div *ngIf="loginError == true" style="text-align: right; color: red;">
+                                {{errorMessage}}
+                            </div>
+                            <label for="email">Email </label>
+                            <input type="text" [(ngModel)]="email" class="form-control" required size="16" maxlength="32" />
+                            <br/>
+                            <label for="password">Password </label>
+                            <input type="password" [(ngModel)]="password" class="form-control" required size="16" maxlength="32" />
+                            <br/>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="reset" class="btn btn-secondary">Reset</button>
+                            <input type="button" class="btn btn-primary" (click)="companyLogin()" value="Login" data-dismiss="modal"/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div *ngIf="sessionService.getIsLogin() == true">
+            You are login as {{sessionService.getCurrentCompany().email}}
+            <input type="button" (click)="companyLogout()" value="Logout" />
+        </div>
+    </aside>
+
 </header>

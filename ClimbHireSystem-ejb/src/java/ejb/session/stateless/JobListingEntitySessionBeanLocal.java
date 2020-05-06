@@ -33,5 +33,7 @@ public interface JobListingEntitySessionBeanLocal {
     public void closeJobListing(Long jobListingId) throws JobListingNotFoundException;
 
     public void updateJobListingDetails(JobListingEntity jobListingEntity, List<Long> applicationIds) throws InputDataValidationException, JobListingNotFoundException, ApplicationNotFoundException;
+
+    public List<JobListingEntity> retrieveJobListingByCompany(CompanyEntity company) throws CompanyNotFoundException;
     
 }

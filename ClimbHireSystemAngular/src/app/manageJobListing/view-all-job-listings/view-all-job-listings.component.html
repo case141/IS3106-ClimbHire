@@ -1,0 +1,53 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+
+<section id="content" class="content">	
+    <h4 style="float:left; margin:5px;">List of Posted Jobs</h4>
+    <div style="float:right; margin:5px;">
+        <button id="createListingButton" type="button" class="btn btn-secondary">Create Listing</button>	
+        <button id="closeListingButton" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#closeListingModal">Close All Listing</button>	
+    </div>
+	<br/>
+    
+    <div>
+        <table class="table align-items-center table-flush" id="tableJobListings" style="width:100%; ">
+            <thead class="thead-light">
+                <tr>				
+                    <th scope="col" >Job Listing ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Work Location</th>
+                    <th scope="col">Basic Monthly Pay</th>
+                    <th scope="col">Pay Per Hour</th>
+                    <th scope="col">Responsibilities</th>
+                    <th scope="col">Contract</th>
+                    <th scope="col">Positions Available</th>
+                    <!-- <th scope="col">Received Applications</th> -->
+                    <th scope="col">Date Posted</th>
+                    <th scope="col">Date Expire</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let jobListing of jobListings">
+                    <td>{{jobListing.jobListingId}}</td>
+                    <td>{{jobListing.jobTitle}}</td>				
+                    <td>{{jobListing.workLocation}}</td>
+                    <td class="cellnumber">{{jobListing.basicMonthlyPay | currency}}</td>
+                    <td class="cellnumber">{{jobListing.payPerHour | currency}}</td>
+                    <td>{{jobListing.responsibilities}}</td>
+                    <td>{{jobListing.contract}}</td>
+                    <td>{{jobListing.numOfPositionAvailable}}</td>
+                    <!-- <td>{{jobListing.Applications}}</td> -->
+                    <td >{{jobListing.datePosted}}</td>
+                    <td>{{jobListing.expiryDate}}</td>
+                    <td>{{jobListing.jobListingStatusEnum}}</td>
+                    <td><a routerLink="/manageJobListing/viewJobListingDetails/{{jobListing.jobListingId}}">View</a></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<app-footer></app-footer>

@@ -8,6 +8,7 @@ package ejb.session.stateless;
 import entity.ApplicationEntity;
 import entity.CompanyEntity;
 import entity.JobListingEntity;
+import entity.SubscriptionEntity;
 import java.util.List;
 import java.util.Set;
 import java.util.logging.Level;
@@ -15,6 +16,8 @@ import java.util.logging.Logger;
 import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
+import javax.persistence.NonUniqueResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.PersistenceException;
 import javax.persistence.Query;
@@ -63,6 +66,22 @@ public class JobListingEntitySessionBean implements JobListingEntitySessionBeanL
         Query query = em.createQuery("SELECT j FROM JobListingEntity j");
         
         return query.getResultList();
+    }
+    
+    @Override
+    public List<JobListingEntity> retrieveJobListingByCompany(CompanyEntity company) throws CompanyNotFoundException
+    {
+        Query query = em.createQuery("SELECT j FROM JobListingEntity j WHERE j.company = :inCompany");
+        query.setParameter("inCompany", company);
+        
+        try
+        {
+            return query.getResultList();
+        }
+        catch(NoResultException | NonUniqueResultException ex)
+        {
+            throw new CompanyNotFoundException("JobListings for Company " + company + " does not exist!");
+        }
     }
     
     @Override

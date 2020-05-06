@@ -7,43 +7,45 @@ import { Company } from './company';
 })
 export class SessionService {
 
-  constructor() 
-  { 
+	constructor() 
+	{ 
 
-  }
+	}
 
-  getIsLogin(): boolean
-  {
-		if(sessionStorage.isLogin == "true")
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
-  }
+	getIsLogin(): boolean
+	{
+			if(sessionStorage.isLogin == "true")
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+	}
 
 	setIsLogin(isLogin: boolean): void
 	{
 		sessionStorage.isLogin = isLogin;
 	}
 
-  getCompanies(): Company[]
-  {
-      try
-      {
-          return JSON.parse(sessionStorage.companies);
-      }
-      catch
-      {
-          return null;
-      }
-  }
-  setCompanies(companies: Company[]): void
-  {
-      sessionStorage.companies = JSON.stringify(companies);
-  }
+
+
+	getCurrentCompany(): Company
+	{
+		try
+		{
+			return JSON.parse(sessionStorage.currentCompany);
+		}
+		catch
+		{
+			return null;
+		}
+	}
+	setCurrentCompany(currentCompany: Company): void
+	{
+		sessionStorage.currentCompany = JSON.stringify(currentCompany);
+	}
   
 	
 	getEmail(): string
