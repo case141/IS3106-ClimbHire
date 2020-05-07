@@ -6,10 +6,12 @@
 package entity;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import util.security.CryptographicHelper;
 
 /**
  *
@@ -24,15 +26,19 @@ public class AdminEntity implements Serializable {
     private Long adminId;
     private String adminName;
     private String password;
+    @Column(columnDefinition = "CHAR(32) NOT NULL")
+    private String salt;
     private String email;
 
     public AdminEntity() {
+        this.salt = CryptographicHelper.getInstance().generateRandomString(32);
     }
 
     public AdminEntity(String adminName, String password, String email) {
-        this.adminName = adminName;
-        this.password = password;
+        this();
+        this.adminName = adminName;    
         this.email = email;
+        setPassword(password);
     }
 
     public Long getAdminId() {
@@ -90,6 +96,14 @@ public class AdminEntity implements Serializable {
     @Override
     public String toString() {
         return "entity.Admin[ id=" + adminId + " ]";
+    }
+
+    public String getSalt() {
+        return salt;
+    }
+
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
 }

@@ -32,6 +32,8 @@ import util.exception.InputDataValidationException;
 import util.exception.InvalidLoginCredentialException;
 import util.exception.JobListingNotFoundException;
 import util.exception.SubscriptionNotFoundException;
+import ws.restful.model.CreateNewSubscriptionReq;
+import ws.restful.model.CreateNewSubscriptionRsp;
 import ws.restful.model.ErrorRsp;
 import ws.restful.model.RetrieveAllSubscriptionsRsp;
 import ws.restful.model.RetrieveSubscriptionRsp;
@@ -67,7 +69,9 @@ public class SubscriptionResource {
      * Retrieves representation of an instance of ws.restful.resources.SubscriptionResource
      * @return an instance of java.lang.String
      */
+    @Path("retrieveAllSubscriptions")
     @GET
+    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllSubscriptions() {
         try
@@ -76,18 +80,18 @@ public class SubscriptionResource {
             
             for (SubscriptionEntity subscription : subscriptions) 
             {
-                subscription.setCompany(null);
+                subscription.setCompany(null);            
             }
             
             RetrieveAllSubscriptionsRsp retrieveAllSubscriptionsRsp = new RetrieveAllSubscriptionsRsp(subscriptions);
 
-            return Response.status(Status.OK).entity(retrieveAllSubscriptionsRsp).build();
+            return Response.status(Response.Status.OK).entity(retrieveAllSubscriptionsRsp).build();
         }
         catch(Exception ex)
         {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             
-            return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+            return Response.status(Response.Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
         }
     }
 
@@ -128,15 +132,47 @@ public class SubscriptionResource {
             return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
         }
     }
-    
-    /**
-     * PUT method for updating or creating an instance of SubscriptionResource
-     * @param content representation for the resource
-     */
-    @PUT
-    @Consumes(MediaType.APPLICATION_JSON)
-    public void putXml(String content) {
-    }
+//    
+//    /**
+//     * PUT method for updating or creating an instance of SubscriptionResource
+//     * @param content representation for the resource
+//     */
+//    @Path("createNewSubscription")
+//    @PUT
+//    @Consumes(MediaType.APPLICATION_JSON)
+//    @Produces(MediaType.APPLICATION_JSON)
+//    public Response createNewSubscription(CreateNewSubscriptionReq createNewSubscriptionReq) 
+//    {
+//        if(createNewSubscriptionReq != null){
+//            try 
+//            {    
+//                SubscriptionEntity subscriptionEntity  = subscriptionEntitySessionBean.createNewSubscription(createNewSubscriptionReq.getSubscriptionEntity(), createNewSubscriptionReq.getCompanyEntity().getCompanyId());
+//                CreateNewSubscriptionRsp createNewSubscriptionRsp = new CreateNewSubscriptionRsp(subscriptionEntity.getSubscriptionId());
+//                
+//                return Response.status(Response.Status.OK).entity(createNewSubscriptionRsp).build();
+//                
+//         
+//            } catch (CreateNewSubscriptionException ex) 
+//            {     
+//                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+//                
+//                return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
+//            }
+//            catch(Exception ex)
+//            {
+//                ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
+//
+//                return Response.status(Status.INTERNAL_SERVER_ERROR).entity(errorRsp).build();
+//            }
+//        }
+//        else
+//        {
+//            ErrorRsp errorRsp = new ErrorRsp("Invalid create new job listing request");
+//            
+//            return Response.status(Status.BAD_REQUEST).entity(errorRsp).build();
+//        }
+//    }
+
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

@@ -7,6 +7,7 @@ package ejb.session.stateless;
 
 import entity.CompanyEntity;
 import entity.SubscriptionEntity;
+import java.sql.Timestamp;
 import java.util.List;
 import java.util.Set;
 import javax.ejb.Stateless;
@@ -55,42 +56,25 @@ public class CompanyEntitySessionBean implements CompanyEntitySessionBeanLocal {
     }
     
     @Override
-    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException
+    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws 
+            UnknownPersistenceException, InputDataValidationException, CompanyNotFoundException
     {
-        try
-        {
-            Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
+        Set<ConstraintViolation<CompanyEntity>>constraintViolations = validator.validate(newCompany);
         
-            if(constraintViolations.isEmpty())
-            {
-                em.persist(newCompany);
+        if(constraintViolations.isEmpty())
+        {  
+                newCompany.setDateJoined(new Timestamp(System.currentTimeMillis()));
+                em.persist(newCompany);      
                 em.flush();
 
                 return newCompany;
-            }
-            else
-            {
-                throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
-            }            
+            
+                
         }
-        catch(PersistenceException ex)
+        else
         {
-            if(ex.getCause() != null && ex.getCause().getClass().getName().equals("org.eclipse.persistence.exceptions.DatabaseException"))
-            {
-                if(ex.getCause().getCause() != null && ex.getCause().getCause().getClass().getName().equals("java.sql.SQLIntegrityConstraintViolationException"))
-                {
-                    throw new CompanyEmailExistException();
-                }
-                else
-                {
-                    throw new UnknownPersistenceException(ex.getMessage());
-                }
-            }
-            else
-            {
-                throw new UnknownPersistenceException(ex.getMessage());
-            }
-        }
+            throw new InputDataValidationException(prepareInputDataValidationErrorsMessage(constraintViolations));
+        }  
     }
     
     @Override

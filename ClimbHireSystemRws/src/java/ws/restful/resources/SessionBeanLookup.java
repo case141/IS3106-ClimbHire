@@ -9,7 +9,9 @@ import ejb.session.stateless.AdminEntitySessionBeanLocal;
 import ejb.session.stateless.CompanyEntitySessionBeanLocal;
 import ejb.session.stateless.JobListingEntitySessionBeanLocal;
 import ejb.session.stateless.PaymentEntitySessionBeanLocal;
+import ejb.session.stateless.ProfessionalEntitySessionBeanLocal;
 import ejb.session.stateless.SubscriptionEntitySessionBeanLocal;
+import ejb.session.stateless.TimeSheetSessionBeanLocal;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.naming.InitialContext;
@@ -65,6 +67,25 @@ public class SessionBeanLookup {
         try {
             javax.naming.Context c = new InitialContext();
             return (PaymentEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/PaymentEntitySessionBean!ejb.session.stateless.PaymentEntitySessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+    public ProfessionalEntitySessionBeanLocal lookupProfessionalEntitySessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (ProfessionalEntitySessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/ProfessionalEntitySessionBean!ejb.session.stateless.ProfessionalEntitySessionBeanLocal");
+        } catch (NamingException ne) {
+            Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
+            throw new RuntimeException(ne);
+        }
+    }
+     
+    public TimeSheetSessionBeanLocal lookupTimeSheetSessionBeanLocal() {
+        try {
+            javax.naming.Context c = new InitialContext();
+            return (TimeSheetSessionBeanLocal) c.lookup("java:global/ClimbHireSystem/ClimbHireSystem-ejb/TimeSheetSessionBean!ejb.session.stateless.TimeSheetSessionBeanLocal");
         } catch (NamingException ne) {
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, "exception caught", ne);
             throw new RuntimeException(ne);

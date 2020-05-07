@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,9 @@ public class CompanyEntity implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long companyId;
     private String companyName;
-    private String password;    
+    private String password;   
+    @Column(columnDefinition = "CHAR(32) NOT NULL")
+    private String salt;
     @Column(nullable = false, unique = true, length = 64)
     @NotNull
     @Size(max = 64)
@@ -44,20 +47,30 @@ public class CompanyEntity implements Serializable {
     private String companyBio; //optional
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date dateOfFounding;
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date dateJoined;
-    @OneToOne(optional=false)
+    
+    @OneToOne(mappedBy = "company")
     private SubscriptionEntity subscription;
+    
     @OneToMany(mappedBy = "company")
     private List<PaymentEntity> paymentHistory; //optional
-    @Column(columnDefinition = "CHAR(32) NOT NULL")
-    private String salt;
+    
+    @OneToMany(mappedBy = "company")
+    private List<ProfessionalEntity> professionalsList;
+    
+    @OneToMany(mappedBy = "company")
+    private List<JobListingEntity> listOfJobs;
+    
 
     public CompanyEntity() {
         // Newly added in v4.5
         this.salt = CryptographicHelper.getInstance().generateRandomString(32);
         
         paymentHistory = new ArrayList<>();
+        professionalsList = new ArrayList<>();
+        listOfJobs = new ArrayList<>();  
     }
 
     public CompanyEntity(String companyName, String password, String email, Integer contactNumber, String companyBio, Date dateOfFounding, Date dateJoined) {
@@ -142,7 +155,7 @@ public class CompanyEntity implements Serializable {
     }
 
     public void setDateJoined(Date dateJoined) {
-        this.dateJoined = dateJoined;
+        this.dateJoined = dateJoined;     
     }
 
     public SubscriptionEntity getSubscription() {
@@ -194,5 +207,21 @@ public class CompanyEntity implements Serializable {
     // Newly added in v4.5
     public void setSalt(String salt) {
         this.salt = salt;
+    }
+
+    public List<ProfessionalEntity> getProfessionalsList() {
+        return professionalsList;
+    }
+
+    public void setProfessionalsList(List<ProfessionalEntity> professionalsList) {
+        this.professionalsList = professionalsList;
+    }
+
+    public List<JobListingEntity> getListOfJobs() {
+        return listOfJobs;
+    }
+
+    public void setListOfJobs(List<JobListingEntity> listOfJobs) {
+        this.listOfJobs = listOfJobs;
     }
 }

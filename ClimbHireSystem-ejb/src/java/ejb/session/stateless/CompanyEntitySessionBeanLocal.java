@@ -29,13 +29,13 @@ public interface CompanyEntitySessionBeanLocal {
     public CompanyEntity retrieveCompanyByEmail(String companyEmail) throws CompanyNotFoundException;
 
     public CompanyEntity retrieveCompanyByCompanyId(Long companyId) throws CompanyNotFoundException;
-
-    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws CompanyEmailExistException, UnknownPersistenceException, InputDataValidationException;
-
+    
     public void setCompanySubscription(CompanyEntity companyEntity, SubscriptionEntity subscriptionEntity) throws CompanyNotFoundException, SetCompanySubscriptionException;
 
     public CompanyEntity companyLogin(String companyEmail, String password) throws InvalidLoginCredentialException;
 
     public void updateCompanyProfile(CompanyEntity companyEntity) throws CompanyNotFoundException, UpdateCompanyException, InputDataValidationException;
+
+    public CompanyEntity createNewCompany(CompanyEntity newCompany) throws UnknownPersistenceException, InputDataValidationException, CompanyNotFoundException;
    
 }

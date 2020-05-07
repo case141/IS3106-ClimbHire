@@ -97,11 +97,12 @@ public class CompanyResource {
      * Retrieves representation of an instance of ws.restful.resources.CompanyResource
      * @return an instance of java.lang.String
      */
-//    @Path("retrieveAllCompanies")
+    @Path("retrieveAllCompanies")
     @GET
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
-    public Response retrieveAllCompanies() {
+    public Response retrieveAllCompanies() 
+    {
         try
         {
             List<CompanyEntity> companies = companyEntitySessionBeanLocal.retrieveAllCompanies();
@@ -109,7 +110,10 @@ public class CompanyResource {
             for (CompanyEntity company : companies) 
             {
                 company.setSubscription(null);
-                company.getPaymentHistory().clear();
+                company.setPaymentHistory(null);
+                company.setListOfJobs(null);
+                company.setProfessionalsList(null);
+                
             }
             
             RetrieveAllCompaniesRsp retrieveAllCompaniesRsp = new RetrieveAllCompaniesRsp(companies);

@@ -9,6 +9,7 @@ import entity.AdminEntity;
 import java.util.List;
 import javax.ejb.Local;
 import util.exception.AdminNotFoundException;
+import util.exception.InvalidLoginCredentialException;
 
 /**
  *
@@ -22,5 +23,9 @@ public interface AdminEntitySessionBeanLocal {
     public List<AdminEntity> retrieveAllAdmins();
 
     public AdminEntity retrieveAdminByName(String adminName) throws AdminNotFoundException;
+
+    public AdminEntity retrieveAdminByEmail(String adminEmail) throws AdminNotFoundException;
+
+    public AdminEntity adminLogin(String adminEmail, String password) throws InvalidLoginCredentialException;
     
 }
