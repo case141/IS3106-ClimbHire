@@ -11,7 +11,7 @@ import { Professional } from "../../professional";
   styleUrls: ["./view-professional-details.component.css"],
 })
 export class ViewProfessionalDetailsComponent implements OnInit {
-  professionalId: number;
+  userId: number;
   ProfessionalToDelete: Professional;
   error: boolean;
   errorMessage: String;
@@ -29,27 +29,23 @@ export class ViewProfessionalDetailsComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.professionalId = parseInt(
-      this.activatedRoute.snapshot.paramMap.get("professionalId")
-    );
+    this.userId = parseInt(this.activatedRoute.snapshot.paramMap.get("userId"));
 
-    this.professionalService
-      .retrieveProfessionalById(this.professionalId)
-      .subscribe(
-        (response) => {
-          this.professionalToView = response.professionalEntity;
-        },
-        (error) => {
-          this.retrieveProfessionalError = true;
-          console.log(
-            "********** ViewProfessionalsDetailsComponent.ts: " + error
-          );
-        }
-      );
+    this.professionalService.retrieveProfessionalById(this.userId).subscribe(
+      (response) => {
+        this.professionalToView = response.professionalEntity;
+      },
+      (error) => {
+        this.retrieveProfessionalError = true;
+        console.log(
+          "********** ViewProfessionalsDetailsComponent.ts: " + error
+        );
+      }
+    );
   }
 
-  deleteProduct() {
-    this.professionalService.deleteProduct(this.professionalId).subscribe(
+  deleteProfessional() {
+    this.professionalService.deleteProfessional(this.userId).subscribe(
       (response) => {
         this.router.navigate(["/manageProfessionals/viewAllProfessionals"]);
       },

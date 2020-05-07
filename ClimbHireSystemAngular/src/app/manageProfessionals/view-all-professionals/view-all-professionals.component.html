@@ -5,23 +5,15 @@
   <h4 style="float: left; margin: 5px;">
     List of Professionals in your Company
   </h4>
+
   <div style="float: right; margin: 5px;">
     <button
-      id="createListingButton"
+      id="exportTimeSheet"
       type="button"
       class="btn btn-danger"
-      routerLink="/createJobListing"
+      routerLink="/exportTimeSheet"
     >
       Export TimeSheet
-    </button>
-    <button
-      id="closeListingButton"
-      type="button"
-      class="btn btn-secondary"
-      data-toggle="modal"
-      data-target="#removeProfessionalModal"
-    >
-      Remove Professional
     </button>
   </div>
   <br />
@@ -34,6 +26,7 @@
     >
       <thead class="thead-light">
         <tr>
+          <th scope="col">Professional ID</th>
           <th scope="col">First Name</th>
           <th scope="col">Last Name</th>
           <th scope="col">Address</th>
@@ -48,6 +41,7 @@
       </thead>
       <tbody>
         <tr *ngFor="let professional of professionals">
+          <td>{{ professional.userId }}</td>
           <td>{{ professional.firstName }}</td>
           <td>{{ professional.lastName }}</td>
           <td>{{ professional.address }}</td>

@@ -2,69 +2,45 @@
 <app-sidebar></app-sidebar>
 
 <section id="content" class="content">
-  <!-- Create Professional Modal -->
-  <div
-    class="modal fade"
-    id="viewProfessionalModal"
-    tabindex="-1"
-    role="dialog"
-    aria-labelledby="viewProfessionalLabel"
-    aria-hidden="false"
+  <span *ngIf="retrieveProfessionalError == true" style="color: red;"
+    >Professional ID {{ userId }} does not exist!</span
   >
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h3 class="modal-title" id="viewProfessionalLabel">
-            View Professional Details
-          </h3>
-          <button
-            type="button"
-            class="close"
-            data-dismiss="modal"
-            aria-label="Close"
-          >
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <table *ngIf="retrieveProfessionalError == false" width="100%">
-            <tr>
-              <td width="20%" style="font-weight: bold;">First Name</td>
-              <td>{{ professionalToView.firstName }}</td>
-            </tr>
-            <tr>
-              <td width="20%" style="font-weight: bold;">LastName</td>
-              <td>{{ professionalToView.lastName }}</td>
-            </tr>
-            <tr>
-              <td width="20%" style="font-weight: bold;">Address</td>
-              <td>{{ professionalToView.address }}</td>
-            </tr>
-            <tr>
-              <td width="20%" style="font-weight: bold;">Email</td>
-              <td>{{ professionalToView.email }}</td>
-            </tr>
-            <tr>
-              <td width="20%" style="font-weight: bold;">Contact Number</td>
-              <td>{{ professionalToView.contactNumber }}</td>
-            </tr>
-            <tr></tr>
-          </table>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">
-            Close
-          </button>
-          <input
-            class="btn btn-primary"
-            type="button"
-            value="Delete"
-            (click)="deleteProduct()"
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+
+  <h3 class="modal-title" id="viewProfessionalLabel"></h3>
+  View Professional Details
+
+  <table *ngIf="retrieveProfessionalError == false" width="100%">
+    <tr>
+      <td width="20%" style="font-weight: bold;">First Name</td>
+      <td>{{ professionalToView?.firstName }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">LastName</td>
+      <td>{{ professionalToView?.lastName }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Address</td>
+      <td>{{ professionalToView?.address }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Email</td>
+      <td>{{ professionalToView?.email }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Contact Number</td>
+      <td>{{ professionalToView?.contactNumber }}</td>
+    </tr>
+    <tr>
+      <td>
+        <input
+          class="btn btn-primary"
+          type="button"
+          value="Delete"
+          (click)="deleteProfessional()"
+        />
+      </td>
+    </tr>
+  </table>
 </section>
 
 <app-footer></app-footer>

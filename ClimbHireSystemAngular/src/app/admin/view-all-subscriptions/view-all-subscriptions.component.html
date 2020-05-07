@@ -1,0 +1,38 @@
+<app-header></app-header>
+
+<section id="content" class="content">
+  <h4 style="float: left; margin: 5px;">
+    View All Subscriptions
+  </h4>
+
+  <div *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!errorMessage">
+    <table
+      class="table align-items-center table-flush"
+      id="tableSubscriptions"
+      style="width: 100%;"
+    >
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Subscription ID</th>
+          <th scope="col">Subscription Type</th>
+          <th scope="col">Description</th>
+          <th scope="col">Amount</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let subscription of subscriptions">
+          <td>{{ subscription.subscriptionId }}</td>
+          <td>{{ subscription.SubscriptionTypeEnum }}</td>
+          <td>{{ subscription.description }}</td>
+          <td>{{ subscription.amount }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<app-footer></app-footer>

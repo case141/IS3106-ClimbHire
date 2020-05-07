@@ -35,19 +35,11 @@ export class ProfessionalService {
 
   retrieveProfessionalById(professionalId: number): Observable<any> {
     return this.httpClient
-      .get<any>(
-        this.baseUrl +
-          "/retrieveProfessional/" +
-          professionalId +
-          "?email=" +
-          this.sessionService.getEmail() +
-          "&password=" +
-          this.sessionService.getPassword()
-      )
+      .get<any>(this.baseUrl + "/retrieveProfessional/" + professionalId)
       .pipe(catchError(this.handleError));
   }
 
-  deleteProduct(professionalId: number): Observable<any> {
+  deleteProfessional(professionalId: number): Observable<any> {
     return this.httpClient
       .delete<any>(
         this.baseUrl +

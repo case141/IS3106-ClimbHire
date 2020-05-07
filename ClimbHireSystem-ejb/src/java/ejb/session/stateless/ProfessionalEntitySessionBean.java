@@ -87,6 +87,10 @@ public class ProfessionalEntitySessionBean implements ProfessionalEntitySessionB
         
         if(professionalEntity != null)
         {
+            professionalEntity.getJobsApplied();
+            professionalEntity.getTimeSheets();
+            professionalEntity.getCompany();
+            
             return professionalEntity;
         }
         else

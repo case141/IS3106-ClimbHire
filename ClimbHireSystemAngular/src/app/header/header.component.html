@@ -1,56 +1,196 @@
 <header class="header navbar navbar-expand-lg bg-default">
-    <img id="header-img" src="assets/img/climbhire-logo.png" height="50" width="50" alt="ClimbHire Logo" />
-    <h3 id="header-title">ClimbHire</h3>
-    <form>
-        <div id="searchbox" class="searchbox">
-            <input id="searchboxinput" class="form-control" placeholder="Search" type="text" />
-        </div>
-    </form>
-    <aside id="loginbox" class="loginbox">
-        <div *ngIf="sessionService.getIsLogin() == false">
-            <button id="registerButton" type="button" class="btn btn-secondary">Register</button>
-            <!-- Login trigger modal -->
-            <button id="loginButton" type="button" class="btn btn-secondary" data-toggle="modal"
-                data-target="#loginModal">Login</button>
+  <img
+    id="header-img"
+    src="assets/img/climbhire-logo.png"
+    height="50"
+    width="50"
+    alt="ClimbHire Logo"
+  />
+  <h3 id="header-title">ClimbHire</h3>
+  <form>
+    <div id="searchbox" class="searchbox">
+      <input
+        id="searchboxinput"
+        class="form-control"
+        placeholder="Search"
+        type="text"
+      />
+    </div>
+  </form>
+  <aside id="loginbox" class="loginbox">
+    <div *ngIf="sessionService.getIsLogin() == false">
+      <button
+        id="registerButton"
+        type="button"
+        class="btn btn-secondary"
+        routerLink="/registerCompany"
+      >
+        Register
+      </button>
+      <!-- Login trigger modal -->
+      <button
+        id="loginButton"
+        type="button"
+        class="btn btn-secondary"
+        data-toggle="modal"
+        data-target="#loginModal"
+      >
+        Login
+      </button>
 
-            <!-- Modal -->
-            <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel"
-                aria-hidden="true">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="loginModalLabel">Enter Your Company Login Details</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <div class="modal-body">
-                            <div *ngIf="loginError == true" style="text-align: right; color: red;">
-                                {{errorMessage}}
-                            </div>
-                            <label for="email">Email </label>
-                            <input type="text" [(ngModel)]="email" class="form-control" required size="16"
-                                maxlength="32" />
-                            <br />
-                            <label for="password">Password </label>
-                            <input type="password" [(ngModel)]="password" class="form-control" required size="16"
-                                maxlength="32" />
-                            <br />
-                        </div>
-                        <div class="modal-footer">
-                            <button type="reset" class="btn btn-secondary">Reset</button>
-                            <input type="button" class="btn btn-primary" (click)="companyLogin()" value="Login"
-                                data-dismiss="modal" />
-                        </div>
-                    </div>
-                </div>
+      <!-- Modal -->
+      <div
+        class="modal fade"
+        id="loginModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="loginModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginModalLabel">
+                Enter Your Company Login Details
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
             </div>
+            <div class="modal-body">
+              <div
+                *ngIf="loginError == true"
+                style="text-align: right; color: red;"
+              >
+                {{ errorMessage }}
+              </div>
+              <label for="email">Email </label>
+              <input
+                type="text"
+                [(ngModel)]="email"
+                class="form-control"
+                required
+                size="16"
+                maxlength="32"
+              />
+              <br />
+              <label for="password">Password </label>
+              <input
+                type="password"
+                [(ngModel)]="password"
+                class="form-control"
+                required
+                size="16"
+                maxlength="32"
+              />
+              <br />
+            </div>
+            <div class="modal-footer">
+              <input
+                type="button"
+                class="btn btn-primary"
+                value="Admin? Click here"
+                data-toggle="modal"
+                data-target="#loginAdminModal"
+                data-dismiss="modal"
+                style="margin-right: 120px;"
+              />
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <input
+                type="button"
+                class="btn btn-primary"
+                (click)="companyLogin()"
+                value="Login"
+                data-dismiss="modal"
+              />
+            </div>
+          </div>
         </div>
-        <div style="display:inline; " *ngIf="sessionService.getIsLogin() == true">
-            <label style="color:white; padding:10px 5px;">{{sessionService.getCurrentCompany().companyName}}</label>
-            <button type="button" class="btn btn-secondary" (click)="companyLogout()" value="Logout">Logout</button>
-            <!-- <img  src="assets/img/company-profile-pic.png" height="40" width="40" alt="ClimbHire Logo" /> -->
-        </div>
-    </aside>
+      </div>
 
+      <div
+        class="modal fade"
+        id="loginAdminModal"
+        tabindex="-1"
+        role="dialog"
+        aria-labelledby="loginAdminModalLabel"
+        aria-hidden="true"
+      >
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="loginAdminModalLabel">
+                Enter Admin Login Details
+              </h5>
+              <button
+                type="button"
+                class="close"
+                data-dismiss="modal"
+                aria-label="Close"
+              >
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div
+                *ngIf="loginError == true"
+                style="text-align: right; color: red;"
+              >
+                {{ errorMessage }}
+              </div>
+              <label for="email">Email </label>
+              <input
+                type="text"
+                [(ngModel)]="email"
+                class="form-control"
+                required
+                size="16"
+                maxlength="32"
+              />
+              <br />
+              <label for="password">Password </label>
+              <input
+                type="password"
+                [(ngModel)]="password"
+                class="form-control"
+                required
+                size="16"
+                maxlength="32"
+              />
+              <br />
+            </div>
+            <div class="modal-footer">
+              <button type="reset" class="btn btn-secondary">Reset</button>
+              <input
+                type="button"
+                class="btn btn-primary"
+                (click)="adminLogin()"
+                value="Login"
+                data-dismiss="modal"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div style="display: inline;" *ngIf="sessionService.getIsLogin() == true">
+      <label style="color: white; padding: 10px 5px;">{{
+        sessionService.getCurrentCompany().companyName
+      }}</label>
+      <button
+        type="button"
+        class="btn btn-secondary"
+        (click)="companyLogout()"
+        value="Logout"
+      >
+        Logout
+      </button>
+      <!-- <img  src="assets/img/company-profile-pic.png" height="40" width="40" alt="ClimbHire Logo" /> -->
+    </div>
+  </aside>
 </header>

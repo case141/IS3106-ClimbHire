@@ -30,8 +30,14 @@ export class SubscriptionService {
       .pipe(catchError(this.handleError));
   }
 
-  createNewSubscription(newSubscription: Subscription): Observable<any> {
-    let createNewSubscriptionReq = { newSubscription: newSubscription };
+  createNewSubscription(
+    newSubscription: Subscription,
+    newCompany: Company
+  ): Observable<any> {
+    let createNewSubscriptionReq = {
+      newSubscription: newSubscription,
+      newCompany: Company,
+    };
 
     return this.httpClient
       .put<any>(

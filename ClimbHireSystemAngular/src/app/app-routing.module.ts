@@ -6,6 +6,7 @@ import { ViewAllCompaniesComponent } from "./admin/view-all-companies/view-all-c
 import { RegisterCompanyComponent } from "./register-company/register-company.component";
 import { ViewAllProfessionalsComponent } from "./manageProfessionals/view-all-professionals/view-all-professionals.component";
 import { ViewProfessionalDetailsComponent } from "./manageProfessionals/view-professional-details/view-professional-details.component";
+import { ViewAllSubscriptionsComponent } from "./admin/view-all-subscriptions/view-all-subscriptions.component";
 
 const routes: Routes = [
   { path: "", redirectTo: "/index", pathMatch: "full" },
@@ -17,6 +18,7 @@ const routes: Routes = [
     component: ViewProfessionalDetailsComponent,
   },
   { path: "viewAllProfessionals", component: ViewAllProfessionalsComponent },
+  { path: "viewAllSubscriptions", component: ViewAllSubscriptionsComponent },
 ];
 
 @NgModule({

@@ -12,10 +12,10 @@ import { FooterComponent } from "./footer/footer.component";
 import { SidebarComponent } from "./sidebar/sidebar.component";
 import { ViewAllCompaniesComponent } from "./admin/view-all-companies/view-all-companies.component";
 import { RegisterCompanyComponent } from "./register-company/register-company.component";
-import { ViewProfessionalDetailsComponent } from './manageProfessionals/view-professional-details/view-professional-details.component';
-import { ViewAllProfessionalsComponent } from './manageProfessionals/view-all-professionals/view-all-professionals.component';
-
-
+import { ViewProfessionalDetailsComponent } from "./manageProfessionals/view-professional-details/view-professional-details.component";
+import { ViewAllProfessionalsComponent } from "./manageProfessionals/view-all-professionals/view-all-professionals.component";
+import { AdminSidebarComponent } from "./admin-sidebar/admin-sidebar.component";
+import { ViewAllSubscriptionsComponent } from './admin/view-all-subscriptions/view-all-subscriptions.component';
 
 @NgModule({
   declarations: [
@@ -28,6 +28,8 @@ import { ViewAllProfessionalsComponent } from './manageProfessionals/view-all-pr
     SidebarComponent,
     ViewProfessionalDetailsComponent,
     ViewAllProfessionalsComponent,
+    AdminSidebarComponent,
+    ViewAllSubscriptionsComponent,
   ],
   imports: [
     BrowserModule,
@@ -39,4 +41,4 @@ import { ViewAllProfessionalsComponent } from './manageProfessionals/view-all-pr
   providers: [],
   bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}

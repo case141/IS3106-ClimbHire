@@ -26,6 +26,6 @@ public interface AdminEntitySessionBeanLocal {
     
     public AdminEntity retrieveAdminByName(String adminName) throws AdminNotFoundException;
     
-    AdminEntity adminLogin(String adminEmail, String password) throws InvalidLoginCredentialException;
+    public AdminEntity adminLogin(String adminEmail, String password) throws InvalidLoginCredentialException;
     
 }
