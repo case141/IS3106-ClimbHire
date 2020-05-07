@@ -13,41 +13,23 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
+export class PaymentService {
 
-export class JobListingService {
-
-	baseUrl: string = "/api/JobListing";
-	
-	
+  baseUrl: string = "/api/Payment";
+  
 	constructor(private httpClient: HttpClient,
 		private sessionService: SessionService)
 	{		
-	}
-
-
-	getJobListings(): Observable<any>
-	{				
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveAllJobListings").pipe
-		(
-			catchError(this.handleError)
-		);
-  	}
+  }
   
-	createNewJobListing(newJobListing: JobListing): Observable<any>
-	{		
-		let createProductReq = {
-			"email": this.sessionService.getEmail(),
-			"password": this.sessionService.getPassword(),
-			"jobListingEntity": newJobListing,
-			"companyId": this.sessionService.getCurrentCompany().companyId,
-		};
-		
-		return this.httpClient.put<any>(this.baseUrl, createProductReq, httpOptions).pipe
+  getPaymentHistory(): Observable<any>
+	{				
+		return this.httpClient.get<any>(this.baseUrl).pipe
 		(
 			catchError(this.handleError)
-		);
-	}
-	
+    );
+  }
+  
 	private handleError(error: HttpErrorResponse)
 	{
 		let errorMessage: string = "";
@@ -65,5 +47,4 @@ export class JobListingService {
 		
 		return throwError(errorMessage);		
 	}
-	
 }

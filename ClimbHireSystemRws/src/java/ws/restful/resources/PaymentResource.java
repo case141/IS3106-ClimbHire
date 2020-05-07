@@ -53,7 +53,6 @@ public class PaymentResource {
      * @return an instance of java.lang.String
      */
     @GET
-    @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveAllPayment() {
         try

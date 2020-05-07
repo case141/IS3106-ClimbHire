@@ -1,4 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+
+import { SessionService } from '../../session.service';
+import { PaymentService } from '../../payment.service';
+import { Payment } from '../../payment';
 
 @Component({
   selector: 'app-view-payment-history',
@@ -7,9 +12,23 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewPaymentHistoryComponent implements OnInit {
 
-  constructor() { }
+  paymentHistory: Payment[];
+  errorMessage: string;
 
-  ngOnInit() {
+	constructor(private paymentService: PaymentService)
+	{	  
   }
+  
+	ngOnInit() 
+	{		
+		this.paymentService.getPaymentHistory().subscribe(
+			response => {
+				this.paymentHistory = response.paymentList;
+			},
+			error => {
+        this.errorMessage = error 
+			}
+		);
+	}
 
 }

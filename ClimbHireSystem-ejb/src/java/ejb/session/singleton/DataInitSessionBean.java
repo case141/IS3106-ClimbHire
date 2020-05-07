@@ -95,8 +95,20 @@ public class DataInitSessionBean {
             jobListingEntitySessionBeanLocal.createNewJobListing(new JobListingEntity("Data Scientist", "Clementi Building 1", new Date(), 5000.00, 30.00, 
                     "To manage and analyze data for the company's projects.", "Full Time", JobListingStatusEnum.OPEN, 2), baseCompany.getCompanyId());
         
-            PaymentEntity payment = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
-            baseCompany.getPaymentHistory().add(payment);
+            PaymentEntity paymentOne = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            baseCompany.getPaymentHistory().add(paymentOne);
+            
+            PaymentEntity paymentTwo = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            baseCompany.getPaymentHistory().add(paymentTwo);
+            
+            PaymentEntity paymentThree = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            baseCompany.getPaymentHistory().add(paymentThree);
+            
+            PaymentEntity paymentFour = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            baseCompany.getPaymentHistory().add(paymentFour);
+            
+            PaymentEntity paymentFive = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
+            baseCompany.getPaymentHistory().add(paymentFive);
         }
         catch(Exception ex)
         {

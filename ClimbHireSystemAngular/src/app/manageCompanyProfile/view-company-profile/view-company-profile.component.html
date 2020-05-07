@@ -2,28 +2,29 @@
 <app-sidebar></app-sidebar>
 
 <section id="content" class="content">	
+	<app-breadcrumb [pageName]="'viewCompanyProfile'"></app-breadcrumb>
     <h3>View Company Profile</h3>
-    <form #createJobListingForm="ngForm" (ngSubmit)="create(createJobListingForm)" >
-	    <table *ngIf="retrieveCompanyError == false" width="100%" class="table align-items-center table-flush" id="tableCompanyProfile">	
+    <form *ngIf="retrieveCompanyError == false" #updateJobListingForm="ngForm" (ngSubmit)="update(updateJobListingForm)" >
+	    <table width="100%" class="table align-items-center table-flush">	
 			<tr>
 				<td width="20%" style="font-weight: bold;">Company ID</td>
 				<td>
                     <input value="1" class="form-control" id="companyId" name="companyId" #title="ngModel" 
-                    type="text" placeholder="Full-stack Web Developer" [(ngModel)]="companyToUpdate.companyId" required="true" />
+                    type="text" placeholder="Full-stack Web Developer" [(ngModel)]="companyToUpdate.companyId" required="true" disabled/>
                 </td>
             </tr>
             <tr>
 				<td width="20%" style="font-weight: bold;">Company Name</td>
 				<td>
-                    <input value="1" class="form-control" id="companyName" name="companyName" #title="ngModel" 
-                    type="text" placeholder="Base Company" [(ngModel)]="companyToUpdate.companyName" required="true" />
+                    <input value="Base Company" class="form-control" id="companyName" name="companyName" #title="ngModel" 
+                    type="text" placeholder="Your Company Name" [(ngModel)]="companyToUpdate.companyName" required="true" />
                 </td>
             </tr>
             <tr>
 				<td width="20%" style="font-weight: bold;">Bio</td>
 				<td>
-                    <input value="..." class="form-control" id="companyBio" name="companyBio" #title="ngModel" 
-                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.companyBio" required="true" />
+                    <input value="We are a software company." class="form-control" id="companyBio" name="companyBio" #title="ngModel" 
+                    type="text" placeholder="Describe your Company" [(ngModel)]="companyToUpdate.companyBio" required="true" />
                 </td>
             </tr>
             <tr>
@@ -43,7 +44,7 @@
             <tr>
 				<td width="20%" style="font-weight: bold;">Date of Founding</td>
 				<td>
-                    <input value="2020-01-10" class="form-control" id="dateOfFounding" name="dateOfFounding" #title="ngModel" 
+                    <input value="2020-05-05" class="form-control" id="dateOfFounding" name="dateOfFounding" #title="ngModel" 
                     type="text" placeholder="Enter date company is founded." [(ngModel)]="companyToUpdate.dateOfFounding" required="true" />
                 </td>
             </tr>
@@ -51,7 +52,7 @@
 				<td width="20%" style="font-weight: bold;">Date Joined</td>
 				<td>
                     <input value="2020-05-06" class="form-control" id="dateJoined" name="dateJoined" #title="ngModel" 
-                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.dateJoined" required="true" />
+                    type="text" placeholder="..." [(ngModel)]="companyToUpdate.dateJoined" required="true" disabled/>
                 </td>
             </tr>
             <br/>

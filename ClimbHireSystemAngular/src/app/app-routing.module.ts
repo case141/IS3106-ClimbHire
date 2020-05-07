@@ -6,6 +6,8 @@ import { ViewAllCompaniesComponent } from './view-all-companies/view-all-compani
 import { ViewAllJobListingsComponent } from './manageJobListing/view-all-job-listings/view-all-job-listings.component';
 import { CreateJobListingComponent } from './manageJobListing/create-job-listing/create-job-listing.component';
 import { ViewCompanyProfileComponent } from './manageCompanyProfile/view-company-profile/view-company-profile.component';
+import { ViewSubscriptionPlanComponent } from './manageSubscription/view-subscription-plan/view-subscription-plan.component';
+import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-history/view-payment-history.component';
 
 
 const routes: Routes = [
@@ -15,6 +17,8 @@ const routes: Routes = [
   { path: 'viewAllJobListings', component: ViewAllJobListingsComponent },
   { path: 'createJobListing', component: CreateJobListingComponent },
   { path: 'viewCompanyProfile', component: ViewCompanyProfileComponent },
+  { path: 'viewSubscriptionPlan', component: ViewSubscriptionPlanComponent },
+  { path: 'viewPaymentHistory', component: ViewPaymentHistoryComponent }
 ];
 
 @NgModule({

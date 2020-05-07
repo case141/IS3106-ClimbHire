@@ -2,6 +2,7 @@
 <app-sidebar></app-sidebar>
 
 <section id="content" class="content">	
+	<app-breadcrumb [pageName]="'createJobListing'"></app-breadcrumb>
 	<h3>Create New Job Listing</h3>
 	<br/>
 	<div *ngIf="resultSuccess == true" style="color:blue;">
@@ -108,6 +109,19 @@
 					</div>
 				</td>
             </tr>
+			<tr>
+				<td width="20%" style="font-weight: bold;">Job Listing Status</td>
+				<td>
+					<select class="form-control" id="jobListingStatusEnum" name="jobListingStatusEnum" [(ngModel)]="jobListingStatusEnum">
+						<option class="form-control" value="0" selected>OPEN</option>
+						<option class="form-control" value="1">CLOSED</option>
+					</select>
+					
+				</td>
+				<td>
+					&nbsp;
+				</td>
+			</tr>
 			<tr>
 				<td width="20%" style="font-weight: bold;">Listing Expiry Date</td>
 				<td>

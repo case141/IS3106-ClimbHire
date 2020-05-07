@@ -16,6 +16,7 @@ import { ViewJobListingDetailsComponent } from './manageJobListing/view-job-list
 import { ViewCompanyProfileComponent } from './manageCompanyProfile/view-company-profile/view-company-profile.component';
 import { ViewSubscriptionPlanComponent } from './manageSubscription/view-subscription-plan/view-subscription-plan.component';
 import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-history/view-payment-history.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-h
     ViewJobListingDetailsComponent,
     ViewCompanyProfileComponent,
     ViewSubscriptionPlanComponent,
-    ViewPaymentHistoryComponent
+    ViewPaymentHistoryComponent,
+    BreadcrumbComponent
   ],
   imports: [
     BrowserModule,

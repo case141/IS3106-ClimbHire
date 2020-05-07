@@ -1,1 +1,31 @@
-<p>view-payment-history works!</p>
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<section id="content" class="content">
+	<app-breadcrumb [pageName]="'viewPaymentHistory'"></app-breadcrumb>
+    <h3>Company Payment History</h3>
+    <div>
+        <table class="table align-items-center table-flush" id="tablePaymentHistory" style="width:100%; ">
+            <thead class="thead-light">
+                <tr>				
+                    <th scope="col" >Payment ID</th>
+                    <th scope="col">Amount Paid</th>
+                    <th scope="col">Payment Date</th>
+                    <th scope="col">Payment Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let payment of paymentHistory">
+                    <td>{{payment.paymentId}}</td>
+                    <td class="cellnumber">{{payment.amountPaid | currency}}</td>
+                    <td>{{payment.datePaid}}</td>		
+                    <td>{{payment.status}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<app-footer>
+    
+</app-footer>

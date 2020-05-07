@@ -14,7 +14,7 @@ import { Company } from '../../company';
 export class ViewCompanyProfileComponent implements OnInit {
 
 	email: number;
-	companyToView: Company;
+	companyToUpdate: Company;
   	retrieveCompanyError: boolean;
   
 	constructor(private router: Router,
@@ -31,7 +31,7 @@ export class ViewCompanyProfileComponent implements OnInit {
 		
 		this.companyService.getCompanyByCompanyEmail(this.email).subscribe(
 			response => {
-				this.companyToView = response.productEntity;
+				this.companyToUpdate = response.productEntity;
 			},
 			error => {
 				this.retrieveCompanyError = true;

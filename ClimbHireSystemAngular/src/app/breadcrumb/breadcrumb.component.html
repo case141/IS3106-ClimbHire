@@ -1,0 +1,33 @@
+<section id="breadcrumb" class="breadcrumb">
+    &#9776; Home
+    
+	<span *ngIf="pageName == 'viewAllJobListings' ||
+				 pageName == 'createJobListing'"> 
+		 > Manage Job Listing 
+	</span>
+	
+	<span *ngIf="pageName == 'viewAllJobListings'"> 
+		 > View All Job Listings 
+	</span>
+	
+	<span *ngIf="pageName == 'createJobListing'"> 
+		 > Create Job Listing 
+	</span>
+	
+	<span *ngIf="pageName == 'viewCompanyProfile' ||
+				 pageName == 'viewSubscriptionPlan' ||
+				 pageName == 'viewPaymentHistory'"> 
+		 > Manage Company Details
+	</span>
+	
+	<span *ngIf="pageName == 'viewCompanyProfile'"> 
+		 > View All Job Listings 
+	</span>
+	
+	<span *ngIf="pageName == 'viewSubscriptionPlan'"> 
+		 > View Subscription Plan 
+	</span>
+	<span *ngIf="pageName == 'viewPaymentHistory'"> 
+		 > View Payment History
+	</span>
+</section>

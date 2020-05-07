@@ -130,16 +130,17 @@ public class CompanyResource {
     @Consumes(MediaType.TEXT_PLAIN)
     @Produces(MediaType.APPLICATION_JSON)
     public Response retrieveCompany(@QueryParam("email") String email, 
-                                        @QueryParam("password") String password)
+                                    @QueryParam("password") String password)
     {
         try {
             CompanyEntity companyEntity = companyEntitySessionBeanLocal.companyLogin(email, password);
             System.out.println("********** CompanyResource.retrieveCompany(): Company " + companyEntity.getEmail()+ " login remotely via web service");
 
-            companyEntity.getPaymentHistory().clear();
-            companyEntity.setSubscription(null);
+            CompanyEntity company = companyEntitySessionBeanLocal.retrieveCompanyByEmail(email);
+            company.getPaymentHistory().clear();
+            company.setSubscription(null);
             
-            return Response.status(Response.Status.OK).entity(new RetrieveCompanyRsp(companyEntity)).build();
+            return Response.status(Response.Status.OK).entity(new RetrieveCompanyRsp(company)).build();
         } catch (InvalidLoginCredentialException ex) {
             ErrorRsp errorRsp = new ErrorRsp(ex.getMessage());
             

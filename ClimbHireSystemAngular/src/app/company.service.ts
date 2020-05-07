@@ -40,9 +40,9 @@ export class CompanyService
       );
   }
 
-	getCompanyByCompanyEmail(productId: number): Observable<any>
+	getCompanyByCompanyEmail(email: number): Observable<any>
 	{
-		return this.httpClient.get<any>(this.baseUrl + "/retrieveCompany" + "?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe
+		return this.httpClient.get<any>(this.baseUrl + "/retrieveCompany?email=" + this.sessionService.getEmail() + "&password=" + this.sessionService.getPassword()).pipe
 		(
 			catchError(this.handleError)
 		);
