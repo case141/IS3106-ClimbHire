@@ -8,6 +8,10 @@ import { CreateJobListingComponent } from './manageJobListing/create-job-listing
 import { ViewCompanyProfileComponent } from './manageCompanyProfile/view-company-profile/view-company-profile.component';
 import { ViewSubscriptionPlanComponent } from './manageSubscription/view-subscription-plan/view-subscription-plan.component';
 import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-history/view-payment-history.component';
+import { ViewAllProfessionalsComponent } from './manageProfessionals/view-all-professionals/view-all-professionals.component';
+import { ViewAllSubscriptionsComponent } from './admin/view-all-subscriptions/view-all-subscriptions.component';
+import { ViewProfessionalDetailsComponent } from './manageProfessionals/view-professional-details/view-professional-details.component';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
 
 
 const routes: Routes = [
@@ -18,7 +22,14 @@ const routes: Routes = [
   { path: 'createJobListing', component: CreateJobListingComponent },
   { path: 'viewCompanyProfile', component: ViewCompanyProfileComponent },
   { path: 'viewSubscriptionPlan', component: ViewSubscriptionPlanComponent },
-  { path: 'viewPaymentHistory', component: ViewPaymentHistoryComponent }
+  { path: 'viewPaymentHistory', component: ViewPaymentHistoryComponent },
+  { path: 'viewAllProfessionals', component: ViewAllProfessionalsComponent },
+  { path: "viewAllSubscriptions", component: ViewAllSubscriptionsComponent },
+  {
+    path: "manageProfessionals/viewProfessionalDetails/:productId",
+    component: ViewProfessionalDetailsComponent,
+  },
+  { path: "registerCompany", component: RegisterCompanyComponent },
 ];
 
 @NgModule({

@@ -1,0 +1,46 @@
+<app-header></app-header>
+
+<section id="content" class="content">
+  <h4 style="float: left; margin: 5px;">
+    View All Companies
+  </h4>
+
+  <div *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <div *ngIf="!errorMessage">
+    <table
+      class="table align-items-center table-flush"
+      id="tableCompanies"
+      style="width: 100%;"
+    >
+      <thead class="thead-light">
+        <tr>
+          <th scope="col">Company ID</th>
+          <th scope="col">Company Name</th>
+          <th scope="col">Email</th>
+          <th scope="col">Contact Number</th>
+          <th scope="col">Company Bio</th>
+          <th scope="col">Date Founded</th>
+          <th scope="col">Date Joined</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of companies">
+          <td>{{ company.companyId }}</td>
+          <td>{{ company.companyName }}</td>
+          <td>{{ company.email }}</td>
+          <td>{{ company.contactNumber }}</td>
+          <td>{{ company.companyBio }}</td>
+          <td>{{ company.dateOfFounding }}</td>
+          <td>{{ company.dateJoined }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <br />
+  <br />
+</section>
+
+<app-footer></app-footer>

@@ -1,0 +1,446 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<section id="content" class="content">
+  <h4>Register Company</h4>
+
+  <div *ngIf="infoMessage">
+    {{ infoMessage }}
+  </div>
+
+  <div *ngIf="errorMessage">
+    {{ errorMessage }}
+  </div>
+
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    id="testButton"
+    class="btn btn-primary"
+    data-toggle="modal"
+    data-target="#registerCompanyModal"
+  >
+    Register
+  </button>
+
+  <!-- Register Company Modal -->
+  <div
+    class="modal fade"
+    id="registerCompanyModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="registerCompanyModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="registerCompanyModalLabel">
+            Register Company
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form
+            #registerCompanyForm="ngForm"
+            (ngSubmit)="create(registerCompanyForm)"
+          >
+            <table>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="companyName">Company Name</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="companyNameInput"
+                          name="companyName"
+                          #companyName="ngModel"
+                          [(ngModel)]="newCompany.companyName"
+                          required="true"
+                          placeholder="Facebook Inc"
+                          style="width: 250px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            companyName.invalid &&
+                            (companyName.dirty ||
+                              companyName.touched ||
+                              submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="companyName.errors.required">
+                            Company Name is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="password">Password</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="password"
+                          class="form-control"
+                          id="passwordInput"
+                          name="password"
+                          #password="ngModel"
+                          [(ngModel)]="newCompany.password"
+                          required="true"
+                          style="width: 200px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            password.invalid &&
+                            (password.dirty || password.touched || submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="password.errors.required">
+                            Password is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="email">Email</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="email"
+                          class="form-control"
+                          id="emailInput"
+                          name="email"
+                          #email="ngModel"
+                          [(ngModel)]="newCompany.email"
+                          required="true"
+                          style="width: 200px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            email.invalid &&
+                            (email.dirty || email.touched || submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="email.errors.required">
+                            Email is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="contactNumber">Contact Number</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="contactNumberInput"
+                          name="contactNumber"
+                          #contactNumber="ngModel"
+                          [(ngModel)]="newCompany.contactNumber"
+                          required="true"
+                          style="width: 200px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            contactNumber.invalid &&
+                            (contactNumber.dirty ||
+                              contactNumber.touched ||
+                              submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="contactNumber.errors.required">
+                            Contact Number is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="companyBio">Company Bio</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="companyBioInput"
+                          name="contactNumber"
+                          #companyBio="ngModel"
+                          [(ngModel)]="newCompany.companyBio"
+                          required="true"
+                          style="width: 200px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            companyBio.invalid &&
+                            (companyBio.dirty ||
+                              companyBio.touched ||
+                              submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="companyBio.errors.required">
+                            Company Bio is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="dateOfFounding">Date of Founding</label>
+                    <tr>
+                      <td>
+                        <div class="input-group input-group-alternative">
+                          <div class="input-group-prepend">
+                            <span class="input-group-text"
+                              ><i class="ni ni-calendar-grid-58"></i
+                            ></span>
+                          </div>
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control datepicker"
+                          id="dateOfFoundingInput"
+                          name="dateOfFounding"
+                          #dateOfFounding="ngModel"
+                          [(ngModel)]="newCompany.dateOfFounding"
+                          required="true"
+                          style="width: 200px;"
+                          placeholder="Select date"
+                          name="dp"
+                          ngbDatepicker
+                          #d="ngbDatepicker"
+                          (click)="d.toggle()"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            dateOfFounding.invalid &&
+                            (dateOfFounding.dirty ||
+                              dateOfFounding.touched ||
+                              submitted)
+                          "
+                          style="color: red;"
+                        >
+                          <div *ngIf="dateOfFounding.errors.required">
+                            Date of Founding is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+            </table>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-primary"
+            value="Submit"
+            data-toggle="modal"
+            (click)="create(registerCompanyForm)"
+            style="margin-right: 120px;"
+          />
+
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <button
+            class="btn btn-primary"
+            id="registerCompany"
+            type="button"
+            value="Next"
+            data-toggle="modal"
+            data-target="#createSubscriptionModal"
+            data-dismiss="modal"
+          >
+            Next
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Create Subscription Modal -->
+  <div
+    class="modal fade"
+    id="createSubscriptionModal"
+    tabindex="-1"
+    role="dialog"
+    aria-labelledby="createSubscriptionModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="createSubscriptionModalLabel">
+            Choose Subscription for your company
+          </h5>
+          <button
+            type="button"
+            class="close"
+            data-dismiss="modal"
+            aria-label="Close"
+          >
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form
+            #createSubscriptionForm="ngForm"
+            (ngSubmit)="createNew(createSubscriptionForm)"
+          >
+            <table>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="description">Subscription Description</label>
+                    <tr>
+                      <td>
+                        <textarea
+                          type="text"
+                          class="form-control"
+                          id="description"
+                          name="description"
+                          #description="ngModel"
+                          [(ngModel)]="newSubscription.description"
+                          required="true"
+                          placeholder=" "
+                          style="width: 250px;"
+                        >
+                        </textarea>
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            companyName.invalid &&
+                            (companyName.dirty ||
+                              companyName.touched ||
+                              submitted)
+                          "
+                          style="color: red; position: fixed;"
+                        >
+                          <div *ngIf="companyName.errors.required">
+                            &nbsp;Description is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="amount">Amount</label>
+                    <tr>
+                      <td>
+                        <input
+                          type="number"
+                          class="form-control"
+                          id="amountInput"
+                          name="amount"
+                          #amount="ngModel"
+                          [(ngModel)]="newSubscription.amount"
+                          required="true"
+                          style="width: 200px;"
+                        />
+                      </td>
+                      <td>
+                        <div
+                          *ngIf="
+                            contactNumber.invalid &&
+                            (contactNumber.dirty ||
+                              contactNumber.touched ||
+                              submitted)
+                          "
+                          style="color: red; position: fixed;"
+                        >
+                          <div *ngIf="contactNumber.errors.required">
+                            &nbsp;Amount is required
+                          </div>
+                        </div>
+                      </td>
+                    </tr>
+                  </div>
+                </div>
+              </div>
+            </table>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <input
+            type="button"
+            class="btn btn-primary"
+            value="Submit"
+            data-toggle="modal"
+            (click)="createNew(createSubscriptionForm)"
+            style="margin-right: 120px;"
+          />
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">
+            Close
+          </button>
+          <input
+            class="btn btn-primary"
+            type="button"
+            value="Next"
+            data-toggle="modal"
+            data-target="#createPaymentModal"
+            data-dismiss="modal"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<app-footer></app-footer>

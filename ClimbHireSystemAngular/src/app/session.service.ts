@@ -1,79 +1,102 @@
-import { Injectable } from '@angular/core';
-
-import { Company } from './company';
+import { Injectable } from "@angular/core";
+import { Company } from "./company";
+import { Admin } from "./admin";
+import { Subscription } from "./subscription";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root",
 })
 export class SessionService {
+  constructor() {}
 
-	constructor() 
-	{ 
+  getCompanies(): Company[] {
+    try {
+      return JSON.parse(sessionStorage.companies);
+    } catch {
+      return null;
+    }
+  }
 
-	}
+  getSubscriptions(): Subscription[] {
+    try {
+      return JSON.parse(sessionStorage.subscriptions);
+    } catch {
+      return null;
+    }
+  }
 
-	getIsLogin(): boolean
-	{
-			if(sessionStorage.isLogin == "true")
-			{
-				return true;
-			}
-			else
-			{
-				return false;
-			}
-	}
+  setCompanies(companies: Company[]): void {
+    sessionStorage.companies = JSON.stringify(companies);
+  }
 
-	setIsLogin(isLogin: boolean): void
-	{
-		sessionStorage.isLogin = isLogin;
-	}
+  getIsLogin(): boolean {
+    if (sessionStorage.isLogin == "true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
+  setIsLogin(isLogin: boolean): void {
+    sessionStorage.isLogin = isLogin;
+  }
 
+  getCurrentCompany(): Company {
+    try {
+      return JSON.parse(sessionStorage.currentCompany);
+    } catch {
+      return null;
+    }
+  }
+  setCurrentCompany(currentCompany: Company): void {
+    sessionStorage.currentCompany = JSON.stringify(currentCompany);
+  }
 
-	getCurrentCompany(): Company
-	{
-		try
-		{
-			return JSON.parse(sessionStorage.currentCompany);
-		}
-		catch
-		{
-			return null;
-		}
-	}
-	setCurrentCompany(currentCompany: Company): void
-	{
-		sessionStorage.currentCompany = JSON.stringify(currentCompany);
-	}
-  
-	getCompanyName(): string
-	{
-		return sessionStorage.companyName;
-	}
+  getCurrentAdmin(): Company {
+    try {
+      return JSON.parse(sessionStorage.currentAdmin);
+    } catch {
+      return null;
+    }
+  }
 
-	getEmail(): string
-	{
-		return sessionStorage.email;
-	}
+  setCurrentAdmin(currentAdmin: Admin): void {
+    sessionStorage.currentAdmin = JSON.stringify(currentAdmin);
+  }
 
+  getCompanyName(): string {
+    return sessionStorage.companyName;
+  }
 
+  getEmail(): string {
+    return sessionStorage.email;
+  }
 
-	setEmail(email: string): void
-	{
-		sessionStorage.email = email;
-	}
-	
-	getPassword(): string
-	{
-		return sessionStorage.password;
-	}
+  getProfessionalEmail(): string {
+    return sessionStorage.email;
+  }
 
+  setProfessionalEmail(email: string): void {
+    sessionStorage.email = email;
+  }
 
+  getProfessionalPassword(): string {
+    return sessionStorage.password;
+  }
 
-	setPassword(password: string): void
-	{
-		sessionStorage.password = password;
-	}
-	
+  setProfessionalPassword(password: string): void {
+    sessionStorage.password = password;
+  }
+
+  setEmail(email: string): void {
+    sessionStorage.email = email;
+  }
+
+  getPassword(): string {
+    return sessionStorage.password;
+  }
+
+  setPassword(password: string): void {
+    sessionStorage.password = password;
+  }
 }

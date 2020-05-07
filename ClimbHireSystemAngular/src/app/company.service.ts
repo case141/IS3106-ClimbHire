@@ -23,6 +23,18 @@ export class CompanyService
   { 
 
   }
+  
+  registerCompany(newCompany: Company): Observable<any> {
+    let registerNewCompanyReq = { newCompany: newCompany };
+
+    return this.httpClient
+      .put<any>(
+        this.baseUrl + "/createNewCompany",
+        registerNewCompanyReq,
+        httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
 
 	companyLogin(email: string, password: string): Observable<any>
 	{

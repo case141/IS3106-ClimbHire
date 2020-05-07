@@ -1,0 +1,46 @@
+<app-header></app-header>
+<app-sidebar></app-sidebar>
+
+<section id="content" class="content">
+  <span *ngIf="retrieveProfessionalError == true" style="color: red;"
+    >Professional ID {{ userId }} does not exist!</span
+  >
+
+  <h3 class="modal-title" id="viewProfessionalLabel"></h3>
+  View Professional Details
+
+  <table *ngIf="retrieveProfessionalError == false" width="100%">
+    <tr>
+      <td width="20%" style="font-weight: bold;">First Name</td>
+      <td>{{ professionalToView?.firstName }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">LastName</td>
+      <td>{{ professionalToView?.lastName }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Address</td>
+      <td>{{ professionalToView?.address }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Email</td>
+      <td>{{ professionalToView?.email }}</td>
+    </tr>
+    <tr>
+      <td width="20%" style="font-weight: bold;">Contact Number</td>
+      <td>{{ professionalToView?.contactNumber }}</td>
+    </tr>
+    <tr>
+      <td>
+        <input
+          class="btn btn-primary"
+          type="button"
+          value="Delete"
+          (click)="deleteProfessional()"
+        />
+      </td>
+    </tr>
+  </table>
+</section>
+
+<app-footer></app-footer>

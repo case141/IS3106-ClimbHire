@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms'
 import { HttpClientModule } from '@angular/common/http';
+import { NgbDate, NgbModule } from "@ng-bootstrap/ng-bootstrap";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -17,6 +18,11 @@ import { ViewCompanyProfileComponent } from './manageCompanyProfile/view-company
 import { ViewSubscriptionPlanComponent } from './manageSubscription/view-subscription-plan/view-subscription-plan.component';
 import { ViewPaymentHistoryComponent } from './manageSubscription/view-payment-history/view-payment-history.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { RegisterCompanyComponent } from './register-company/register-company.component';
+import { ViewAllProfessionalsComponent } from './manageProfessionals/view-all-professionals/view-all-professionals.component';
+import { ViewProfessionalDetailsComponent } from './manageProfessionals/view-professional-details/view-professional-details.component';
+import { ViewAllSubscriptionsComponent } from './admin/view-all-subscriptions/view-all-subscriptions.component';
+import { AdminSidebarComponent } from './admin-sidebar/admin-sidebar.component';
 
 @NgModule({
   declarations: [
@@ -32,13 +38,19 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     ViewCompanyProfileComponent,
     ViewSubscriptionPlanComponent,
     ViewPaymentHistoryComponent,
-    BreadcrumbComponent
+    BreadcrumbComponent,
+    RegisterCompanyComponent,
+    ViewAllProfessionalsComponent,
+    ViewProfessionalDetailsComponent,
+    ViewAllSubscriptionsComponent,
+    AdminSidebarComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModule
   ],
   providers: [],
   bootstrap: [AppComponent]
