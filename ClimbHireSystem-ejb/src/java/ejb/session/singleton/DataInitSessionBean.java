@@ -82,9 +82,17 @@ public class DataInitSessionBean {
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin One", "password", "adminone@gmail.com"));
             adminSessionBeanLocal.createNewAdmin(new AdminEntity("Admin Two", "password", "admintwo@gmail.com"));
 
-            //create base company
             CompanyEntity baseCompany = companySessionBeanLocal.createNewCompany(new CompanyEntity("Base Company", "password", "basecompany@gmail.com", 91234567, 
                     "We are a software company.", new Date(), new Timestamp(System.currentTimeMillis())));
+            
+            CompanyEntity company2 = companySessionBeanLocal.createNewCompany(new CompanyEntity("Company 2", "password", "company2@gmail.com", 81396788, 
+                    "We are company 2.", new Date(), new Timestamp(System.currentTimeMillis())));
+            
+            CompanyEntity company3 = companySessionBeanLocal.createNewCompany(new CompanyEntity("Company 3", "password", "company3@gmail.com", 813267898, 
+                    "We are company 3.", new Date(), new Timestamp(System.currentTimeMillis())));
+            
+            CompanyEntity company4 = companySessionBeanLocal.createNewCompany(new CompanyEntity("Company 4", "password", "company4@gmail.com", 82679054, 
+                    "We are company 4.", new Date(), new Timestamp(System.currentTimeMillis())));
             
             //create subscription for base company
             SubscriptionEntity newSubscription = subscriptionSessionBeanLocal.createNewSubscription(new SubscriptionEntity(SubscriptionTypeEnum.MONTHLY, "Unlock all features, No Perks", 
@@ -115,9 +123,21 @@ public class DataInitSessionBean {
             PaymentEntity paymentFive = paymentEntitySessionBeanLocal.createNewPayment(new PaymentEntity(100.00, PaymentStatusEnum.PAID, baseCompany, new Date()));
             baseCompany.getPaymentHistory().add(paymentFive);
             
-            ProfessionalEntity professional = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "John", "Tan", "Hougang Avenue 7", "johntan@gmail.com",
+            ProfessionalEntity professional1 = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "John", "Tan", "Hougang Avenue 7", "johntan@gmail.com",
             'M', 81345678, new Timestamp(System.currentTimeMillis()), new Date(), UserTypeEnum.EMPLOYEE), baseCompany.getCompanyId());
-            baseCompany.getProfessionalsList().add(professional);
+            baseCompany.getProfessionalsList().add(professional1);
+            
+            ProfessionalEntity professional2 = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "Dylan", "Lim", "Bedok Avenue 5", "DylanLim@gmail.com",
+            'M', 92678950, new Timestamp(System.currentTimeMillis()), new Date(), UserTypeEnum.EMPLOYEE), baseCompany.getCompanyId());
+            baseCompany.getProfessionalsList().add(professional2);
+            
+            ProfessionalEntity professional3 = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "Mary", "Lim", "Ang Mo Kio Avenue 6", "MaryLim@gmail.com",
+            'F', 82368792, new Timestamp(System.currentTimeMillis()), new Date(), UserTypeEnum.EMPLOYEE), baseCompany.getCompanyId());
+            baseCompany.getProfessionalsList().add(professional3);
+            
+            ProfessionalEntity professional4 = professionalEntitySessionBeanLocal.createNewProfessional(new ProfessionalEntity("password", "Jane", "Tan", "Novena Avenue 10", "JaneTan@gmail.com",
+            'F', 92547629, new Timestamp(System.currentTimeMillis()), new Date(), UserTypeEnum.EMPLOYEE), baseCompany.getCompanyId());
+            baseCompany.getProfessionalsList().add(professional4);
         }
         catch(Exception ex)
         {

@@ -2,12 +2,14 @@
 <app-sidebar></app-sidebar>
 
 <section id="content" class="content">
-  <span *ngIf="retrieveProfessionalError == true" style="color: red;"
-    >Professional ID {{ userId }} does not exist!</span
-  >
+	<app-breadcrumb [pageName]="'viewProfessionalDetails'"></app-breadcrumb>
 
-  <h3 class="modal-title" id="viewProfessionalLabel"></h3>
-  View Professional Details
+  <h3 class="modal-title" id="viewProfessionalLabel">View Professional Details</h3>
+  
+
+  <span *ngIf="retrieveProfessionalError == true" style="color: red;"
+    >Professional ID {{ professionalToView.userId }} does not exist!</span
+  >
 
   <table *ngIf="retrieveProfessionalError == false" width="100%">
     <tr>

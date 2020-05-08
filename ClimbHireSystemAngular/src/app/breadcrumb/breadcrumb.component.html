@@ -1,9 +1,8 @@
 <section id="breadcrumb" class="breadcrumb">
-    &#9776; Home
     
 	<span *ngIf="pageName == 'viewAllJobListings' ||
 				 pageName == 'createJobListing'"> 
-		 > Manage Job Listing 
+		  Manage Job Listing 
 	</span>
 	
 	<span *ngIf="pageName == 'viewAllJobListings'"> 
@@ -13,15 +12,27 @@
 	<span *ngIf="pageName == 'createJobListing'"> 
 		 > Create Job Listing 
 	</span>
+
+	<span *ngIf="pageName == 'viewAllProfessionals' ||
+				 pageName == 'viewProfessionalDetails'"> 
+		  Manage Employees 
+	</span>
 	
+	<span *ngIf="pageName == 'viewAllProfessionals'"> 
+		 > View All Professionals 
+	</span>
+	
+	<span *ngIf="pageName == 'viewProfessionalDetails'"> 
+		> View Professional Details 
+   </span>
 	<span *ngIf="pageName == 'viewCompanyProfile' ||
 				 pageName == 'viewSubscriptionPlan' ||
 				 pageName == 'viewPaymentHistory'"> 
-		 > Manage Company Details
+		  Manage Company Details
 	</span>
 	
 	<span *ngIf="pageName == 'viewCompanyProfile'"> 
-		 > View All Job Listings 
+		 > My Company Profile
 	</span>
 	
 	<span *ngIf="pageName == 'viewSubscriptionPlan'"> 

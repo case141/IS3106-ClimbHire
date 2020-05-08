@@ -75,7 +75,9 @@ public class CompanyResource {
             companyEntity.setPassword(null);
             companyEntity.setSalt(null);
             companyEntity.setSubscription(null);
-            companyEntity.getPaymentHistory().clear();            
+            companyEntity.getPaymentHistory().clear();    
+            companyEntity.getListOfJobs().clear();
+            companyEntity.getProfessionalsList().clear();
             
             return Response.status(Response.Status.OK).entity(new CompanyLoginRsp(companyEntity)).build();
         }

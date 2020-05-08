@@ -4,7 +4,7 @@
 <section id="content" class="content">	
 	<app-breadcrumb [pageName]="'viewCompanyProfile'"></app-breadcrumb>
     <h3>View Company Profile</h3>
-    <form *ngIf="retrieveCompanyError == false" #updateJobListingForm="ngForm" (ngSubmit)="update(updateJobListingForm)" >
+    <form *ngIf="retrieveCompanyError == true" #updateJobListingForm="ngForm" (ngSubmit)="update(updateJobListingForm)" >
 	    <table width="100%" class="table align-items-center table-flush">	
 			<tr>
 				<td width="20%" style="font-weight: bold;">Company ID</td>

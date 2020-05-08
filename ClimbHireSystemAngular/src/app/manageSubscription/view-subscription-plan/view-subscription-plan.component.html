@@ -1,9 +1,47 @@
 <app-header></app-header>
 <app-sidebar></app-sidebar>
 
-<section id="content" class="content">
+<section id="content" class="content">	
+	<app-breadcrumb [pageName]="'viewSubscriptionPlan'"></app-breadcrumb>
     <h3>Current Subscription Plan</h3>
 
+    <div style="width: 18rem; text-align:center; display:inline-block; ">
+        <div class="card card-stats mb-4 mb-lg-0">
+          <div class="card-body">
+            <div class="row">
+              <div class="col">
+                <h5 class="card-title text-uppercase text-muted mb-0">Monthly Renewal</h5>
+                <span class="h2 font-weight-bold mb-0">$100.00</span>
+              </div>
+            </div>
+            <p class="mt-3 mb-0 text-muted text-sm">
+              <span class="text-success mr-2">Unlock all features, </span><br/>
+              <span class="text-nowrap">No Perks</span><br/><br/><br/>
+            </p>
+          </div>
+          <button type="button" class="btn btn-primary" disabled>Current</button>
+        </div>
+    </div>
+    <div style="width: 18rem; text-align:center; display:inline-block;">
+        <div class="card card-stats mb-4 mb-lg-0">
+            <div class="card-body">
+                <div class="row">
+                <div class="col">
+                    <h5 class="card-title text-uppercase text-muted mb-0">Yearly Renewal</h5>
+                    <span class="h2 font-weight-bold mb-0">$150.00</span>
+                </div>
+                </div>
+                <p class="mt-3 mb-0 text-muted text-sm">
+                <span class="text-success mr-2">Unlock all features & Perks: </span><br/>
+                <span>10 sets of premium Event tickets based on your industry and employees every month</span>
+                </p>
+            </div>
+            <button type="button" class="btn btn-primary">Upgrade Plan</button>
+        </div>
+    </div>
+        <!-- <button type="button" class="btn btn-warning" style="display:block; float:right; right:0; bottom:0;">Terminate Subscription</button> -->
+    
 </section>
+
 
 <app-footer></app-footer>

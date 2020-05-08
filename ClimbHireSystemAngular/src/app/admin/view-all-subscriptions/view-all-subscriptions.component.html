@@ -1,5 +1,38 @@
 <app-header></app-header>
 
+<aside class="adminSidebar">
+  <ul
+    class="nav nav-pills nav-fill flex-column flex-sm-row"
+    id="tabs-text"
+    role="tablist"
+  >
+    <li class="nav-item">
+      <a
+        class="btn btn-outline-danger active"
+        id="tabs-text-1-tab"
+        data-toggle="tab"
+        routerLink="/viewAllCompanies"
+        role="tab"
+        aria-controls="tabs-text-1"
+        aria-selected="false"
+        >View List of Companies</a
+      >
+      <a
+        class="btn btn-outline-danger"
+        id="tabs-text-2-tab"
+        data-toggle="tab"
+        routerLink="/viewAllSubscriptions"
+        role="tab"
+        aria-controls="tabs-text-1"
+        aria-selected="true"
+        >View List of Subscriptions</a
+      >
+
+      <br />
+    </li>
+  </ul>
+</aside>
+
 <section id="content" class="content">
   <h4 style="float: left; margin: 5px;">
     View All Subscriptions
@@ -21,14 +54,16 @@
           <th scope="col">Subscription Type</th>
           <th scope="col">Description</th>
           <th scope="col">Amount</th>
+          <th scope="col">Status</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let subscription of subscriptions">
           <td>{{ subscription.subscriptionId }}</td>
-          <td>{{ subscription.SubscriptionTypeEnum }}</td>
+          <td>{{ subscription.subscriptionType }}</td>
           <td>{{ subscription.description }}</td>
           <td>{{ subscription.amount }}</td>
+          <td>{{ subscription.status }}</td>
         </tr>
       </tbody>
     </table>

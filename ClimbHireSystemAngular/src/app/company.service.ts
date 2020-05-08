@@ -44,12 +44,10 @@ export class CompanyService
 		);
   }
   
-  getCompanies(): Observable<any>
-  {
-      return this.httpClient.get<any>(this.baseUrl).pipe
-      (
-        catchError(this.handleError)
-      );
+  getCompanies(): Observable<any> {
+    return this.httpClient
+      .get<any>(this.baseUrl + "/retrieveAllCompanies")
+      .pipe(catchError(this.handleError));
   }
 
 	getCompanyByCompanyEmail(email: number): Observable<any>

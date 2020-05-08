@@ -50,8 +50,8 @@ public class AdminEntitySessionBean implements AdminEntitySessionBeanLocal {
     @Override
     public AdminEntity retrieveAdminByEmail(String adminEmail) throws AdminNotFoundException
     {
-        Query query = em.createQuery("SELECT a FROM AdminEntity a WHERE a.adminEmail = :inAdminEmail");
-        query.setParameter("inAdminName", adminEmail);
+        Query query = em.createQuery("SELECT a FROM AdminEntity a WHERE a.email = :inAdminEmail");
+        query.setParameter("inAdminEmail", adminEmail);
         
         try
         {
@@ -86,10 +86,10 @@ public class AdminEntitySessionBean implements AdminEntitySessionBeanLocal {
         try
         {
             AdminEntity adminEntity = retrieveAdminByEmail(adminEmail);            
-            String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + adminEntity.getSalt()));
+            //String passwordHash = CryptographicHelper.getInstance().byteArrayToHexString(CryptographicHelper.getInstance().doMD5Hashing(password + adminEntity.getSalt()));
             
             //if password matches and company is active
-            if(adminEntity.getPassword().equals(passwordHash))
+            if(adminEntity.getPassword().equals(password))
             {             
                 return adminEntity;
             }

@@ -7,7 +7,7 @@
 }
 
 
-.sidebar {
+.adminSidebar, .sidebar {
 	display: block;
 	width: 15%;
 	height: 100%;
@@ -15,6 +15,7 @@
 	float: left;
 	position:absolute;
 }
+
 
 .breadcrumb {
     display: block;

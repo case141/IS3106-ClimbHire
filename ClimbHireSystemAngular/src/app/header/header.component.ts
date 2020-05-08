@@ -3,7 +3,9 @@ import { ActivatedRoute, Router } from '@angular/router';
 
 import { SessionService } from '../session.service';
 import { CompanyService } from '../company.service';
+import { AdminService } from '../admin.service';
 import { Company } from '../company';
+import { Admin } from '../admin';
 
 @Component({
   selector: 'app-header',
@@ -23,7 +25,8 @@ export class HeaderComponent implements OnInit {
     constructor(private router: Router,
       private activatedRoute: ActivatedRoute,
       public sessionService: SessionService,
-      private companyService: CompanyService) 
+      private companyService: CompanyService, 
+      private adminService: AdminService) 
       { 
           this.loginError = false;
       }
@@ -69,5 +72,32 @@ export class HeaderComponent implements OnInit {
       
       this.router.navigate(["/index"]);
     }
+
+    adminLogin(): void {
+      this.sessionService.setEmail(this.email);
+      this.sessionService.setPassword(this.password);
+  
+      this.adminService.adminLogin(this.email, this.password).subscribe(
+        (response) => {
+          let admin: Admin = response.adminEntity;
+  
+          if (admin != null) {
+            this.sessionService.setIsLogin(true);
+            this.sessionService.setCurrentAdmin(admin);
+            this.loginError = false;
+  
+            this.childEvent.emit();
+  
+            this.router.navigate(["/viewAllCompanies"]);
+          } else {
+            this.loginError = true;
+          }
+        },
+        (error) => {
+          this.loginError = true;
+          this.errorMessage = error;
+        }
+    );
+  }
 
 }
