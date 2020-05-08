@@ -14,3 +14,5 @@ Before making any changes, please **create a new branch** and push your changes 
 4) Change user.properties name in FILES > nbproject > private > private.xml
 5) Change username or password in glassfish-resources.xml to your own 
 6) Undeploy old projects in your Glassfish > Clean and Build > Deploy project
+
+Youtube Demo: https://youtu.be/JboMS9AEUMY
